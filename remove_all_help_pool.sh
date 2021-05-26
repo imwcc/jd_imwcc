@@ -14,7 +14,7 @@ function remove_help_pool() {
     fi
 
     temp_file=/tmp/arvin_tempd
-    grep -ri "readShareCodeRes && readShareCodeRes.code === 200" > $temp_file;
+    grep -i "readShareCodeRes && readShareCodeRes.code === 200" *.js > $temp_file;
     pwd
     cat temp_file
     awk -v FS=':' '{print  $1}'  $temp_file | xargs   sed -i 's/if\ (readShareCodeRes\ \&\&\ readShareCodeRes.code\ ===\ 200)/if\ (false)/g'
