@@ -21,13 +21,19 @@ function remove_help_pool() {
 }
 
 #去掉助力
+echo "disable help poll"
 array=(/jd/own/hapecoder_JD-SCRIPT /jd/own/zero205_JD_tencent_scf /jd/own/imwcc_jd_imwcc /jd/scripts)
-
-
 for(( i=0;i<${#array[@]};i++)) do
     #${#array[@]}获取数组长度用于循环
     echo "close help pool for:" ${array[i]};
     remove_help_pool ${array[i]}
 done;
+
+echo "disable autho tips" #看着烦
+if [ -f /jd/scripts/sendNotify.js ]; then
+    sed -i 's/desp += author/\/\/desp += author/g'  /jd/scripts/sendNotify.js
+else
+    echo "warning don't find /jd/scripts/sendNotify.js"
+fi
 
 cd $CURRENT_DIR
