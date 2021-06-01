@@ -33,8 +33,8 @@ if HOST_NAME == 'arvin-wang':
 
 elif HOST_NAME == 'jd-arvin':
     ROOT_DIR='/jd'
-    JD_tencent_scf_dir = os.path.join(ROOT_DIR, 'zero205_JD_tencent_scf')
-    parse_from_file = os.path.join(ROOT_DIR, 'zero205_JD_tencent_scf/jd_task.json')
+    JD_tencent_scf_dir = os.path.join(ROOT_DIR, 'own/zero205_JD_tencent_scf')
+    parse_from_file = os.path.join(ROOT_DIR, 'own/zero205_JD_tencent_scf/jd_task.json')
     scripts_crontab_config = os.path.join(ROOT_DIR, 'config/crontab.list')
     scripts_jd_imwcc_dir = os.path.join(ROOT_DIR, 'own/imwcc_jd_imwcc')
 
