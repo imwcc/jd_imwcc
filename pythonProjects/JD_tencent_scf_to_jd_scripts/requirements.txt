@@ -1,1 +1,2 @@
 demjson==2.2.4
+PyYAML==5.3.1
