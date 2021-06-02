@@ -86,8 +86,6 @@ if __name__ == '__main__':
                 is_in_jd_scripts = False
                 # 判斷是否在 已經jd_scripts 配置中， 若是 退出
                 for jd_scripts_line_item in jd_scripts_crontab_list:
-                    print(str(file_name).split('.js')[0])
-                    print(jd_scripts_line_item)
                     if str(file_name).split('.js')[0] in str(jd_scripts_line_item):
                         is_in_jd_scripts = True
                         logging.info("{} 已经存在于 {}".format(file_name, jd_scripts_line_item))

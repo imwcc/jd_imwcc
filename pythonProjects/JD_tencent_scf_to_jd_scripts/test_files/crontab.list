@@ -1,5 +1,5 @@
 # 更新所有脚本（包括自用own脚本）
-41 2,8,13,19,23 * * * sleep 35 && jup >> /jd/log/jup.log 2>&1
+19 1,7,11,16,21 * * * sleep 51 && jup >> /jd/log/jup.log 2>&1
 
 # 删除旧日志
 57 13 * * * jlog
@@ -94,43 +94,9 @@
 # 0 0 * * * otask /jd/own/imwcc_jd_imwcc/jd_city.js now
 #京东试用
 33 5 * * * otask /jd/own/imwcc_jd_imwcc/jd_try.js
+# 京享值PK
+20 8,13,18,21 2-20 6 * jtask jd_pk 
 # =========== imwcc end ==============
-
-
-# ===========   JD-SCRIPT start ==============
-# 粉丝互动
-21 20 * * * mtask /jd/own/hapecoder_JD-SCRIPT/jd_fanslove.js
-# 京贴小程序
-10 16,10 * * * mtask /jd/own/hapecoder_JD-SCRIPT/jd_jintie_wx.js
-
-# 金榜创造营
-0 16,0,4,10 * 5-12 * mtask /jd/own/hapecoder_JD-SCRIPT/jd_jbczy.js
-
-# 店铺加购有礼
-0 0,1-22/6 * * * mtask /jd/own/hapecoder_JD-SCRIPT/monk_shop_add_to_car.js
-
-# 合成小金刚
-20 1 21-27 5 * mtask /jd/own/hapecoder_JD-SCRIPT/adolf_mi.js
-# 赢一加新品手机
-25 1 * 5,6 * mtask /jd/own/hapecoder_JD-SCRIPT/adolf_oneplus.js
-# 天天大乐透
-0 10,2 * * * mtask /jd/own/hapecoder_JD-SCRIPT/jd_daydlt.js
-# 一次运行： jd_super_box.js
-# 超级无线组队分奖品
-0 10,2 * * * mtask /jd/own/hapecoder_JD-SCRIPT/z_shop_captain.js
-# 京喜签到+京东成长分+京东特权值
-30 0 * * * mtask /jd/own/hapecoder_JD-SCRIPT/jdczf.js
-# 京喜签到+京东成长分+京东特权值
-30 0 * * * mtask /jd/own/hapecoder_JD-SCRIPT/jdtqz.js
-# 店铺签到+interCenter渠道店铺签到
-10 16,10 * * * mtask /jd/own/hapecoder_JD-SCRIPT/jd_dpqd.js
-# 店铺签到+interCenter渠道店铺签到
-10 16,10 * * * mtask /jd/own/hapecoder_JD-SCRIPT/jd_dpqd2.js
-# 店铺签到+interCenter渠道店铺签到
-10 16,10 * * * mtask /jd/own/hapecoder_JD-SCRIPT/jd_ShopSign.js
-# 618手机狂欢城2
-2 0-23/5 * 5 * mtask /jd/own/hapecoder_JD-SCRIPT/b_carnivalcity.js
-# ===========   JD-SCRIPT end   ==============
 
 0 0 * * * jtask jd_xtg_help
 0 1,22 * * * jtask jd_gold_creator
@@ -140,58 +106,88 @@
 55,1 21-23/1 * * * jtask jd_party_night
 
 0-59/30 * * * * jtask jd_zooCollect
-
-
-# =========== JD_tencent_scf start 2021-06-01 15:14:28  ==============
+# =========== JD_tencent_scf start 2021-06-01 15:35:58  ==============
 # 京东签到
-0 0 * * * otask /home/arvin/code/JD_tencent_scf/JD_DailyBonus.js
+0 0 * * * otask /jd/own/zero205_JD_tencent_scf/JD_DailyBonus.js
 # 京喜财富岛提现
-0-5/1 0 0 * * * otask /home/arvin/code/JD_tencent_scf/jd_cfdtx.js
+0-5/1 0 0 * * * otask /jd/own/zero205_JD_tencent_scf/jd_cfdtx.js
 # 京喜农场2
-6 9,12,18 * * * otask /home/arvin/code/JD_tencent_scf/jd_jxnc2.js
+6 9,12,18 * * * otask /jd/own/zero205_JD_tencent_scf/jd_jxnc2.js
 # 京东粉丝互动
-30 8 * * * otask /home/arvin/code/JD_tencent_scf/jd_z_fanslove.js
+30 8 * * * otask /jd/own/zero205_JD_tencent_scf/jd_z_fanslove.js
 # 京东母婴跳一跳
-15 6-23/6 * * * otask /home/arvin/code/JD_tencent_scf/jd_z_mother_jump.js
+15 6-23/6 * * * otask /jd/own/zero205_JD_tencent_scf/jd_z_mother_jump.js
 # 京东小魔方
-15 10 * * * otask /home/arvin/code/JD_tencent_scf/jd_z_xmf.js
+15 10 * * * otask /jd/own/zero205_JD_tencent_scf/jd_z_xmf.js
 # 健康社区
-30 10-22/3 * * * otask /home/arvin/code/JD_tencent_scf/jd_z_health_community.js
+30 10-22/3 * * * otask /jd/own/zero205_JD_tencent_scf/jd_z_health_community.js
 # 健康社区收取能量
-30 0,6-23/1 * * * otask /home/arvin/code/JD_tencent_scf/jd_z_health_energy.js
+30 0,6-23/1 * * * otask /jd/own/zero205_JD_tencent_scf/jd_z_health_energy.js
 # 京小兑
-35 8 * * * otask /home/arvin/code/JD_tencent_scf/jd_jxd.js
+35 8 * * * otask /jd/own/zero205_JD_tencent_scf/jd_jxd.js
 # interCenter渠道店铺签到
-0 0 * * * otask /home/arvin/code/JD_tencent_scf/jd_monk_inter_shop_sign.js
+0 0 * * * otask /jd/own/zero205_JD_tencent_scf/jd_monk_inter_shop_sign.js
 # 蒙牛有机牧场
-1 7-23/2 * * * otask /home/arvin/code/JD_tencent_scf/jd_monk_pasture.js
+1 7-23/2 * * * otask /jd/own/zero205_JD_tencent_scf/jd_monk_pasture.js
 # 店铺关注有礼
-10 0 * * * otask /home/arvin/code/JD_tencent_scf/jd_monk_shop_follow_sku.js
+10 0 * * * otask /jd/own/zero205_JD_tencent_scf/jd_monk_shop_follow_sku.js
 # 店铺大转盘
-1 8,20 * * * otask /home/arvin/code/JD_tencent_scf/jd_monk_shop_lottery.js
+1 8,20 * * * otask /jd/own/zero205_JD_tencent_scf/jd_monk_shop_lottery.js
 # 京东每日红包雨（由sngxpro代管随缘维护）
-1 8-23 * * 1-5 otask /home/arvin/code/JD_tencent_scf/lxk0301_live_redrain.js
+1 8-23 * * 1-5 otask /jd/own/zero205_JD_tencent_scf/lxk0301_live_redrain.js
 # 整点京豆雨
-1 0,6-23/1 * * * otask /home/arvin/code/JD_tencent_scf/jd_super_redrain.js
+1 0,6-23/1 * * * otask /jd/own/zero205_JD_tencent_scf/jd_super_redrain.js now
 # 半点京豆雨
-30 20-23/1 * * * otask /home/arvin/code/JD_tencent_scf/jd_half_redrain.js
-# 京享值PK
-20 8,13,18 17-31 5 * otask /home/arvin/code/JD_tencent_scf/jd_adolf_pk.js
+30 20-23/1 * * * otask /jd/own/zero205_JD_tencent_scf/jd_half_redrain.js now
 # 人头马x博朗
-25 9 20-31 5 * otask /home/arvin/code/JD_tencent_scf/jd_adolf_martin.js
+25 9 20-31 5 * otask /jd/own/zero205_JD_tencent_scf/jd_adolf_martin.js
 # Redmi->合成小金刚
-28 9 20-27 5 * otask /home/arvin/code/JD_tencent_scf/jd_adolf_mi.js
+28 9 20-27 5 * otask /jd/own/zero205_JD_tencent_scf/jd_adolf_mi.js
 # 飞利浦电视成长记
-30 9 * 5,6 * otask /home/arvin/code/JD_tencent_scf/jd_adolf_flp.js
+30 9 * 5,6 * otask /jd/own/zero205_JD_tencent_scf/jd_adolf_flp.js
 # 赢一加新品手机
-28 9 * 5,6 * otask /home/arvin/code/JD_tencent_scf/jd_adolf_oneplus.js
+28 9 * 5,6 * otask /jd/own/zero205_JD_tencent_scf/jd_adolf_oneplus.js
 # 618大势新品赏
-17 9,20 * 5,6 * otask /home/arvin/code/JD_tencent_scf/jd_adolf_newInteraction.js
+17 9,20 * 5,6 * otask /jd/own/zero205_JD_tencent_scf/jd_adolf_newInteraction.js
 # 京喜阶梯红包
-35 9,20 * 5,6 * otask /home/arvin/code/JD_tencent_scf/jd_adolf_jxhb.js
+35 9,20 * 5,6 * otask /jd/own/zero205_JD_tencent_scf/jd_adolf_jxhb.js
 # 京东超级盒子
-20 9,20 * 5,6 * otask /home/arvin/code/JD_tencent_scf/jd_adolf_superbox.js
+20 9,20 * 5,6 * otask /jd/own/zero205_JD_tencent_scf/jd_adolf_superbox.js
 # 超级无线组队分京豆
-15 6 * * 2 otask /home/arvin/code/JD_tencent_scf/jd_z_shop_captain.js
-# =========== JD_tencent_scf end 2021-06-01 15:14:28 ==============
+15 6 * * 2 otask /jd/own/zero205_JD_tencent_scf/jd_z_shop_captain.js
+# =========== JD_tencent_scf end 2021-06-01 15:35:58 ==============
+
+
+# =========== JD-SCRIPT start 2021-06-02 19:01:06  ==============
+# 关注有礼
+15 7 * * * otask /home/arvin/code/JD-SCRIPT/jd_shop_follow_sku.js
+# 京喜工厂
+0 0-23/1 * * * otask /home/arvin/code/JD-SCRIPT/jd_jxfactory.js
+# 粉丝互动
+21 20 * * * otask /home/arvin/code/JD-SCRIPT/jd_fanslove.js
+# 京贴小程序
+10 16 * * * otask /home/arvin/code/JD-SCRIPT/jd_jintie_wx.js
+# 618手机狂欢城
+0 16,22,4,10 * * * otask /home/arvin/code/JD-SCRIPT/z_carnivalcity.js
+# 店铺加购有礼
+15 4 * * * otask /home/arvin/code/JD-SCRIPT/monk_shop_add_to_car.js
+# 直播间抽奖(全局)
+30 0,6,12 * * * otask /home/arvin/code/JD-SCRIPT/jd_live_lottery_social.js
+# 金贴
+10 0 * * * otask /home/arvin/code/JD-SCRIPT/jd_jintie.js
+# 店铺大转盘
+57 15 * * * otask /home/arvin/code/JD-SCRIPT/jd_shop_lottery.js
+# 泡泡大战
+30 0 1-6 6 * otask /home/arvin/code/JD-SCRIPT/jd_ppdz.js
+# 宠汪汪偷好友积分与狗粮
+10 0-21/3 * * * otask /home/arvin/code/JD-SCRIPT/jd_joy_steal.js
+# 天天大乐透
+0 16 * * * otask /home/arvin/code/JD-SCRIPT/jd_daydlt.js
+# 店铺签到+interCenter渠道店铺签到
+10 16 * * * otask /home/arvin/code/JD-SCRIPT/jd_dpqd2.js -o jd_dpqd2.js
+# 京东星店长
+30 1 * * * otask /home/arvin/code/JD-SCRIPT/jd_starStore.js
+# 总裁送好礼
+30 0-23/2 * * * otask /home/arvin/code/JD-SCRIPT/babelDiy.js
+# =========== JD-SCRIPT end 2021-06-02 19:01:06 ==============
 

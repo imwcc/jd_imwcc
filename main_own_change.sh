@@ -8,3 +8,5 @@ work_dir=/jd/own/imwcc_jd_imwcc
 
 pip3 install -r $work_dir/pythonProjects/JD_tencent_scf_to_jd_scripts/requirements.txt
 python3 $work_dir/pythonProjects/JD_tencent_scf_to_jd_scripts/main.py
+#转换JD-SCRIPT
+python3 $work_dir/pythonProjects/JD_tencent_scf_to_jd_scripts/convert_JD_SCRIPT_to_jd_scripts.py
