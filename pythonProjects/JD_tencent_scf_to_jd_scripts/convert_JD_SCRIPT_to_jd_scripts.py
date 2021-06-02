@@ -23,7 +23,8 @@ DEBUG = HOST_NAME == 'arvin-wang'
 
 logging.info("DEBUG is {}".format(DEBUG))
 
-exclude_file_list = ['jd_cash_exchange.js', 'jd_adolf_pk.js', 'z_carnivalcity.js', 'jd_jxfactory.js']
+exclude_file_list = ['jd_cash_exchange.js', 'jd_adolf_pk.js', 'z_carnivalcity.js', 'jd_jxfactory.js', 'jd_fanslove.js',
+                     'jd_shop_lottery.js', 'monk_shop_add_to_car.js', 'jd_shop_follow_sku.js']
 
 exclude_yaml_file_list = ['000000000000.yml', 'getJDCookie.yml']
 
