@@ -21,6 +21,8 @@ DEBUG = HOST_NAME == 'arvin-wang'
 
 logging.info("DEBUG is {}".format(DEBUG))
 
+exclude_file_list = ['jd_cash_exchange.js', 'jd_adolf_pk.js']
+
 if HOST_NAME == 'arvin-wang':
     ROOT_DIR='/home/arvin/code'
     JD_tencent_scf_dir = os.path.join(ROOT_DIR, 'JD_tencent_scf')
@@ -28,7 +30,6 @@ if HOST_NAME == 'arvin-wang':
     scripts_crontab_config = os.path.join(FILE_DIR, 'test_files/crontab.list')
     scripts_jd_imwcc_dir = os.path.join(ROOT_DIR, 'jd_imwcc')
 
-    exclude_file_list = ['jd_cash_exchange.js']
     result_crontab_file = os.path.join(JD_tencent_scf_dir, 'JD_tencent_crontab.sh')
 
 elif HOST_NAME == 'jd-arvin':
@@ -38,7 +39,6 @@ elif HOST_NAME == 'jd-arvin':
     scripts_crontab_config = os.path.join(ROOT_DIR, 'config/crontab.list')
     scripts_jd_imwcc_dir = os.path.join(ROOT_DIR, 'own/imwcc_jd_imwcc')
 
-    exclude_file_list = ['jd_cash_exchange.js']
     result_crontab_file = '/jd/config/crontab.list'
 
 elif HOST_NAME == 'ubuntu157362':
@@ -48,7 +48,6 @@ elif HOST_NAME == 'ubuntu157362':
     scripts_crontab_config = os.path.join(FILE_DIR, 'test_files/crontab.list')
     scripts_jd_imwcc_dir = os.path.join(ROOT_DIR, 'jd_imwcc')
 
-    exclude_file_list = ['jd_cash_exchange.js']
     result_crontab_file = '/jd/config/crontab.list'
 
 else:

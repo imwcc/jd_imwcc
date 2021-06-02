@@ -11,4 +11,5 @@ cp -f  /jd/own/imwcc_jd_imwcc/jd_syj.js  /jd/scripts
 cp -f /jd/own/imwcc_jd_imwcc/jd_try.js   /jd/scripts
 cp -f /jd/own/imwcc_jd_imwcc/jshare.sh  /jd
 cp -f  /jd/own/imwcc_jd_imwcc/jd_bean_change.js /jd
+cp -f /jd/own/imwcc_jd_imwcc/jd_pk.js /jd
 
