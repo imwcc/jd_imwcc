@@ -1,0 +1,5 @@
+0 0 * * * jtask jd_xtg_help
+0 1,22 * * * jtask jd_gold_creator
+0 15-19/1 * * * jtask jd_party_night
+55,1 21-23/1 * * * jtask jd_party_night
+0-59/30 * * * * jtask jd_zooCollect
