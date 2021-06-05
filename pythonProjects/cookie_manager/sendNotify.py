@@ -15,6 +15,7 @@ def readSecret(key, default=""):
     else:
         return default
 
+
 class sendNotify:
     # # =======================================微信server酱通知设置区域===========================================
     # # 此处填你申请的SCKEY.
@@ -96,20 +97,19 @@ class sendNotify:
             pass
 
     def pushPlusNotify(self, text, desp):
-        print(text)
-        print(desp)
         if self.PUSH_PLUS_TOKEN != '':
-            print(self.PUSH_PLUS_TOKEN)
             desp = re.sub('[\n\r]', '<br>', desp, 0)
-            response = json.dumps(requests.post('http://pushplus.hxtrip.com/send', data={
-                                  'token': self.PUSH_PLUS_TOKEN, 'title': text, 'content': desp, 'topic': 'adfaffsfasf'}, headers={'Content-Type': 'application/json'}).json(), ensure_ascii=False)
+            response = json.dumps(requests.post('http://www.pushplus.plus/send', data=json.dumps({
+                'token': self.PUSH_PLUS_TOKEN, 'title': text, 'content': desp, 'topic': self.PUSH_PLUS_USER}),
+                                                headers={'Content-Type': 'application/json;charset=utf-8'}).json(),
+                                  ensure_ascii=False)
             print(response)
 
     def BarkNotify(self, text, desp):
         if self.BARK_PUSH != '':
             url = self.BARK_PUSH + '/' + \
-                parse.quote(text) + '/' + parse.quote(desp) + \
-                '?sound=' + self.BARK_SOUND
+                  parse.quote(text) + '/' + parse.quote(desp) + \
+                  '?sound=' + self.BARK_SOUND
             headers = {'Content-type': "application/x-www-form-urlencoded"}
             response = json.dumps(requests.get(
                 url, headers=headers).json(), ensure_ascii=False)
@@ -132,8 +132,8 @@ class sendNotify:
             url = 'https://api.telegram.org/bot' + self.TG_BOT_TOKEN + '/sendMessage'
             headers = {'Content-type': "application/x-www-form-urlencoded"}
             body = 'chat_id=' + self.TG_USER_ID + '&text=' + \
-                parse.quote(text) + '\n\n' + parse.quote(desp) + \
-                '&disable_web_page_preview=true'
+                   parse.quote(text) + '\n\n' + parse.quote(desp) + \
+                   '&disable_web_page_preview=true'
             response = json.dumps(requests.post(
                 url, data=body, headers=headers).json(), ensure_ascii=False)
 
@@ -153,11 +153,11 @@ class sendNotify:
 
     def ddBotNotify(self, text, desp):
         if self.DD_BOT_TOKEN != '':
-            url = 'https://oapi.dingtalk.com/robot/send?access_token='+self.DD_BOT_TOKEN
+            url = 'https://oapi.dingtalk.com/robot/send?access_token=' + self.DD_BOT_TOKEN
             data = {
                 "msgtype": "text",
                 "text": {
-                    'content': text+desp
+                    'content': text + desp
                 }
             }
             headers = {
@@ -173,7 +173,7 @@ class sendNotify:
                     secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
                 sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
                 url = 'https://oapi.dingtalk.com/robot/send?access_token=' + \
-                    self.DD_BOT_TOKEN+'&timestamp='+timestamp+'&sign='+sign
+                      self.DD_BOT_TOKEN + '&timestamp=' + timestamp + '&sign=' + sign
 
             response = requests.post(
                 url=url, data=json.dumps(data), headers=headers).text
@@ -189,7 +189,6 @@ class sendNotify:
         title = args.get("title", "")
         msg = args.get("msg", "")
         self.serverNotify(title, msg)
-
         self.BarkNotify(title, msg)
         self.tgBotNotify(title, msg)
         self.ddBotNotify(title, msg)
