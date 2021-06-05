@@ -1,5 +1,8 @@
+import getopt
 import os
 import logging
+import sys
+
 import yaml
 from datetime import datetime
 import time
@@ -15,6 +18,7 @@ HOST_NAME = socket.gethostname()
 if HOST_NAME == 'jd-arvin':
     CK_YAML_FILE = '/jd/config/ck.yaml'
     RESULT_COOKIE_FILE = '/jd/config/cookie.sh'
+    ROOT_SCRIPT_DIR = '/jd/scripts'
 
 if HOST_NAME == 'ubuntu157362':
     CK_YAML_FILE = '/home/arvin/ck.yaml'
@@ -23,6 +27,7 @@ if HOST_NAME == 'ubuntu157362':
 if HOST_NAME == 'arvin-wang':
     CK_YAML_FILE = '/home/arvin/ck.yaml'
     RESULT_COOKIE_FILE = os.path.join('/home/arvin', 'cookie2.sh')
+    ROOT_SCRIPT_DIR = '/home/arvin/code/jd_scripts'
 
 assert os.path.isfile(CK_YAML_FILE)
 
@@ -76,6 +81,18 @@ def send_broadcast(cookie_item: dict, title="这是广播信息"):
         result_list.append("\n\n 如有错误，联系管理员修改")
         notify.pushPlusNotify(title, '\n'.join(result_list))
 
+def notfiy_bean_change(cookie_item: dict):
+    token = cookie_item.get('pushplus_token').strip()
+    ck = cookie_item.get('cookie').strip()
+    if token is not None:
+        workdir = 'cd ' + ROOT_SCRIPT_DIR
+        export_cmd = 'export PUSH_PLUS_TOKEN={}; export JD_COOKIE="{}"'.format(token, ck)
+        run_node_cmd = 'node jd_bean_change.js'
+        cmd = "{};{};{}".format(workdir,export_cmd,run_node_cmd)
+        print(cmd)
+        os.system(cmd)
+
+
 def out_day(cookie_item: dict, title="用户超期"):
     if cookie_item.get('wechart') is not None:
         logging.warning("微信号 {} 超期".format(cookie_item.get('wechart')))
@@ -114,6 +131,19 @@ def out_day(cookie_item: dict, title="用户超期"):
 
 
 if __name__ == '__main__':
+    notify_bean_change = False
+    argv = sys.argv[1:]
+    try:
+        opts, args = getopt.getopt(argv, "b",  ["notify_bean_change"])  # 长选项模式
+    except:
+        logging.error("解析运行参数失败")
+        exit(-1)
+    for opt, arg in opts:
+        if opt in ['-b', '--notify_bean_change']:
+            notify_bean_change = True
+
+    print(notify_bean_change)
+
     result_ck_yaml_list = []
     high_priority_ck = []
 
@@ -139,6 +169,10 @@ if __name__ == '__main__':
                 if duration_of_day > 0 and pass_days.days > duration_of_day:
                     out_day(cookie_item)
                     continue
+
+                if (notify_bean_change) :
+                    notfiy_bean_change(cookie_item)
+
                 result_ck_yaml_list.append(cookie_item)
 
             except Exception as e:
