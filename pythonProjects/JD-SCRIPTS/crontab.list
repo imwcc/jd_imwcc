@@ -1,24 +1,26 @@
-# =========== JD-SCRIPT start 2021-06-03 22:12:54  ==============
+# =========== JD-SCRIPT start 2021-06-06 16:07:54  ==============
+# ^京东保洁消消乐
+18 3 1-18 6 * otask /home/arvin/code/JD-SCRIPT/zooBaojiexiaoxiaole.js
 # 京喜阶梯红包
 15 1 * 5,6 * otask /home/arvin/code/JD-SCRIPT/adolf_jxhb.js
-# 跳跳乐瓜分京豆
-1 16,3,13 * * * otask /home/arvin/code/JD-SCRIPT/jd_jump.js
-# 母婴跳一跳
-5 8,14,20 19-25 5 * otask /home/arvin/code/JD-SCRIPT/jd_jump_jump.js
 # 种豆得豆
 1 0-13/2 * * * otask /home/arvin/code/JD-SCRIPT/jd_plantBean.js
+# 金榜创造营
+13 17,14 * * * otask /home/arvin/code/JD-SCRIPT/jd_gold_creator.js
 # 签到领现金
-21 1,15 * * * otask /home/arvin/code/JD-SCRIPT/jd_cash.js
-# joy挂机
-25 4,14 * * * otask /home/arvin/code/JD-SCRIPT/jd_crazy_joy_coin.js
+2 0-23/4 * * * otask /home/arvin/code/JD-SCRIPT/jd_cash.js
 # 天天大乐透
 0 16 * * * otask /home/arvin/code/JD-SCRIPT/jd_daydlt.js
-# 京享值pk(胜利场次到200以后无收益)
-15 0-23/8 17-31 5 * otask /home/arvin/code/JD-SCRIPT/adolf_pk.js
+# ^京享值pk
+15 1,10 2-20 6 * otask /home/arvin/code/JD-SCRIPT/adolf_pk.js
 # crazyJoy任务
 08 16,6 * * * otask /home/arvin/code/JD-SCRIPT/jd_crazy_joy.js
+# ^5G超级盲盒
+0 16,1-23/3 * * * otask /home/arvin/code/JD-SCRIPT/jd_mohe.js
 # 点点券
 10 0,20 * * * otask /home/arvin/code/JD-SCRIPT/jd_necklace.js
+# 京东保价
+0 3 * * * otask /home/arvin/code/JD-SCRIPT/jd_price.js
 # 女妆盲盒
 0 17,15 * * * otask /home/arvin/code/JD-SCRIPT/jd_nzmh.js
 # 京东直播
@@ -26,106 +28,112 @@
 # 东东农场
 10 18,22,4,10 * * * otask /home/arvin/code/JD-SCRIPT/jd_fruit.js
 # 取关京东店铺和商品
-45 10 * * * otask /home/arvin/code/JD-SCRIPT/jd_unsubscribe.js
-# 价保保护
-0 17 * * * otask /home/arvin/code/JD-SCRIPT/jd_priceProtect.js
+0 0 * * * otask /home/arvin/code/JD-SCRIPT/jd_unsubscribe.js
 # 店铺签到+interCenter渠道店铺签到
 10 16 * * * otask /home/arvin/code/JD-SCRIPT/jd_dpqd2.js -o jd_dpqd2.js
-# 坐等更新
-28 3 18-26 5 * otask /home/arvin/code/JD-SCRIPT/adolf_urge.js
 # 京东健康收集
 10 0-23/4 * * * otask /home/arvin/code/JD-SCRIPT/jd_health_collect.js
 # 京东家庭号
 1 4,15 * * * otask /home/arvin/code/JD-SCRIPT/jd_family.js
+# ^ 与“粽”不同
+15 5 1-18 6 * otask /home/arvin/code/JD-SCRIPT/zooLongzhou.js
 # 京东超级盒子
 15 1,12 * 5,6 * otask /home/arvin/code/JD-SCRIPT/adolf_superbox.js
 # 每日签到
 08 17 * * * otask /home/arvin/code/JD-SCRIPT/jd_bean_sign.js
-# 合成小金刚
-20 1 21-27 5 * otask /home/arvin/code/JD-SCRIPT/adolf_mi.js
 # 京喜农场
 0 1,4,10 * * * otask /home/arvin/code/JD-SCRIPT/jd_jxnc.js
+# ^翻翻乐
+1 0-23/1 * 6 * otask /home/arvin/code/JD-SCRIPT/jd_flipcards.js
+# 618主会场红包雨
+50 11 1-18 6 * otask /home/arvin/code/JD-SCRIPT/long_hby_lottery.js
 # 京东秒秒币
 0 23 * * * otask /home/arvin/code/JD-SCRIPT/jd_ms.js
 # 京喜财富岛
 50 16,0,5,11 * * * otask /home/arvin/code/JD-SCRIPT/jd_cfd.js
 # 人头马x博朗(打开adolf_martin.js脚本，按照提示添加环境变量运行)
 20 9 20-31 5 * otask /home/arvin/code/JD-SCRIPT/adolf_martin.js
-# 口袋书店
+# 口袋书店(需要每天手动进入一次活动)
 20 2,6 * * * otask /home/arvin/code/JD-SCRIPT/jd_bookshop.js
-# 618家电星推官
-15 15 * 5,6 * otask /home/arvin/code/JD-SCRIPT/adolf_star.js
 # 京东健康
 10 0-23/4 * * * otask /home/arvin/code/JD-SCRIPT/jd_health.js
 # 赚京豆
 10 2 * * * otask /home/arvin/code/JD-SCRIPT/jd_syj.js
-# 蒙牛有机牧场
-0 0,1-22/2 1-31 4-7 * otask /home/arvin/code/JD-SCRIPT/jd_monk_pasture.js
 # 京小兑
 1 0 * * * otask /home/arvin/code/JD-SCRIPT/jd_jxd.js
-# 618抽盲盒赢千万京豆
-30 1 * * * otask /home/arvin/code/JD-SCRIPT/jay_freshgoods.js
+# ^闪购红包雨
+30 20 * * * otask /home/arvin/code/JD-SCRIPT/jd_dphby.js
 # 全民开红包
 0 17,8 * * * otask /home/arvin/code/JD-SCRIPT/jd_redPacket.js
 # 东东超市
 30 * * * * otask /home/arvin/code/JD-SCRIPT/jd_superMarket.js
 # 宠汪汪喂食
-*/30 */1 * * * otask /home/arvin/code/JD-SCRIPT/jd_joy_feedPets.js
+15 0-23/1 * * * otask /home/arvin/code/JD-SCRIPT/jd_joy_feedPets.js
 # 金贴
 10 0 * * * otask /home/arvin/code/JD-SCRIPT/jd_jintie.js
-# 京小超兑换奖品
-20 15 * * * otask /home/arvin/code/JD-SCRIPT/jd_blueCoin20.js
 # 全民抢京豆
 15 22 * * * otask /home/arvin/code/JD-SCRIPT/jd_bean_home.js
 # 京东极速版
 0 4,16,23 * * * otask /home/arvin/code/JD-SCRIPT/jd_speed_sign.js
-# 排行榜+进店领豆+京东快递
+# 排行榜+进店领豆+京东快递+京东汽车
 30 17 * * * otask /home/arvin/code/JD-SCRIPT/jd_rankingList.js
 sleep 5
 # 京贴小程序
 10 16 * * * otask /home/arvin/code/JD-SCRIPT/jd_jintie_wx.js
 # 京东工厂
 21 0-23/1 * * * otask /home/arvin/code/JD-SCRIPT/jd_factory.js
+# 京东汽车（换500豆）
+0 15 * * * otask /home/arvin/code/JD-SCRIPT/jd_car_exchange.js
+# 618家电星推官
+15 19 * 5,6 * otask /home/arvin/code/JD-SCRIPT/jd_xtg.js
 # 东东小窝
 30 6 * * * otask /home/arvin/code/JD-SCRIPT/jd_small_home.js
 # 金融养猪
 10 7 * * * otask /home/arvin/code/JD-SCRIPT/jd_pigPet.js
 # 闪购盲盒
 57 15 * * * otask /home/arvin/code/JD-SCRIPT/jd_sgmh.js
+# ^京喜领88元红包
+4 2 * * * otask /home/arvin/code/JD-SCRIPT/jd_jxlhb.js
+# ^特物ZX联想
+30 3 * * * otask /home/arvin/code/JD-SCRIPT/superBrand.js
+# ^京东星店长
+0 17,13 * * * otask /home/arvin/code/JD-SCRIPT/jd_star_shop.js
 # 幸运大转盘
 4 2 * * * otask /home/arvin/code/JD-SCRIPT/jd_market_lottery.js
 # 宠汪汪偷好友积分与狗粮
 10 0-21/3 * * * otask /home/arvin/code/JD-SCRIPT/jd_joy_steal.js
+# 618动物连萌收金币
+0 0-23/1 * * * otask /home/arvin/code/JD-SCRIPT/jd_zooCollect.js
 # 宠汪汪
 04 16,22,4,10 * * * otask /home/arvin/code/JD-SCRIPT/jd_joy.js
 # 618大势新品赏
 15 1,12 * 5,6 * otask /home/arvin/code/JD-SCRIPT/adolf_newInteraction.js
-# 城城分现金
-0 0-23/2 * * * otask /home/arvin/code/JD-SCRIPT/jd_city.js
-# 金榜创造营
-0 16,0,4,10 * 5-12 * otask /home/arvin/code/JD-SCRIPT/jd_jbczy.js
 # 飞利浦电视成长记
 15 5 * 5,6 * otask /home/arvin/code/JD-SCRIPT/adolf_flp.js
 # 每日抽奖
 10 17,11,5 * * * otask /home/arvin/code/JD-SCRIPT/jd_daily_lottery.js
 # 618动物联萌
-13 0-23/2 * * * otask /home/arvin/code/JD-SCRIPT/jd_zoo.js
+10 0-23/1 * * * otask /home/arvin/code/JD-SCRIPT/jd_zoo.js
 # 赢一加新品手机
 25 1 * 5,6 * otask /home/arvin/code/JD-SCRIPT/adolf_oneplus.js
 # 东东萌宠
 15 22,4,10 * * * otask /home/arvin/code/JD-SCRIPT/jd_pet.js
 # 摇钱树
 3 0-23/2 * * * otask /home/arvin/code/JD-SCRIPT/jd_moneyTree.js
-# 超级无线组队分奖品
-0 10,2 * * * otask /home/arvin/code/JD-SCRIPT/z_shop_captain.js
 # 宠汪汪(换20豆）
-20 23,15,7 * * * otask /home/arvin/code/JD-SCRIPT/jd_joy_reward.js
+0 23,15,7 * * * otask /home/arvin/code/JD-SCRIPT/jd_joy_reward.js
+# ^京东特物国创IP
+1 18 * * * otask /home/arvin/code/JD-SCRIPT/jd_gcip.js
 # 京东极速版红包
 50 4,12 * * * otask /home/arvin/code/JD-SCRIPT/jd_speed_redpocke.js
 # 摇京豆
 10 15,16 * * * otask /home/arvin/code/JD-SCRIPT/jd_club_lottery.js
+# 泡泡大战
+30 0 1-6 6 * otask /home/arvin/code/JD-SCRIPT/jd_ppdz.js
 # 京东抽奖机
 28 4 * * * otask /home/arvin/code/JD-SCRIPT/jd_lotteryMachine.js
+# 618家电星推官账号互助脚本
+15 19 * 5,6 * otask /home/arvin/code/JD-SCRIPT/jd_xtg_help.js
 # 新品试用
 0 17 * * * otask /home/arvin/code/JD-SCRIPT/jd_unsubscribe.js
 #sleep 10
@@ -135,7 +143,9 @@ sleep 5
 30 0,6,12 * * * otask /home/arvin/code/JD-SCRIPT/jd_live_lottery_social.js
 # 昨日收益
 0 17 * * * otask /home/arvin/code/JD-SCRIPT/jd_bean_change.js
+# ^新潮品牌狂欢
+30 1,2 1-18 6 * otask /home/arvin/code/JD-SCRIPT/jd_mcxhd_brandcity.js
 # 京东赚赚
 0,30 12-14/1 * * * otask /home/arvin/code/JD-SCRIPT/jd_jdzz.js
-# =========== JD-SCRIPT end 2021-06-03 22:12:54 ==============
+# =========== JD-SCRIPT end 2021-06-06 16:07:54 ==============
 

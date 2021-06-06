@@ -1,11 +1,12 @@
 import configparser
 import sys
 import os
-import demjson
 import socket
 import yaml
+
 sys.path.append("..")
-from sendNotify import sendNotify
+# from utils import parse_yaml
+from parse_yaml import parse_yaml
 
 import logging
 
@@ -25,7 +26,6 @@ config.read('exclude.cfg')
 
 exclude_file_list = []
 exclude_yaml_file_list = []
-notify = sendNotify()
 
 for key in config['EXCLUDE']:
     if key == 'js_exclude_files':
@@ -45,11 +45,9 @@ elif HOST_NAME == 'ubuntu157362':
     ROOT_DIR = '/home/arvin/code'
 
 if HOST_NAME == 'jd-arvin':
-    new_scripts_dir = os.path.join(ROOT_DIR, 'zero205_JD_tencent_scf')
+    new_scripts_dir = os.path.join(ROOT_DIR, 'hapecoder_JD-SCRIPT')
 else:
-    new_scripts_dir = os.path.join(ROOT_DIR, 'JD_tencent_scf')
-
-parse_task_file = os.path.join(new_scripts_dir, 'jd_task.json')
+    new_scripts_dir = os.path.join(ROOT_DIR, 'JD-SCRIPT')
 
 if not os.path.exists(new_scripts_dir):
     logging.error("找不到配置文件")
@@ -59,36 +57,34 @@ if __name__ == '__main__':
     old_crontab_list = []
     result_crontab_list = []
 
-    result_dic = {}
+    yaml_dir = os.path.join(new_scripts_dir, '.github/workflows')
+    yaml_files = os.listdir(yaml_dir)
 
-    result_dic['name'] = "JD_tencent_scf"
+    yaml_parse = parse_yaml()
+    result_dic = {}
+    result_dic['name'] = "JD-SCRIPTS"
     result_dic['tasks'] = []
 
     logging.info("exclude js list {}".format(exclude_file_list))
     logging.info("exclude yaml list {}".format(exclude_yaml_file_list))
 
-    with open(parse_task_file, 'r') as f:
-        s = f.read()
-        result = demjson.decode(s)
-        for item in result.get("list"):
-            try:
-                file_name = item.get('job').get('target').split('/')[-1].strip()
-                if file_name != '':
-                    if file_name in exclude_file_list:
-                        logging.info("js {} 在排除列表中，忽略".format(file_name))
-                        continue
-                    temp_dic = {}
-                    temp_dic['name'] = item.get('name')
-                    temp_dic['schedule_cron'] = item.get('time')
-                    temp_dic['file_name'] = file_name
-                    temp_dic['script_dir'] = new_scripts_dir
-                    temp_dic['script_file'] = os.path.join(new_scripts_dir, file_name)
-                    result_dic.get('tasks').append(temp_dic)
+    for yaml_file in yaml_files:
+        try:
 
-            except Exception as e:
-                logging.error(e)
-                logging.info("文件: {} 解析失败对象: {}".format(parse_task_file, item))
+            if yaml_file in exclude_yaml_file_list:
+                logging.info("yaml file {} In exclude list".format(yaml_dic.get('yaml_file_name')))
                 continue
+
+            yaml_dic = yaml_parse.begin_parse_file(os.path.join(yaml_dir, yaml_file), new_scripts_dir)
+            if yaml_dic is not None and yaml_dic != {}:
+                print(yaml_dic)
+                if yaml_dic.get('file_name') in exclude_yaml_file_list:
+                    logging.info("js file {} In exclude list".format(yaml_dic.get('file_name')))
+                    continue
+                result_dic['tasks'].append(yaml_dic)
+        except Exception as e:
+            logging.error(yaml_file)
+            logging.error(str(e))
 
     print(result_dic)
     with open(RESULT_FILE, 'w', encoding="utf-8") as f:

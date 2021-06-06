@@ -42,8 +42,6 @@ if HOST_NAME == 'jd-arvin':
 else:
     new_scripts_dir = os.path.join(ROOT_DIR, 'JD_tencent_scf')
 
-
-
 parse_from_file = os.path.join(new_scripts_dir, 'jd_task.json')
 
 if not os.path.exists(new_scripts_dir):
