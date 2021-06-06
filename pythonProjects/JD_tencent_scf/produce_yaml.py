@@ -4,6 +4,10 @@ import os
 import demjson
 import socket
 import yaml
+
+FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(os.path.dirname(FILE_DIR)))
+
 sys.path.append("..")
 from utils import sendNotify
 
@@ -12,7 +16,7 @@ import logging
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                     level=logging.DEBUG)
 
-FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 print(FILE_DIR)
 
 HOST_NAME = socket.gethostname()
@@ -21,7 +25,7 @@ DEBUG = HOST_NAME != 'jd-arvin'
 RESULT_FILE = os.path.join(FILE_DIR, 'task.yaml')
 
 config = configparser.ConfigParser()
-config.read('exclude.cfg')
+config.read(os.path.join(FILE_DIR, 'exclude.cfg'))
 
 exclude_file_list = []
 exclude_yaml_file_list = []
