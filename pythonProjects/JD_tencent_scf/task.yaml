@@ -1,387 +1,156 @@
 name: JD_tencent_scf
 tasks:
-- file_name: jd_bean_change.js
-  name: 京豆变动通知
-  schedule_cron: 0 20 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_bean_change.js
-- file_name: jd_bean_home.js
-  name: 领京豆额外奖励
-  schedule_cron: 15 7 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_bean_home.js
-- file_name: JD_DailyBonus.js
-  name: 京东签到
-  schedule_cron: 0 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/JD_DailyBonus.js
-- file_name: jd_blueCoin.js
-  name: 东东超市兑换奖品
-  schedule_cron: 0 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_blueCoin.js
-- file_name: jd_bookshop.js
-  name: 口袋书店
-  schedule_cron: 2 8,12,18 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_bookshop.js
-- file_name: jd_car.js
-  name: 京东汽车
-  schedule_cron: 15 7 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_car.js
-- file_name: jd_car_exchange.js
-  name: 京东汽车兑换
-  schedule_cron: 0 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_car_exchange.js
-- file_name: jd_cash.js
-  name: 签到领现金
-  schedule_cron: 5 0,6-23/4 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_cash.js
-- file_name: jd_cash_exchange.js
-  name: 领现金兑换红包
-  schedule_cron: 0,1 0 0 * * 6,7,0,1
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_cash_exchange.js
-- file_name: jd_cfd.js
-  name: 京喜财富岛
-  schedule_cron: 45 0,13,19 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_cfd.js
-- file_name: jd_cfdtx.js
-  name: 京喜财富岛提现
-  schedule_cron: 0-5/1 0 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_cfdtx.js
-- file_name: jd_club_lottery.js
-  name: 摇京豆
-  schedule_cron: 6 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_club_lottery.js
-- file_name: jd_crazy_joy.js
-  name: 疯狂的Joy
-  schedule_cron: 6 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_crazy_joy.js
-- file_name: jd_daily_egg.js
-  name: 天天提鹅
-  schedule_cron: 15 0,7-23 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_daily_egg.js
-- file_name: jd_dreamFactory.js
-  name: 京喜工厂
-  schedule_cron: 20 0,6-23 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_dreamFactory.js
-- file_name: jd_fruit.js
-  name: 东东农场
-  schedule_cron: 10 6-18/6 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_fruit.js
-- file_name: jd_get_share_code.js
-  name: 获取互助码
-  schedule_cron: '0'
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_get_share_code.js
-- file_name: jd_jdfactory.js
-  name: 东东工厂
-  schedule_cron: 15 0,7-23 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_jdfactory.js
-- file_name: jd_jdzz.js
-  name: 京东赚赚
-  schedule_cron: 15 0,7-23 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_jdzz.js
-- file_name: jd_jin_tie.js
-  name: 领金贴
-  schedule_cron: 12 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_jin_tie.js
-- file_name: jd_joy.js
-  name: 京东宠汪汪
-  schedule_cron: 18 0-23/2 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_joy.js
-- file_name: jd_joy_feedPets.js
-  name: 京东宠汪汪喂食
-  schedule_cron: 15 0,7-23 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_joy_feedPets.js
-- file_name: jd_joy_reward.js
-  name: 宠汪汪积分兑换奖品
-  schedule_cron: 0 0-16/8 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_joy_reward.js
-- file_name: jd_jxnc.js
-  name: 京喜农场
-  schedule_cron: 10 9,12,18 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_jxnc.js
-- file_name: jd_kd.js
-  name: 京东快递签到
-  schedule_cron: 25 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_kd.js
-- file_name: jd_live.js
-  name: 京东直播
-  schedule_cron: 10-20/5 12 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_live.js
-- file_name: jd_live_redrain.js
-  name: 超级直播间红包雨
-  schedule_cron: 0,30,31 20-23/1 18 * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_live_redrain.js
-- file_name: jd_lotteryMachine.js
-  name: 京东抽奖机
-  schedule_cron: 2 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_lotteryMachine.js
-- file_name: jd_moneyTree.js
-  name: 京东摇钱树
-  schedule_cron: 35 0-23/2 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_moneyTree.js
-- file_name: jd_ms.js
-  name: 京东秒秒币
-  schedule_cron: 12 7 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_ms.js
-- file_name: jd_necklace.js
-  name: 点点券
-  schedule_cron: 23 0,20 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_necklace.js
-- file_name: jd_nzmh.js
-  name: 女装盲盒
-  schedule_cron: 20 9,23 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_nzmh.js
-- file_name: jd_pet.js
-  name: 东东萌宠
-  schedule_cron: 16 6-18/6 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_pet.js
-- file_name: jd_pigPet.js
-  name: 京东金融养猪猪
-  schedule_cron: 12 0,7-23 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_pigPet.js
-- file_name: jd_plantBean.js
-  name: 种豆得豆
-  schedule_cron: 6 7-21/2 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_plantBean.js
-- file_name: jd_rankingList.js
-  name: 京东排行榜
-  schedule_cron: 6 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_rankingList.js
-- file_name: jd_redPacket.js
-  name: 京东全民开红包
-  schedule_cron: 30,35 */3 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_redPacket.js
-- file_name: jd_sgmh.js
-  name: 闪购盲盒
-  schedule_cron: 25 8 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_sgmh.js
-- file_name: jd_shop.js
-  name: 进店领豆
-  schedule_cron: 10 0 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_shop.js
-- file_name: jd_small_home.js
-  name: 东东小窝
-  schedule_cron: 18 22 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_small_home.js
-- file_name: jd_speed_redpocke.js
-  name: 京东极速版红包
-  schedule_cron: 1 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_speed_redpocke.js
-- file_name: jd_speed_sign.js
-  name: 京东极速版
-  schedule_cron: 2 7 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_speed_sign.js
-- file_name: jd_superMarket.js
-  name: 东东超市
-  schedule_cron: 18 0,7-23/1 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_superMarket.js
-- file_name: jd_syj.js
-  name: 赚京豆
-  schedule_cron: 15 0,7,8-10/1 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_syj.js
-- file_name: jd_unsubscribe.js
-  name: 取关京东店铺商品
-  schedule_cron: 45 23 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_unsubscribe.js
-- file_name: jd_z_fanslove.js
-  name: 京东粉丝互动
-  schedule_cron: 30 8 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_z_fanslove.js
-- file_name: jd_z_mother_jump.js
-  name: 京东母婴跳一跳
-  schedule_cron: 15 6-23/6 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_z_mother_jump.js
-- file_name: jd_z_xmf.js
-  name: 京东小魔方
-  schedule_cron: 15 10 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_z_xmf.js
-- file_name: jd_z_health_community.js
-  name: 健康社区
-  schedule_cron: 30 10-22/3 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_z_health_community.js
-- file_name: jd_z_health_energy.js
-  name: 健康社区收取能量
-  schedule_cron: 30 0,6-23/1 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_z_health_energy.js
-- file_name: jd_jxd.js
-  name: 京小兑
-  schedule_cron: 35 8 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_jxd.js
-- file_name: jd_monk_inter_shop_sign.js
-  name: interCenter渠道店铺签到
-  schedule_cron: 0 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_monk_inter_shop_sign.js
-- file_name: jd_monk_pasture.js
-  name: 蒙牛有机牧场
-  schedule_cron: 1 7-23/2 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_monk_pasture.js
-- file_name: jd_monk_shop_follow_sku.js
-  name: 店铺关注有礼
-  schedule_cron: 10 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_monk_shop_follow_sku.js
-- file_name: jd_monk_shop_lottery.js
-  name: 店铺大转盘
-  schedule_cron: 1 8,20 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_monk_shop_lottery.js
-- file_name: lxk0301_live_redrain.js
-  name: 京东每日红包雨（由sngxpro代管随缘维护）
-  schedule_cron: 1 8-23 * * 1-5
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/lxk0301_live_redrain.js
-- file_name: jd_super_redrain.js
-  name: 整点京豆雨
-  schedule_cron: 1 0,6-23/1 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_super_redrain.js
-- file_name: jd_half_redrain.js
-  name: 半点京豆雨
-  schedule_cron: 30 20-23/1 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_half_redrain.js
-- file_name: jd_daily_lottery.js
-  name: 每日抽奖
-  schedule_cron: 15 7,22,23 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_daily_lottery.js
-- file_name: jd_market_lottery.js
-  name: 幸运大转盘
-  schedule_cron: 20 10 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_market_lottery.js
-- file_name: jd_carnivalcity.js
-  name: 京东手机狂欢城
-  schedule_cron: 0 0-18/6 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_carnivalcity.js
-- file_name: jd_jump.js
-  name: 跳跳乐瓜分京豆
-  schedule_cron: 2 0,11,21 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_jump.js
-- file_name: jd_adolf_flp.js
-  name: 飞利浦电视成长记
-  schedule_cron: 30 9 * 5,6 *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_adolf_flp.js
-- file_name: jd_adolf_oneplus.js
-  name: 赢一加新品手机
-  schedule_cron: 28 9 * 5,6 *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_adolf_oneplus.js
-- file_name: jd_adolf_newInteraction.js
-  name: 618大势新品赏
-  schedule_cron: 17 9,20 * 5,6 *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_adolf_newInteraction.js
-- file_name: jd_adolf_jxhb.js
-  name: 京喜阶梯红包
-  schedule_cron: 35 9,20 * 5,6 *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_adolf_jxhb.js
-- file_name: jd_adolf_superbox.js
-  name: 京东超级盒子
-  schedule_cron: 20 9,20 * 5,6 *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_adolf_superbox.js
-- file_name: jd_zoo.js
-  name: 618动物联萌
-  schedule_cron: 35 0,5-23/2 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_zoo.js
-- file_name: jd_zooCollect.js
-  name: 618动物联萌收集金币
-  schedule_cron: '*/30 0,5-23/1 * * *'
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_zooCollect.js
-- file_name: jd_xtg.js
-  name: 家电星推官
-  schedule_cron: 0 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_xtg.js
-- file_name: jd_xtg_help.js
-  name: 家电星推官好友互助
-  schedule_cron: 0 0 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_xtg_help.js
-- file_name: jd_gold_creator.js
-  name: 金榜创造营
-  schedule_cron: 25 6,22 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_gold_creator.js
-- file_name: jd_jxlhb.js
-  name: 京喜领88元红包
-  schedule_cron: 8 10,19 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_jxlhb.js
-- file_name: jd_mcxhd.js
-  name: 新潮品牌狂欢
-  schedule_cron: 13 10 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_mcxhd.js
-- file_name: jd_star_shop.js
-  name: 星店长
-  schedule_cron: 26 7,21 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_star_shop.js
-- file_name: jd_mohe.js
-  name: 5G超级盲盒
-  schedule_cron: 0 0,6-23/3 * * *
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_mohe.js
-- file_name: jd_z_shop_captain.js
-  name: 超级无线组队分京豆
-  schedule_cron: 15 6 * * 2
-  script_dir: /home/arvin/code/JD_tencent_scf
-  script_file: /home/arvin/code/JD_tencent_scf/jd_z_shop_captain.js
+- {file_name: jd_bean_change.js, name: 京豆变动通知, schedule_cron: 0 20 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_bean_change.js}
+- {file_name: jd_bean_home.js, name: 领京豆额外奖励, schedule_cron: 15 7 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_bean_home.js}
+- {file_name: JD_DailyBonus.js, name: 京东签到, schedule_cron: 0 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/JD_DailyBonus.js}
+- {file_name: jd_blueCoin.js, name: 东东超市兑换奖品, schedule_cron: 0 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_blueCoin.js}
+- {file_name: jd_bookshop.js, name: 口袋书店, schedule_cron: '2 8,12,18 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_bookshop.js}
+- {file_name: jd_car.js, name: 京东汽车, schedule_cron: 15 7 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_car.js}
+- {file_name: jd_car_exchange.js, name: 京东汽车兑换, schedule_cron: 0 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_car_exchange.js}
+- {file_name: jd_cash.js, name: 签到领现金, schedule_cron: '5 0,6-23/4 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_cash.js}
+- {file_name: jd_cash_exchange.js, name: 领现金兑换红包, schedule_cron: '0,1 0 0 * * 6,7,0,1',
+  script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_cash_exchange.js}
+- {file_name: jd_cfd.js, name: 京喜财富岛, schedule_cron: '45 0,13,19 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_cfd.js}
+- {file_name: jd_cfdtx.js, name: 京喜财富岛提现, schedule_cron: 0-5/1 0 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_cfdtx.js}
+- {file_name: jd_club_lottery.js, name: 摇京豆, schedule_cron: 6 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_club_lottery.js}
+- {file_name: jd_crazy_joy.js, name: 疯狂的Joy, schedule_cron: 6 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_crazy_joy.js}
+- {file_name: jd_daily_egg.js, name: 天天提鹅, schedule_cron: '15 0,7-23 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_daily_egg.js}
+- {file_name: jd_dreamFactory.js, name: 京喜工厂, schedule_cron: '20 0,6-23 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_dreamFactory.js}
+- {file_name: jd_fruit.js, name: 东东农场, schedule_cron: 10 6-18/6 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_fruit.js}
+- {file_name: jd_get_share_code.js, name: 获取互助码, schedule_cron: '0', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_get_share_code.js}
+- {file_name: jd_jdfactory.js, name: 东东工厂, schedule_cron: '15 0,7-23 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_jdfactory.js}
+- {file_name: jd_jdzz.js, name: 京东赚赚, schedule_cron: '15 0,7-23 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_jdzz.js}
+- {file_name: jd_jin_tie.js, name: 领金贴, schedule_cron: 12 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_jin_tie.js}
+- {file_name: jd_joy.js, name: 京东宠汪汪, schedule_cron: 18 0-23/2 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_joy.js}
+- {file_name: jd_joy_feedPets.js, name: 京东宠汪汪喂食, schedule_cron: '15 0,7-23 * * *',
+  script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_joy_feedPets.js}
+- {file_name: jd_joy_reward.js, name: 宠汪汪积分兑换奖品, schedule_cron: 0 0-16/8 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_joy_reward.js}
+- {file_name: jd_jxnc.js, name: 京喜农场, schedule_cron: '10 9,12,18 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_jxnc.js}
+- {file_name: jd_kd.js, name: 京东快递签到, schedule_cron: 25 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_kd.js}
+- {file_name: jd_live.js, name: 京东直播, schedule_cron: 10-20/5 12 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_live.js}
+- {file_name: jd_live_redrain.js, name: 超级直播间红包雨, schedule_cron: '0,30,31 20-23/1
+    18 * *', script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_live_redrain.js}
+- {file_name: jd_lotteryMachine.js, name: 京东抽奖机, schedule_cron: 2 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_lotteryMachine.js}
+- {file_name: jd_moneyTree.js, name: 京东摇钱树, schedule_cron: 35 0-23/2 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_moneyTree.js}
+- {file_name: jd_ms.js, name: 京东秒秒币, schedule_cron: 12 7 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_ms.js}
+- {file_name: jd_necklace.js, name: 点点券, schedule_cron: '23 0,20 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_necklace.js}
+- {file_name: jd_nzmh.js, name: 女装盲盒, schedule_cron: '20 9,23 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_nzmh.js}
+- {file_name: jd_pet.js, name: 东东萌宠, schedule_cron: 16 6-18/6 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_pet.js}
+- {file_name: jd_pigPet.js, name: 京东金融养猪猪, schedule_cron: '12 0,7-23 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_pigPet.js}
+- {file_name: jd_plantBean.js, name: 种豆得豆, schedule_cron: 6 7-21/2 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_plantBean.js}
+- {file_name: jd_rankingList.js, name: 京东排行榜, schedule_cron: 6 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_rankingList.js}
+- {file_name: jd_redPacket.js, name: 京东全民开红包, schedule_cron: '30,35 */3 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_redPacket.js}
+- {file_name: jd_sgmh.js, name: 闪购盲盒, schedule_cron: 25 8 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_sgmh.js}
+- {file_name: jd_shop.js, name: 进店领豆, schedule_cron: 10 0 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_shop.js}
+- {file_name: jd_small_home.js, name: 东东小窝, schedule_cron: 18 22 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_small_home.js}
+- {file_name: jd_speed_redpocke.js, name: 京东极速版红包, schedule_cron: 1 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_speed_redpocke.js}
+- {file_name: jd_speed_sign.js, name: 京东极速版, schedule_cron: 2 7 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_speed_sign.js}
+- {file_name: jd_superMarket.js, name: 东东超市, schedule_cron: '18 0,7-23/1 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_superMarket.js}
+- {file_name: jd_syj.js, name: 赚京豆, schedule_cron: '15 0,7,8-10/1 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_syj.js}
+- {file_name: jd_unsubscribe.js, name: 取关京东店铺商品, schedule_cron: 45 23 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_unsubscribe.js}
+- {file_name: jd_z_fanslove.js, name: 京东粉丝互动, schedule_cron: 30 8 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_z_fanslove.js}
+- {file_name: jd_z_mother_jump.js, name: 京东母婴跳一跳, schedule_cron: 15 6-23/6 * * *,
+  script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_z_mother_jump.js}
+- {file_name: jd_z_xmf.js, name: 京东小魔方, schedule_cron: 15 10 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_z_xmf.js}
+- {file_name: jd_z_health_community.js, name: 健康社区, schedule_cron: 30 10-22/3 * *
+    *, script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_z_health_community.js}
+- {file_name: jd_z_health_energy.js, name: 健康社区收取能量, schedule_cron: '30 0,6-23/1 *
+    * *', script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_z_health_energy.js}
+- {file_name: jd_jxd.js, name: 京小兑, schedule_cron: 35 8 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_jxd.js}
+- {file_name: jd_monk_inter_shop_sign.js, name: interCenter渠道店铺签到, schedule_cron: 0
+    0 * * *, script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_monk_inter_shop_sign.js}
+- {file_name: jd_monk_pasture.js, name: 蒙牛有机牧场, schedule_cron: 1 7-23/2 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_monk_pasture.js}
+- {file_name: jd_monk_shop_follow_sku.js, name: 店铺关注有礼, schedule_cron: 10 0 * * *,
+  script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_monk_shop_follow_sku.js}
+- {file_name: jd_monk_shop_lottery.js, name: 店铺大转盘, schedule_cron: '1 8,20 * * *',
+  script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_monk_shop_lottery.js}
+- {file_name: lxk0301_live_redrain.js, name: 京东每日红包雨（由sngxpro代管随缘维护）, schedule_cron: 1
+    8-23 * * 1-5, script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/lxk0301_live_redrain.js}
+- {file_name: jd_super_redrain.js, name: 整点京豆雨, schedule_cron: '1 0,6-23/1 * * *',
+  script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_super_redrain.js}
+- {file_name: jd_half_redrain.js, name: 半点京豆雨, schedule_cron: 30 20-23/1 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_half_redrain.js}
+- {file_name: jd_daily_lottery.js, name: 每日抽奖, schedule_cron: '15 7,22,23 * * *',
+  script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_daily_lottery.js}
+- {file_name: jd_market_lottery.js, name: 幸运大转盘, schedule_cron: 20 10 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_market_lottery.js}
+- {file_name: jd_carnivalcity.js, name: 京东手机狂欢城, schedule_cron: 0 0-18/6 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_carnivalcity.js}
+- {file_name: jd_jump.js, name: 跳跳乐瓜分京豆, schedule_cron: '2 0,11,21 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_jump.js}
+- {file_name: jd_adolf_flp.js, name: 飞利浦电视成长记, schedule_cron: '30 9 * 5,6 *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_adolf_flp.js}
+- {file_name: jd_adolf_oneplus.js, name: 赢一加新品手机, schedule_cron: '28 9 * 5,6 *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_adolf_oneplus.js}
+- {file_name: jd_adolf_newInteraction.js, name: 618大势新品赏, schedule_cron: '17 9,20
+    * 5,6 *', script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_adolf_newInteraction.js}
+- {file_name: jd_adolf_jxhb.js, name: 京喜阶梯红包, schedule_cron: '35 9,20 * 5,6 *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_adolf_jxhb.js}
+- {file_name: jd_adolf_superbox.js, name: 京东超级盒子, schedule_cron: '20 9,20 * 5,6 *',
+  script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_adolf_superbox.js}
+- {file_name: jd_zoo.js, name: 618动物联萌, schedule_cron: '35 0,5-23/2 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_zoo.js}
+- {file_name: jd_zooCollect.js, name: 618动物联萌收集金币, schedule_cron: '*/30 0,5-23/1 *
+    * *', script_dir: /home/arvin/code/JD_tencent_scf, script_file: /home/arvin/code/JD_tencent_scf/jd_zooCollect.js}
+- {file_name: jd_xtg.js, name: 家电星推官, schedule_cron: 0 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_xtg.js}
+- {file_name: jd_xtg_help.js, name: 家电星推官好友互助, schedule_cron: 0 0 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_xtg_help.js}
+- {file_name: jd_gold_creator.js, name: 金榜创造营, schedule_cron: '25 6,22 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_gold_creator.js}
+- {file_name: jd_jxlhb.js, name: 京喜领88元红包, schedule_cron: '8 10,19 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_jxlhb.js}
+- {file_name: jd_mcxhd.js, name: 新潮品牌狂欢, schedule_cron: 13 10 * * *, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_mcxhd.js}
+- {file_name: jd_star_shop.js, name: 星店长, schedule_cron: '26 7,21 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_star_shop.js}
+- {file_name: jd_mohe.js, name: 5G超级盲盒, schedule_cron: '0 0,6-23/3 * * *', script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_mohe.js}
+- {file_name: jd_z_shop_captain.js, name: 超级无线组队分京豆, schedule_cron: 15 6 * * 2, script_dir: /home/arvin/code/JD_tencent_scf,
+  script_file: /home/arvin/code/JD_tencent_scf/jd_z_shop_captain.js}

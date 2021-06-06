@@ -1,458 +1,169 @@
 name: JD-SCRIPTS
 tasks:
-- file_name: zooBaojiexiaoxiaole.js
-  name: ^京东保洁消消乐
-  schedule_cron: 18 3 1-18 6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/zooBaojiexiaoxiaole.js
-  yaml_file_name: zooBaojiexiaoxiaole.yml
-- file_name: adolf_jxhb.js
-  name: 京喜阶梯红包
-  schedule_cron: 15 1 * 5,6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/adolf_jxhb.js
-  yaml_file_name: adolf_jxhb.yml
-- file_name: jd_plantBean.js
-  name: 种豆得豆
-  schedule_cron: 1 0-13/2 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_plantBean.js
-  yaml_file_name: jd_plantBean.yml
-- file_name: jd_gold_creator.js
-  name: 金榜创造营
-  schedule_cron: 13 17,14 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_gold_creator.js
-  yaml_file_name: jd_gold_creator.yml
-- file_name: jd_cash.js
-  name: 签到领现金
-  schedule_cron: 2 0-23/4 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_cash.js
-  yaml_file_name: jd_cash.yml
-- file_name: jd_daydlt.js
-  name: 天天大乐透
-  schedule_cron: 0 16 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_daydlt.js
-  yaml_file_name: jd_daydlt.yml
-- file_name: adolf_pk.js
-  name: ^京享值pk
-  schedule_cron: 15 1,10 2-20 6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/adolf_pk.js
-  yaml_file_name: adolf_pk.yml
-- file_name: jd_crazy_joy.js
-  name: crazyJoy任务
-  schedule_cron: 08 16,6 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_crazy_joy.js
-  yaml_file_name: jd_crazy_joy.yml
-- file_name: jd_mohe.js
-  name: ^5G超级盲盒
-  schedule_cron: 0 16,1-23/3 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_mohe.js
-  yaml_file_name: jd_mohe.yml
-- file_name: jd_necklace.js
-  name: 点点券
-  schedule_cron: 10 0,20 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_necklace.js
-  yaml_file_name: jd_necklace.yml
-- file_name: jd_price.js
-  name: 京东保价
-  schedule_cron: 0 3 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_price.js
-  yaml_file_name: jd_price.yml
-- file_name: jd_nzmh.js
-  name: 女妆盲盒
-  schedule_cron: 0 17,15 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_nzmh.js
-  yaml_file_name: jd_nzmh.yml
-- file_name: jd_live.js
-  name: 京东直播
-  schedule_cron: 0 4 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_live.js
-  yaml_file_name: jd_live.yaml
-- file_name: jd_fruit.js
-  name: 东东农场
-  schedule_cron: 10 18,22,4,10 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_fruit.js
-  yaml_file_name: jd_fruit.yml
-- file_name: jd_jxfactory.js
-  name: 京喜工厂
-  schedule_cron: 0 0-23/1 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_jxfactory.js
-  yaml_file_name: jd_jxfactory.yml
-- file_name: jd_unsubscribe.js
-  name: 取关京东店铺和商品
-  schedule_cron: 0 0 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_unsubscribe.js
-  yaml_file_name: jd_unsubscribe.yml
-- file_name: jd_health_collect.js
-  name: 京东健康收集
-  schedule_cron: 10 0-23/4 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_health_collect.js
-  yaml_file_name: 20210423jd_health_collect.yml
-- file_name: jd_family.js
-  name: 京东家庭号
-  schedule_cron: 1 4,15 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_family.js
-  yaml_file_name: jd_family.yml
-- file_name: zooLongzhou.js
-  name: ^ 与“粽”不同
-  schedule_cron: 15 5 1-18 6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/zooLongzhou.js
-  yaml_file_name: zooLongzhou.yml
-- file_name: adolf_superbox.js
-  name: 京东超级盒子
-  schedule_cron: 15 1,12 * 5,6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/adolf_superbox.js
-  yaml_file_name: adolf_superbox.yml
-- file_name: jd_bean_sign.js
-  name: 每日签到
-  schedule_cron: 08 17 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_bean_sign.js
-  yaml_file_name: jd_bean_sign.yml
-- file_name: jd_jxnc.js
-  name: 京喜农场
-  schedule_cron: 0 1,4,10 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_jxnc.js
-  yaml_file_name: jd_jxnc.yml
-- file_name: jd_flipcards.js
-  name: ^翻翻乐
-  schedule_cron: 1 0-23/1 * 6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_flipcards.js
-  yaml_file_name: jd_flipcards.yml
-- file_name: long_hby_lottery.js
-  name: 618主会场红包雨
-  schedule_cron: 50 11 1-18 6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/long_hby_lottery.js
-  yaml_file_name: long_hby_lottery.yml
-- file_name: jd_ms.js
-  name: 京东秒秒币
-  schedule_cron: 0 23 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_ms.js
-  yaml_file_name: jd_mmb.yml
-- file_name: jd_cfd.js
-  name: 京喜财富岛
-  schedule_cron: 50 16,0,5,11 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_cfd.js
-  yaml_file_name: jx_cfd.yml
-- file_name: adolf_martin.js
-  name: 人头马x博朗(打开adolf_martin.js脚本，按照提示添加环境变量运行)
-  schedule_cron: 20 9 20-31 5 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/adolf_martin.js
-  yaml_file_name: adolf_martin.yml
-- file_name: jd_bookshop.js
-  name: 口袋书店(需要每天手动进入一次活动)
-  schedule_cron: 20 2,6 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_bookshop.js
-  yaml_file_name: 0408jd_bookshopCar.yml
-- file_name: jd_health.js
-  name: 京东健康
-  schedule_cron: 10 0-23/4 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_health.js
-  yaml_file_name: 20210422jd_health.yml
-- file_name: jd_syj.js
-  name: 赚京豆
-  schedule_cron: 10 2 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_syj.js
-  yaml_file_name: 20210428jd_syj.yml
-- file_name: jd_jxd.js
-  name: 京小兑
-  schedule_cron: 1 0 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_jxd.js
-  yaml_file_name: jd_jxd.yml
-- file_name: jd_dphby.js
-  name: ^闪购红包雨
-  schedule_cron: 30 20 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_dphby.js
-  yaml_file_name: jd_dphby.yml
-- file_name: jd_redPacket.js
-  name: 全民开红包
-  schedule_cron: 0 17,8 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_redPacket.js
-  yaml_file_name: jd_redPacket.yml
-- file_name: jd_superMarket.js
-  name: 东东超市
-  schedule_cron: 30 * * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_superMarket.js
-  yaml_file_name: jd_superMarket.yml
-- file_name: jd_joy_feedPets.js
-  name: 宠汪汪喂食
-  schedule_cron: 15 0-23/1 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_joy_feedPets.js
-  yaml_file_name: jd_joy_feedPets.yml
-- file_name: jd_jintie.js
-  name: 金贴
-  schedule_cron: 10 0 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_jintie.js
-  yaml_file_name: 20210427jd_jintie.yml
-- file_name: jd_bean_home.js
-  name: 全民抢京豆
-  schedule_cron: 15 22 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_bean_home.js
-  yaml_file_name: jd_bean_home.yml
-- file_name: jd_speed_sign.js
-  name: 京东极速版
-  schedule_cron: 0 4,16,23 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_speed_sign.js
-  yaml_file_name: jd_speed_sign.yml
-- file_name: jd_rankingList.jssleep 5
-  name: 排行榜+进店领豆+京东快递+京东汽车
-  schedule_cron: 30 17 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_rankingList.jssleep 5
-  yaml_file_name: jd_totalList.yml
-- file_name: jd_jintie_wx.js
-  name: 京贴小程序
-  schedule_cron: 10 16 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_jintie_wx.js
-  yaml_file_name: jd_jintie_wx.yml
-- file_name: jd_factory.js
-  name: 京东工厂
-  schedule_cron: 21 0-23/1 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_factory.js
-  yaml_file_name: jd_factory.yml
-- file_name: jd_car_exchange.js
-  name: 京东汽车（换500豆）
-  schedule_cron: 0 15 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_car_exchange.js
-  yaml_file_name: jd_car_exchange.yml
-- file_name: jd_xtg.js
-  name: 618家电星推官
-  schedule_cron: 15 19 * 5,6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_xtg.js
-  yaml_file_name: jd_xtg.yml
-- file_name: jd_small_home.js
-  name: 东东小窝
-  schedule_cron: 30 6 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_small_home.js
-  yaml_file_name: jd_small_home.yml
-- file_name: jd_pigPet.js
-  name: 金融养猪
-  schedule_cron: 10 7 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_pigPet.js
-  yaml_file_name: jd_pigPet.yml
-- file_name: jd_sgmh.js
-  name: 闪购盲盒
-  schedule_cron: 57 15 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_sgmh.js
-  yaml_file_name: jd_sgmh.yml
-- file_name: jd_jxlhb.js
-  name: ^京喜领88元红包
-  schedule_cron: 4 2 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_jxlhb.js
-  yaml_file_name: jd_jxlhb.yml
-- file_name: jd_shop_lottery.js
-  name: 店铺大转盘
-  schedule_cron: 57 15 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_shop_lottery.js
-  yaml_file_name: jd_shop_lottery.yml
-- file_name: superBrand.js
-  name: ^特物ZX联想
-  schedule_cron: 30 3 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/superBrand.js
-  yaml_file_name: superBrand.yml
-- file_name: jd_star_shop.js
-  name: ^京东星店长
-  schedule_cron: 0 17,13 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_star_shop.js
-  yaml_file_name: jd_star_shop.yml
-- file_name: jd_market_lottery.js
-  name: 幸运大转盘
-  schedule_cron: 4 2 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_market_lottery.js
-  yaml_file_name: 20210425jd_market_lottery.yml
-- file_name: z_carnivalcity.js
-  name: 618手机狂欢城
-  schedule_cron: 0 16,22,4,10 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/z_carnivalcity.js
-  yaml_file_name: z_carnivalcity.yml
-- file_name: jd_joy_steal.js
-  name: 宠汪汪偷好友积分与狗粮
-  schedule_cron: 10 0-21/3 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_joy_steal.js
-  yaml_file_name: jd_joy_steal.yml
-- file_name: jd_zooCollect.js
-  name: 618动物连萌收金币
-  schedule_cron: 0 0-23/1 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_zooCollect.js
-  yaml_file_name: jd_zooCollect.yml
-- file_name: jd_joy.js
-  name: 宠汪汪
-  schedule_cron: 04 16,22,4,10 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_joy.js
-  yaml_file_name: jd_joy.yml
-- file_name: adolf_newInteraction.js
-  name: 618大势新品赏
-  schedule_cron: 15 1,12 * 5,6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/adolf_newInteraction.js
-  yaml_file_name: adolf_newInteraction.yml
-- file_name: adolf_flp.js
-  name: 飞利浦电视成长记
-  schedule_cron: 15 5 * 5,6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/adolf_flp.js
-  yaml_file_name: adolf_flp.yml
-- file_name: jd_daily_lottery.js
-  name: 每日抽奖
-  schedule_cron: 10 17,11,5 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_daily_lottery.js
-  yaml_file_name: jd_daily_lottery.yml
-- file_name: jd_zoo.js
-  name: 618动物联萌
-  schedule_cron: 10 0-23/1 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_zoo.js
-  yaml_file_name: jd_zoo.yml
-- file_name: adolf_oneplus.js
-  name: 赢一加新品手机
-  schedule_cron: 25 1 * 5,6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/adolf_oneplus.js
-  yaml_file_name: adolf_oneplus.yml
-- file_name: jd_pet.js
-  name: 东东萌宠
-  schedule_cron: 15 22,4,10 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_pet.js
-  yaml_file_name: jd_pet.yml
-- file_name: jd_moneyTree.js
-  name: 摇钱树
-  schedule_cron: 3 0-23/2 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_moneyTree.js
-  yaml_file_name: jd_moneyTree.yml
-- file_name: jd_joy_reward.js
-  name: 宠汪汪(换20豆）
-  schedule_cron: 0 23,15,7 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_joy_reward.js
-  yaml_file_name: jd_joy_reward.yml
-- file_name: monk_shop_add_to_car.js
-  name: 店铺加购有礼
-  schedule_cron: 15 4 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/monk_shop_add_to_car.js
-  yaml_file_name: 0406monk_shop_add_to_car.yml
-- file_name: jd_gcip.js
-  name: ^京东特物国创IP
-  schedule_cron: 1 18 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_gcip.js
-  yaml_file_name: jd_gcip.yml
-- file_name: jd_speed_redpocke.js
-  name: 京东极速版红包
-  schedule_cron: 50 4,12 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_speed_redpocke.js
-  yaml_file_name: jd_speed_redpocke.yml
-- file_name: jd_club_lottery.js
-  name: 摇京豆
-  schedule_cron: 10 15,16 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_club_lottery.js
-  yaml_file_name: 0418jd_club_lottery.yml
-- file_name: jd_ppdz.js
-  name: 泡泡大战
-  schedule_cron: 30 0 1-6 6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_ppdz.js
-  yaml_file_name: jd_ppdz.yml
-- file_name: jd_lotteryMachine.js
-  name: 京东抽奖机
-  schedule_cron: 28 4 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_lotteryMachine.js
-  yaml_file_name: jd_lotteryMachine.yml
-- file_name: jd_xtg_help.js
-  name: 618家电星推官账号互助脚本
-  schedule_cron: 15 19 * 5,6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_xtg_help.js
-  yaml_file_name: jd_xtg_help.yml
-- file_name: jd_unsubscribe.js#sleep 10
-  name: 新品试用
-  schedule_cron: 0 17 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_unsubscribe.js#sleep 10
-  yaml_file_name: jd_try.yml
-- file_name: jd_speed.js
-  name: 天天加速
-  schedule_cron: 8 0-23/3 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_speed.js
-  yaml_file_name: jd_speed.yml
-- file_name: jd_live_lottery_social.js
-  name: 直播间抽奖(全局)
-  schedule_cron: 30 0,6,12 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_live_lottery_social.js
-  yaml_file_name: 0404jd_live_lottery_social.yml
-- file_name: jd_bean_change.js
-  name: 昨日收益
-  schedule_cron: 0 17 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_bean_change.js
-  yaml_file_name: wywjd_bean_change.yml
-- file_name: jd_mcxhd_brandcity.js
-  name: ^新潮品牌狂欢
-  schedule_cron: 30 1,2 1-18 6 *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_mcxhd_brandcity.js
-  yaml_file_name: jd_mcxhd_brandcity.yml
-- file_name: jd_jdzz.js
-  name: 京东赚赚
-  schedule_cron: 0,30 12-14/1 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_jdzz.js
-  yaml_file_name: jd_jdzz.yml
+- {file_name: zooBaojiexiaoxiaole.js, name: ^京东保洁消消乐, schedule_cron: 18 3 1-18 6 *,
+  script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/zooBaojiexiaoxiaole.js,
+  yaml_file_name: zooBaojiexiaoxiaole.yml}
+- {file_name: adolf_jxhb.js, name: 京喜阶梯红包, schedule_cron: '15 1 * 5,6 *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/adolf_jxhb.js, yaml_file_name: adolf_jxhb.yml}
+- {file_name: jd_plantBean.js, name: 种豆得豆, schedule_cron: 1 0-13/2 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_plantBean.js, yaml_file_name: jd_plantBean.yml}
+- {file_name: jd_gold_creator.js, name: 金榜创造营, schedule_cron: '13 17,14 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_gold_creator.js, yaml_file_name: jd_gold_creator.yml}
+- {file_name: jd_cash.js, name: 签到领现金, schedule_cron: 2 0-23/4 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_cash.js, yaml_file_name: jd_cash.yml}
+- {file_name: jd_daydlt.js, name: 天天大乐透, schedule_cron: 0 16 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_daydlt.js, yaml_file_name: jd_daydlt.yml}
+- {file_name: adolf_pk.js, name: ^京享值pk, schedule_cron: '15 1,10 2-20 6 *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/adolf_pk.js, yaml_file_name: adolf_pk.yml}
+- {file_name: jd_crazy_joy.js, name: crazyJoy任务, schedule_cron: '08 16,6 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_crazy_joy.js, yaml_file_name: jd_crazy_joy.yml}
+- {file_name: jd_mohe.js, name: ^5G超级盲盒, schedule_cron: '0 16,1-23/3 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_mohe.js, yaml_file_name: jd_mohe.yml}
+- {file_name: jd_necklace.js, name: 点点券, schedule_cron: '10 0,20 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_necklace.js, yaml_file_name: jd_necklace.yml}
+- {file_name: jd_price.js, name: 京东保价, schedule_cron: 0 3 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_price.js, yaml_file_name: jd_price.yml}
+- {file_name: jd_nzmh.js, name: 女妆盲盒, schedule_cron: '0 17,15 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_nzmh.js, yaml_file_name: jd_nzmh.yml}
+- {file_name: jd_live.js, name: 京东直播, schedule_cron: 0 4 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_live.js, yaml_file_name: jd_live.yaml}
+- {file_name: jd_fruit.js, name: 东东农场, schedule_cron: '10 18,22,4,10 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_fruit.js, yaml_file_name: jd_fruit.yml}
+- {file_name: jd_jxfactory.js, name: 京喜工厂, schedule_cron: 0 0-23/1 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_jxfactory.js, yaml_file_name: jd_jxfactory.yml}
+- {file_name: jd_unsubscribe.js, name: 取关京东店铺和商品, schedule_cron: 0 0 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_unsubscribe.js, yaml_file_name: jd_unsubscribe.yml}
+- {file_name: jd_health_collect.js, name: 京东健康收集, schedule_cron: 10 0-23/4 * * *,
+  script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/jd_health_collect.js,
+  yaml_file_name: 20210423jd_health_collect.yml}
+- {file_name: jd_family.js, name: 京东家庭号, schedule_cron: '1 4,15 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_family.js, yaml_file_name: jd_family.yml}
+- {file_name: zooLongzhou.js, name: ^ 与“粽”不同, schedule_cron: 15 5 1-18 6 *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/zooLongzhou.js, yaml_file_name: zooLongzhou.yml}
+- {file_name: adolf_superbox.js, name: 京东超级盒子, schedule_cron: '15 1,12 * 5,6 *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/adolf_superbox.js, yaml_file_name: adolf_superbox.yml}
+- {file_name: jd_bean_sign.js, name: 每日签到, schedule_cron: 08 17 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_bean_sign.js, yaml_file_name: jd_bean_sign.yml}
+- {file_name: jd_jxnc.js, name: 京喜农场, schedule_cron: '0 1,4,10 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_jxnc.js, yaml_file_name: jd_jxnc.yml}
+- {file_name: jd_flipcards.js, name: ^翻翻乐, schedule_cron: 1 0-23/1 * 6 *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_flipcards.js, yaml_file_name: jd_flipcards.yml}
+- {file_name: long_hby_lottery.js, name: 618主会场红包雨, schedule_cron: 50 11 1-18 6 *,
+  script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/long_hby_lottery.js,
+  yaml_file_name: long_hby_lottery.yml}
+- {file_name: jd_ms.js, name: 京东秒秒币, schedule_cron: 0 23 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_ms.js, yaml_file_name: jd_mmb.yml}
+- {file_name: jd_cfd.js, name: 京喜财富岛, schedule_cron: '50 16,0,5,11 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_cfd.js, yaml_file_name: jx_cfd.yml}
+- {file_name: adolf_martin.js, name: 人头马x博朗(打开adolf_martin.js脚本，按照提示添加环境变量运行), schedule_cron: 20
+    9 20-31 5 *, script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/adolf_martin.js,
+  yaml_file_name: adolf_martin.yml}
+- {file_name: jd_bookshop.js, name: 口袋书店(需要每天手动进入一次活动), schedule_cron: '20 2,6 * *
+    *', script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/jd_bookshop.js,
+  yaml_file_name: 0408jd_bookshopCar.yml}
+- {file_name: jd_health.js, name: 京东健康, schedule_cron: 10 0-23/4 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_health.js, yaml_file_name: 20210422jd_health.yml}
+- {file_name: jd_syj.js, name: 赚京豆, schedule_cron: 10 2 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_syj.js, yaml_file_name: 20210428jd_syj.yml}
+- {file_name: jd_jxd.js, name: 京小兑, schedule_cron: 1 0 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_jxd.js, yaml_file_name: jd_jxd.yml}
+- {file_name: jd_dphby.js, name: ^闪购红包雨, schedule_cron: 30 20 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_dphby.js, yaml_file_name: jd_dphby.yml}
+- {file_name: jd_redPacket.js, name: 全民开红包, schedule_cron: '0 17,8 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_redPacket.js, yaml_file_name: jd_redPacket.yml}
+- {file_name: jd_superMarket.js, name: 东东超市, schedule_cron: 30 * * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_superMarket.js, yaml_file_name: jd_superMarket.yml}
+- {file_name: jd_joy_feedPets.js, name: 宠汪汪喂食, schedule_cron: 15 0-23/1 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_joy_feedPets.js, yaml_file_name: jd_joy_feedPets.yml}
+- {file_name: jd_jintie.js, name: 金贴, schedule_cron: 10 0 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_jintie.js, yaml_file_name: 20210427jd_jintie.yml}
+- {file_name: jd_bean_home.js, name: 全民抢京豆, schedule_cron: 15 22 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_bean_home.js, yaml_file_name: jd_bean_home.yml}
+- {file_name: jd_speed_sign.js, name: 京东极速版, schedule_cron: '0 4,16,23 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_speed_sign.js, yaml_file_name: jd_speed_sign.yml}
+- {file_name: jd_rankingList.jssleep 5, name: 排行榜+进店领豆+京东快递+京东汽车, schedule_cron: 30
+    17 * * *, script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/jd_rankingList.jssleep
+    5, yaml_file_name: jd_totalList.yml}
+- {file_name: jd_jintie_wx.js, name: 京贴小程序, schedule_cron: 10 16 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_jintie_wx.js, yaml_file_name: jd_jintie_wx.yml}
+- {file_name: jd_factory.js, name: 京东工厂, schedule_cron: 21 0-23/1 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_factory.js, yaml_file_name: jd_factory.yml}
+- {file_name: jd_car_exchange.js, name: 京东汽车（换500豆）, schedule_cron: 0 15 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_car_exchange.js, yaml_file_name: jd_car_exchange.yml}
+- {file_name: jd_xtg.js, name: 618家电星推官, schedule_cron: '15 19 * 5,6 *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_xtg.js, yaml_file_name: jd_xtg.yml}
+- {file_name: jd_small_home.js, name: 东东小窝, schedule_cron: 30 6 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_small_home.js, yaml_file_name: jd_small_home.yml}
+- {file_name: jd_pigPet.js, name: 金融养猪, schedule_cron: 10 7 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_pigPet.js, yaml_file_name: jd_pigPet.yml}
+- {file_name: jd_sgmh.js, name: 闪购盲盒, schedule_cron: 57 15 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_sgmh.js, yaml_file_name: jd_sgmh.yml}
+- {file_name: jd_jxlhb.js, name: ^京喜领88元红包, schedule_cron: 4 2 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_jxlhb.js, yaml_file_name: jd_jxlhb.yml}
+- {file_name: jd_shop_lottery.js, name: 店铺大转盘, schedule_cron: 57 15 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_shop_lottery.js, yaml_file_name: jd_shop_lottery.yml}
+- {file_name: superBrand.js, name: ^特物ZX联想, schedule_cron: 30 3 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/superBrand.js, yaml_file_name: superBrand.yml}
+- {file_name: jd_star_shop.js, name: ^京东星店长, schedule_cron: '0 17,13 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_star_shop.js, yaml_file_name: jd_star_shop.yml}
+- {file_name: jd_market_lottery.js, name: 幸运大转盘, schedule_cron: 4 2 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_market_lottery.js, yaml_file_name: 20210425jd_market_lottery.yml}
+- {file_name: z_carnivalcity.js, name: 618手机狂欢城, schedule_cron: '0 16,22,4,10 * *
+    *', script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/z_carnivalcity.js,
+  yaml_file_name: z_carnivalcity.yml}
+- {file_name: jd_joy_steal.js, name: 宠汪汪偷好友积分与狗粮, schedule_cron: 10 0-21/3 * * *,
+  script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/jd_joy_steal.js,
+  yaml_file_name: jd_joy_steal.yml}
+- {file_name: jd_zooCollect.js, name: 618动物连萌收金币, schedule_cron: 0 0-23/1 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_zooCollect.js, yaml_file_name: jd_zooCollect.yml}
+- {file_name: jd_joy.js, name: 宠汪汪, schedule_cron: '04 16,22,4,10 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_joy.js, yaml_file_name: jd_joy.yml}
+- {file_name: adolf_newInteraction.js, name: 618大势新品赏, schedule_cron: '15 1,12 * 5,6
+    *', script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/adolf_newInteraction.js,
+  yaml_file_name: adolf_newInteraction.yml}
+- {file_name: adolf_flp.js, name: 飞利浦电视成长记, schedule_cron: '15 5 * 5,6 *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/adolf_flp.js, yaml_file_name: adolf_flp.yml}
+- {file_name: jd_daily_lottery.js, name: 每日抽奖, schedule_cron: '10 17,11,5 * * *',
+  script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/jd_daily_lottery.js,
+  yaml_file_name: jd_daily_lottery.yml}
+- {file_name: jd_zoo.js, name: 618动物联萌, schedule_cron: 10 0-23/1 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_zoo.js, yaml_file_name: jd_zoo.yml}
+- {file_name: adolf_oneplus.js, name: 赢一加新品手机, schedule_cron: '25 1 * 5,6 *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/adolf_oneplus.js, yaml_file_name: adolf_oneplus.yml}
+- {file_name: jd_pet.js, name: 东东萌宠, schedule_cron: '15 22,4,10 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_pet.js, yaml_file_name: jd_pet.yml}
+- {file_name: jd_moneyTree.js, name: 摇钱树, schedule_cron: 3 0-23/2 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_moneyTree.js, yaml_file_name: jd_moneyTree.yml}
+- {file_name: jd_joy_reward.js, name: 宠汪汪(换20豆）, schedule_cron: '0 23,15,7 * * *',
+  script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/jd_joy_reward.js,
+  yaml_file_name: jd_joy_reward.yml}
+- {file_name: monk_shop_add_to_car.js, name: 店铺加购有礼, schedule_cron: 15 4 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/monk_shop_add_to_car.js, yaml_file_name: 0406monk_shop_add_to_car.yml}
+- {file_name: jd_gcip.js, name: ^京东特物国创IP, schedule_cron: 1 18 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_gcip.js, yaml_file_name: jd_gcip.yml}
+- {file_name: jd_speed_redpocke.js, name: 京东极速版红包, schedule_cron: '50 4,12 * * *',
+  script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/jd_speed_redpocke.js,
+  yaml_file_name: jd_speed_redpocke.yml}
+- {file_name: jd_club_lottery.js, name: 摇京豆, schedule_cron: '10 15,16 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_club_lottery.js, yaml_file_name: 0418jd_club_lottery.yml}
+- {file_name: jd_ppdz.js, name: 泡泡大战, schedule_cron: 30 0 1-6 6 *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_ppdz.js, yaml_file_name: jd_ppdz.yml}
+- {file_name: jd_lotteryMachine.js, name: 京东抽奖机, schedule_cron: 28 4 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_lotteryMachine.js, yaml_file_name: jd_lotteryMachine.yml}
+- {file_name: jd_xtg_help.js, name: 618家电星推官账号互助脚本, schedule_cron: '15 19 * 5,6 *',
+  script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/jd_xtg_help.js,
+  yaml_file_name: jd_xtg_help.yml}
+- {file_name: jd_unsubscribe.js#sleep 10, name: 新品试用, schedule_cron: 0 17 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_unsubscribe.js#sleep 10, yaml_file_name: jd_try.yml}
+- {file_name: jd_speed.js, name: 天天加速, schedule_cron: 8 0-23/3 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_speed.js, yaml_file_name: jd_speed.yml}
+- {file_name: jd_live_lottery_social.js, name: 直播间抽奖(全局), schedule_cron: '30 0,6,12
+    * * *', script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/jd_live_lottery_social.js,
+  yaml_file_name: 0404jd_live_lottery_social.yml}
+- {file_name: jd_bean_change.js, name: 昨日收益, schedule_cron: 0 17 * * *, script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_bean_change.js, yaml_file_name: wywjd_bean_change.yml}
+- {file_name: jd_mcxhd_brandcity.js, name: ^新潮品牌狂欢, schedule_cron: '30 1,2 1-18 6
+    *', script_dir: /home/arvin/code/JD-SCRIPT, script_file: /home/arvin/code/JD-SCRIPT/jd_mcxhd_brandcity.js,
+  yaml_file_name: jd_mcxhd_brandcity.yml}
+- {file_name: jd_jdzz.js, name: 京东赚赚, schedule_cron: '0,30 12-14/1 * * *', script_dir: /home/arvin/code/JD-SCRIPT,
+  script_file: /home/arvin/code/JD-SCRIPT/jd_jdzz.js, yaml_file_name: jd_jdzz.yml}

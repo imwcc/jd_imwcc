@@ -58,7 +58,7 @@ if __name__ == '__main__':
     yaml_dir = os.path.join(new_scripts_dir, '.github/workflows')
     yaml_files = os.listdir(yaml_dir)
 
-    yaml_parse = parse_yaml()
+    yaml_parse = parse_yaml.parse_yaml()
     result_dic = {}
     result_dic['name'] = "JD-SCRIPTS"
     result_dic['tasks'] = []
