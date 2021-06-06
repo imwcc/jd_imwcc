@@ -65,7 +65,6 @@ if __name__ == '__main__':
                         schedule_cron = task['schedule_cron']
                         script_file_name = str(task['file_name'])
                         script_file_absolute_path = task['script_file']
-                        print(comment, schedule_cron, script_file_name, script_file_absolute_path)
 
                         if script_file_name in result_crontab_list_file_name:
                             logging.info("{} Name: {} 已经存在于上次循环".format(str(i), script_file_name))

@@ -76,7 +76,6 @@ if __name__ == '__main__':
 
             yaml_dic = yaml_parse.begin_parse_file(os.path.join(yaml_dir, yaml_file), new_scripts_dir)
             if yaml_dic is not None and yaml_dic != {}:
-                print(yaml_dic)
                 if yaml_dic.get('file_name') in exclude_yaml_file_list:
                     logging.info("js file {} In exclude list".format(yaml_dic.get('file_name')))
                     continue
@@ -85,7 +84,6 @@ if __name__ == '__main__':
             logging.error(yaml_file)
             logging.error(str(e))
 
-    print(result_dic)
     with open(RESULT_FILE, 'w', encoding="utf-8") as f:
         yaml.dump(result_dic, f, encoding='utf-8', allow_unicode=True)
 

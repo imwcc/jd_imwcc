@@ -94,7 +94,6 @@ if __name__ == '__main__':
                 logging.info("文件: {} 解析失败对象: {}".format(parse_task_file, item))
                 continue
 
-    print(result_dic)
     with open(RESULT_FILE, 'w', encoding="utf-8") as f:
         yaml.dump(result_dic, f, encoding='utf-8', allow_unicode=True)
 
