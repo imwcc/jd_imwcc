@@ -48,7 +48,7 @@ if __name__ == '__main__':
                         if '.js' in i:
                             old_crontab_list.append(line.strip())
                 elif 'jtask' in line:
-                    old_crontab_list.append(line.strip('jtask')[-1].strip()+ '.js')
+                    old_crontab_list.append(line.split('jtask')[-1].strip() + '.js')
 
     # 1, 统计own
     result_crontab_list = []
@@ -69,7 +69,7 @@ if __name__ == '__main__':
                         print(comment, schedule_cron, script_file_name, script_file_absolute_path)
 
                         if script_file_name in result_crontab_list_file_name:
-                            logging.info("{} Name: {} 已经存在于上次循环".format(str(i),script_file_name ))
+                            logging.info("{} Name: {} 已经存在于上次循环".format(str(i), script_file_name))
                             continue
                         is_in_old_crontab = False
                         # 判斷是否在 老旧的 crontabl list 配置中， 若是 退出
@@ -106,7 +106,3 @@ if __name__ == '__main__':
             for line in result_crontab_list:
                 logging.info(line)
                 f.write(line + '\n')
-
-
-
-
