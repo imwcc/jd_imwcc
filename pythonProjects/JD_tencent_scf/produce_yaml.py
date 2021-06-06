@@ -5,7 +5,7 @@ import demjson
 import socket
 import yaml
 sys.path.append("..")
-from sendNotify import sendNotify
+from utils import sendNotify
 
 import logging
 

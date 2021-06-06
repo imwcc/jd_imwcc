@@ -16,7 +16,7 @@ def readSecret(key, default=""):
         return default
 
 
-class   sendNotify:
+class  sendNotify:
     # # =======================================微信server酱通知设置区域===========================================
     # # 此处填你申请的SCKEY.
     # # 注：此处设置github action用户填写到Settings-Secrets里面(Name输入PUSH_KEY)

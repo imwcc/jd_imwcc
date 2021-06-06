@@ -96,12 +96,6 @@ tasks:
   script_dir: /home/arvin/code/JD-SCRIPT
   script_file: /home/arvin/code/JD-SCRIPT/jd_unsubscribe.js
   yaml_file_name: jd_unsubscribe.yml
-- file_name: jd_dpqd2.js -o jd_dpqd2.js
-  name: 店铺签到+interCenter渠道店铺签到
-  schedule_cron: 10 16 * * *
-  script_dir: /home/arvin/code/JD-SCRIPT
-  script_file: /home/arvin/code/JD-SCRIPT/jd_dpqd2.js -o jd_dpqd2.js
-  yaml_file_name: 20210323jd_dpqd.yml
 - file_name: jd_health_collect.js
   name: 京东健康收集
   schedule_cron: 10 0-23/4 * * *

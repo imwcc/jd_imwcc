@@ -3,10 +3,8 @@ import sys
 import os
 import socket
 import yaml
-
 sys.path.append("..")
-# from utils import parse_yaml
-from parse_yaml import parse_yaml
+from utils import parse_yaml
 
 import logging
 
