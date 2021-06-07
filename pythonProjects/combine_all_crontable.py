@@ -2,6 +2,8 @@ import socket
 import logging
 import os
 import time
+
+import configparser
 import yaml
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
@@ -12,9 +14,21 @@ FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 HOST_NAME = socket.gethostname()
 DEBUG = HOST_NAME != 'jd-arvin'
 
-exclude_dir = ['test']
+exclude_dir = []
+priority_order_list = []
 
-priority_order_list = ['JD_tencent_scf', 'JD-SCRIPTS']
+config = configparser.ConfigParser()
+config.read(os.path.join(FILE_DIR, 'combine_all_crontable.cfg'))
+for key in config['SCRIPTS']:
+    if key == 'priority_order_list':
+        for i in config.get('SCRIPTS', key).replace('\n', '').split(','):
+            priority_order_list.append(str(i).strip())
+    elif key == 'exclude_dir':
+        for i in config.get('SCRIPTS', key).replace('\n', '').split(','):
+            exclude_dir.append(str(i).strip())
+
+logging.info("exclude dir {}".format(exclude_dir))
+logging.info("scripts_config dir {}".format(priority_order_list))
 
 if HOST_NAME == 'jd-arvin':
     ROOT_DIR = '/jd/own'
@@ -53,9 +67,18 @@ if __name__ == '__main__':
     result_crontab_list = []
     result_crontab_list_file_name = []
 
+    # 生成yaml 文件:
+    for i in priority_order_list:
+        produce_yaml_file = os.path.join(FILE_DIR, i, 'produce_yaml.py')
+        if os.path.isfile(produce_yaml_file):
+            os.system('python3 {}'.format(produce_yaml_file))
+        else:
+            logging.error("生成yaml文件不存在,将使用旧文件: ".format(produce_yaml_file))
+
     for i in priority_order_list:
         task_yaml_file = os.path.join(FILE_DIR, i, 'task.yaml')
         temp_crontab_list = []
+        logging.info("开始解析: {}".format(task_yaml_file))
         if os.path.isfile(task_yaml_file):
             try:
                 with open(task_yaml_file, 'r') as f:

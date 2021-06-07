@@ -15,17 +15,18 @@ logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(leve
 
 print(FILE_DIR)
 
+# ========================== 不变
+
 HOST_NAME = socket.gethostname()
 DEBUG = HOST_NAME != 'jd-arvin'
 
 RESULT_FILE = os.path.join(FILE_DIR, 'task.yaml')
 
-config = configparser.ConfigParser()
-config.read(os.path.join(FILE_DIR, 'exclude.cfg'))
-
 exclude_file_list = []
 exclude_yaml_file_list = []
 
+config = configparser.ConfigParser()
+config.read(os.path.join(FILE_DIR, 'exclude.cfg'))
 for key in config['EXCLUDE']:
     if key == 'js_exclude_files':
         for i in config.get('EXCLUDE', key).replace('\n', '').split(','):
@@ -42,11 +43,14 @@ elif HOST_NAME == 'jd-arvin':
 
 elif HOST_NAME == 'ubuntu157362':
     ROOT_DIR = '/home/arvin/code'
+# ========================== 不变
 
 if HOST_NAME == 'jd-arvin':
-    new_scripts_dir = os.path.join(ROOT_DIR, 'hapecoder_JD-SCRIPT')
+    new_scripts_dir = os.path.join(ROOT_DIR, 'mmsc2020_MyActions')
 else:
-    new_scripts_dir = os.path.join(ROOT_DIR, 'JD-SCRIPT')
+    new_scripts_dir = os.path.join(ROOT_DIR, 'MyActions')
+
+script_name = 'MyActions'
 
 if not os.path.exists(new_scripts_dir):
     logging.error("找不到配置文件")
@@ -61,7 +65,8 @@ if __name__ == '__main__':
 
     yaml_parse = parse_yaml.parse_yaml()
     result_dic = {}
-    result_dic['name'] = "JD-SCRIPTS"
+
+    result_dic['name'] = script_name
     result_dic['tasks'] = []
 
     logging.info("exclude js list {}".format(exclude_file_list))
@@ -69,12 +74,11 @@ if __name__ == '__main__':
 
     for yaml_file in yaml_files:
         try:
-
             if yaml_file in exclude_yaml_file_list:
                 logging.info("yaml file {} In exclude list".format(yaml_dic.get('yaml_file_name')))
                 continue
 
-            yaml_dic = yaml_parse.begin_parse_file(os.path.join(yaml_dir, yaml_file), new_scripts_dir)
+            yaml_dic = yaml_parse.begin_parse_myactions_file(os.path.join(yaml_dir, yaml_file), new_scripts_dir)
             if yaml_dic is not None and yaml_dic != {}:
                 if yaml_dic.get('file_name') in exclude_file_list:
                     logging.info("js file {} In exclude list".format(yaml_dic.get('file_name')))
