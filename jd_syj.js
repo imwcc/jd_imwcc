@@ -41,7 +41,7 @@ env_remove_tuan = process.env.REMOVE_TUAN_NUMBER
 let remove_tuan_number = 3
 if (typeof(env_remove_tuan) != "undefined")
 {
-    remove_tuan_number = parseInt(env_remove_tuan)
+  remove_tuan_number = parseInt(env_remove_tuan)
 }
 console.log("env_remove_tuan: " + remove_tuan_number)
 
@@ -92,8 +92,10 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
       cookie = cookiesArr[i];
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
       if ($.canHelp && (cookiesArr.length > $.assistNum)) {
-        if ($.tuanList.length) console.log(`开始账号内部互助 赚京豆-瓜分京豆 活动，优先内部账号互助`)
-        for (let j = 0; j < $.tuanList.length - remove_tuan_number; ++j) {
+        let tuan_lenth = $.tuanList.length - remove_tuan_number
+        if (tuan_lenth) console.log(`开始账号内部互助 赚京豆-瓜分京豆 活动，优先内部账号互助`)
+        console.log(`内部团数量: ` + tuan_lenth)
+        for (let j = 0; j < tuan_lenth; ++j) {
           console.log(`账号 ${$.UserName} 开始给 【${$.tuanList[j]['assistedPinEncrypted']}】助力`)
           await helpFriendTuan($.tuanList[j])
           if(!$.canHelp) break
