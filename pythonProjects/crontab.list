@@ -294,3 +294,28 @@
 28 9 20-27 5 * otask /home/arvin/code/JD_tencent_scf/jd_adolf_mi.js
 # =========== JD_tencent_scf end 2021-06-07 13:41:08  ==============
 
+# =========== jd-scripts-docker start 2021-06-08 14:19:27  ==============
+# 京喜财富岛
+0 * * * * otask /home/arvin/code/jd-scripts-docker/from/jx_cfd.js
+# 京喜财富岛兑换提醒
+30 6,12,22 * * * otask /home/arvin/code/jd-scripts-docker/from/jx_cfd_exchange.js
+# 东东超市兑换奖品
+0 0 0 * * * otask /home/arvin/code/jd-scripts-docker/from/jd_blueCoin_1000.js
+# 东东超市兑换奖品
+0 0 0 * * * otask /home/arvin/code/jd-scripts-docker/from/jd_blueCoin_20.js
+# 东东超市兑换奖品
+0 0 0 * * * otask /home/arvin/code/jd-scripts-docker/from/jd_blueCoin_chunzhen.js
+# 东东超市兑换奖品
+0 0 0 * * * otask /home/arvin/code/jd-scripts-docker/from/jd_blueCoin_chunzhenxmy.js
+# 京东小魔方
+10 10 4-6 4 * otask /home/arvin/code/jd-scripts-docker/from/jd_xmf.js
+# 京喜财富岛
+30 23 * * * otask /home/arvin/code/jd-scripts-docker/from/jd_jxcfd.js
+# 京喜签到消消乐
+10 9 * * * otask /home/arvin/code/jd-scripts-docker/from/jx_cash_sign.js
+# 动物联萌
+5 * * * * otask /home/arvin/code/jd-scripts-docker/from/jd_zoo-new.js
+# 翻翻乐
+1 0-23/1 * 6 * otask /home/arvin/code/jd-scripts-docker/from/jd_618redpacket.js
+# =========== jd-scripts-docker end 2021-06-08 14:19:27  ==============
+

@@ -1,4 +1,5 @@
 import configparser
+import re
 import sys
 import os
 import demjson
@@ -74,34 +75,51 @@ if __name__ == '__main__':
         for line in f.readlines():
             line = line.strip().replace('\n', '')
 
-            jsFile = None
+            # 1. 找到from 中enable的 js 文件
+            jsFromFile = None
+
             if line.startswith('cp '):
                 for i in line.split():
-                    if '.js' in i:
-                        print(".js")
+                    if '.js' in i and 'from' in i:
+                        jsFromFile = i.split('/')[-1]
+                        break
 
+            #2. 找到enable 文件的配置
+            if jsFromFile != None:
+                logging.info("文件名: " + jsFromFile)
+                task_of_config = None
+                with open(os.path.join(new_scripts_dir, 'from', jsFromFile), 'r') as f:
+                    for line in f.readlines():
+                        line = line.replace('/n', '').strip()
+                        if line.startswith('cron '):
+                            # logging.info(line)
+                            print(line)
+                            task_of_config = line
+                            break
+                # 3. 根据task_of_config 解析
+                if task_of_config == None:
+                    logging.error("找不到 cron 配置文件，请手动配置: " + jsFromFile)
+                else:
+                    re_str = str_pat = re.compile(r'\"(.*)\"')
+                    if len(re_str.findall(task_of_config)) == 1:
+                        schedule_time = re_str.findall(task_of_config)[0]
+                    else:
+                        logging.error("找不到 schedule_time :" + task_of_config)
+                        continue
 
-
-        # result = demjson.decode(s)
-        # for item in result.get("list"):
-        #     try:
-        #         file_name = item.get('job').get('target').split('/')[-1].strip()
-        #         if file_name != '':
-        #             if file_name in exclude_file_list:
-        #                 logging.info("js {} 在排除列表中，忽略".format(file_name))
-        #                 continue
-        #             temp_dic = {}
-        #             temp_dic['name'] = item.get('name')
-        #             temp_dic['schedule_cron'] = item.get('time')
-        #             temp_dic['file_name'] = file_name
-        #             temp_dic['script_dir'] = new_scripts_dir
-        #             temp_dic['script_file'] = os.path.join(new_scripts_dir, file_name)
-        #             result_dic.get('tasks').append(temp_dic)
-        #
-        #     except Exception as e:
-        #         logging.error(e)
-        #         logging.info("文件: {} 解析失败对象: {}".format(parse_task_file, item))
-        #         continue
+                    if len(task_of_config.split('tag=')) > 1 and task_of_config.split('tag=')[-1] != '':
+                        schedule_name = task_of_config.split('tag=')[-1]
+                    else:
+                        logging.error("找不到 schedule_name :" + task_of_config)
+                        continue
+                    temp_dic = {}
+                    temp_dic['name'] = schedule_name
+                    temp_dic['file_name'] = jsFromFile
+                    temp_dic['script_dir'] = new_scripts_dir
+                    temp_dic['schedule_cron'] = schedule_time
+                    temp_dic['script_file'] = os.path.join(new_scripts_dir, 'from', jsFromFile)
+                    print(temp_dic)
+                    result_dic.get('tasks').append(temp_dic)
 
     with open(RESULT_FILE, 'w', encoding="utf-8") as f:
         yaml.dump(result_dic, f, encoding='utf-8', allow_unicode=True)
