@@ -71,6 +71,7 @@ if __name__ == '__main__':
     for i in priority_order_list:
         produce_yaml_file = os.path.join(FILE_DIR, i, 'produce_yaml.py')
         if os.path.isfile(produce_yaml_file):
+            logging.info('python3 {}'.format(produce_yaml_file))
             os.system('python3 {}'.format(produce_yaml_file))
         else:
             logging.error("生成yaml文件不存在,将使用旧文件: ".format(produce_yaml_file))
