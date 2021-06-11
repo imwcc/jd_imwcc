@@ -52,8 +52,8 @@ if __name__ == '__main__':
                 line = line.strip().replace('\n', '')
                 if line.strip() == '':
                     continue
-                elif line.startswith('#'):
-                    continue
+                # elif line.startswith('#'):
+                #     continue
                 elif '.js' not in line and 'jtask' not in line:
                     continue
                 if '.js' in line:

@@ -46,7 +46,7 @@ elif HOST_NAME == 'ubuntu157362':
 # ========================== 不变
 
 if HOST_NAME == 'jd-arvin':
-    new_scripts_dir = os.path.join(ROOT_DIR, 'mmsc2020_MyActions')
+    new_scripts_dir = os.path.join(ROOT_DIR, 'wuzhi04_MyActions')
 else:
     new_scripts_dir = os.path.join(ROOT_DIR, 'MyActions')
 
