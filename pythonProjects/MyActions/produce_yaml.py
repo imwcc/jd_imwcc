@@ -5,7 +5,8 @@ import socket
 import yaml
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(os.path.dirname(FILE_DIR)))
-from utils import parse_yaml
+# from utils import parse_yaml
+from parse_yaml import parse_yaml
 
 import logging
 
@@ -63,7 +64,7 @@ if __name__ == '__main__':
     yaml_dir = os.path.join(new_scripts_dir, '.github/workflows')
     yaml_files = os.listdir(yaml_dir)
 
-    yaml_parse = parse_yaml.parse_yaml()
+    yaml_parse = parse_yaml()
     result_dic = {}
 
     result_dic['name'] = script_name

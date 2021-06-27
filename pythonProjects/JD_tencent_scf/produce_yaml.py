@@ -29,7 +29,7 @@ config.read(os.path.join(FILE_DIR, 'exclude.cfg'))
 
 exclude_file_list = []
 exclude_yaml_file_list = []
-notify = sendNotify.sendNotify()
+# notify = sendNotify.sendNotify()
 
 for key in config['EXCLUDE']:
     if key == 'js_exclude_files':
