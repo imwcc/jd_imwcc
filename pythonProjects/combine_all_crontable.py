@@ -16,9 +16,11 @@ DEBUG = HOST_NAME != 'jd-arvin'
 
 exclude_dir = []
 priority_order_list = []
+exclude_file_list = []
 
 config = configparser.ConfigParser()
 config.read(os.path.join(FILE_DIR, 'combine_all_crontable.cfg'))
+
 for key in config['SCRIPTS']:
     if key == 'priority_order_list':
         for i in config.get('SCRIPTS', key).replace('\n', '').split(','):
@@ -27,8 +29,14 @@ for key in config['SCRIPTS']:
         for i in config.get('SCRIPTS', key).replace('\n', '').split(','):
             exclude_dir.append(str(i).strip())
 
+for key in config['EXCLUDE']:
+    if key == 'js_exclude_files':
+        for i in config.get('EXCLUDE', key).replace('\n', '').split(','):
+            exclude_file_list.append(str(i).strip())
+
 logging.info("exclude dir {}".format(exclude_dir))
 logging.info("scripts_config dir {}".format(priority_order_list))
+logging.info("exclude_file_list {}".format(exclude_file_list))
 
 if HOST_NAME == 'jd-arvin':
     ROOT_DIR = '/jd/own'
@@ -90,6 +98,10 @@ if __name__ == '__main__':
                         script_file_name = str(task['file_name'])
                         script_file_absolute_path = task['script_file']
 
+                        if script_file_name in exclude_file_list:
+                            logging.info("{} 在排除列表中, 忽略".format(script_file_name))
+                            continue
+
                         if script_file_name in result_crontab_list_file_name:
                             logging.info("{} Name: {} 已经存在于上次循环".format(str(i), script_file_name))
                             continue
@@ -102,7 +114,6 @@ if __name__ == '__main__':
                                 break
                         if is_in_old_crontab:
                             continue
-
                         comment = "# {}".format(comment)
                         temp_crontab_list.append(comment)
                         crontab_item = "{} otask {}".format(schedule_cron, script_file_absolute_path)
