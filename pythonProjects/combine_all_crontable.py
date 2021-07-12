@@ -75,6 +75,14 @@ if __name__ == '__main__':
     result_crontab_list = []
     result_crontab_list_file_name = []
 
+    # 执行diy change 文件:
+    logging.info("执行diy change")
+    for i in priority_order_list:
+        diy_change_file = os.path.join(FILE_DIR, i, 'diy_change.py')
+        if os.path.isfile(diy_change_file):
+            logging.info('python3 {}'.format(diy_change_file))
+            os.system('python3 {}'.format(diy_change_file))
+
     # 生成yaml 文件:
     for i in priority_order_list:
         produce_yaml_file = os.path.join(FILE_DIR, i, 'produce_yaml.py')
