@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-cp -f $shell_dir/jshare.sh  /jd
+replace_source_shell_dir=$shell_dir/replace_source/shell
+
+cp -f $replace_source_shell_dir/jshare.sh  /jd
+cp -f $replace_source_shell_dir/jtask.sh  /jd
+cp -f $replace_source_shell_dir/jup.sh  /jd
 
 
 #======== jcode begin ============

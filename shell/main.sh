@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 root_dir=/jd/own
-js_dir=/jd/own/imwcc_jd_imwcc/js
 shell_dir=/jd/own/imwcc_jd_imwcc/shell
 
 
