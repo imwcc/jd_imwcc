@@ -4,7 +4,7 @@
 #code_from_path='default_code.config'
 
 target_file='/jd/jcode.sh'
-code_from_path='/jd/own/imwcc_jd_imwcc/default_code.config'
+code_from_path=$work_dir/default_code.config
 
 #imwcc1是打桩标志
 stake=`sed -n -e '/imwcc1/=' ${target_file}`
