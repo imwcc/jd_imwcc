@@ -65,6 +65,7 @@ logging.info(new_scripts_dir)
 
 if __name__ == '__main__':
     scripts_list = []
+
     for file_name in os.listdir(new_scripts_dir):
         if '.js' not in file_name:
             continue
@@ -87,3 +88,5 @@ if __name__ == '__main__':
         for cmd in cmds:
             logging.info("run {}".format(cmd))
             os.system(cmd)
+        print('cp {} /jd/scripts'.format(file_name))
+        os.system('cp {} /jd/scripts'.format(file_name))

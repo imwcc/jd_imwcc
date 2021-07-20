@@ -169,7 +169,7 @@ if __name__ == '__main__':
                     assert crontab_config is not None
                     # logging.info('schedule_cron: ' + crontab_config)
                 else:
-                    logging.info("定时器解析失败,使用默认配置 {}".format(script_name))
+                    logging.error("定时器解析失败,使用默认配置 {}".format(script_name))
                     crontab_config = "30 0 * * *"
                     if script_name not in white_files_list:
                         unable_read_crontab_files_list.append(script_name)
@@ -184,7 +184,7 @@ if __name__ == '__main__':
 
                 result_dic.get('tasks').append(temp_dic)
             else:
-                logging.info("没有找到Env信息： {}".format(script_path))
+                logging.error("没有找到Env信息： {}".format(script_path))
                 untrack_files_list.append(script_name)
 
     with open(RESULT_FILE, 'w', encoding="utf-8") as f:
