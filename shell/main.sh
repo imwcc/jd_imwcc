@@ -1,19 +1,16 @@
 #!/usr/bin/env bash
-root_dir=/jd/own
+root_dir=/jd/own/imwcc_jd_imwcc
 shell_dir=/jd/own/imwcc_jd_imwcc/shell
 
 
-if [ ! -x "$root_dir"]; then
+if [ ! -x "$root_dir" ]; then
   echo "$root_dir 不存在"
-  retrun -1
+  exit -1
 fi
-if [ ! -x "$js_dir"]; then
-  echo "$js_dir 不存在"
-  retrun -1
-fi
-if [ ! -x "$shell_dir"]; then
+
+if [ ! -x "$shell_dir" ]; then
   echo "$shell_dir 不存在"
-  retrun -1
+  exit -1
 fi
 
 . $shell_dir/replace_js.sh
