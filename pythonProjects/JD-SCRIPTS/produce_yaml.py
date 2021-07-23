@@ -6,7 +6,7 @@ import yaml
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(os.path.dirname(FILE_DIR)))
 # from utils import parse_yaml
-from parse_yaml import parse_yaml
+from utils.parse_yaml import parse_yaml
 import logging
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',

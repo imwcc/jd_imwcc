@@ -16,8 +16,8 @@ logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(leve
                     level=logging.DEBUG)
 logging.info(FILE_DIR)
 
-HOST_NAME = socket.gethostname()
-DEBUG = 'jd-arvin' not in HOST_NAME
+
+
 
 RESULT_FILE = os.path.join(FILE_DIR, 'task.yaml')
 
@@ -28,11 +28,14 @@ exclude_file_list = []
 exclude_yaml_file_list = []
 white_files_list = [] #忽律警告信息用
 
-HOST_NAME = None
+
+
 script_name = None
 ROOT_DIR = None
 check_cron_in_js_line = False
 
+HOST_NAME = socket.gethostname()
+DEBUG = 'jd-arvin' not in HOST_NAME
 if not DEBUG:
     config_name = 'CONFIG'
 else:
