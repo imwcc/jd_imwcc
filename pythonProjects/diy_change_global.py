@@ -36,10 +36,15 @@ assert ROOT_DIR is not None
 
 def remove_help_author_help(file):
     assert os.path.isfile(file), file
-    cmd = "sed -i 's/let helpAuthor = true/let helpAuthor = false/g' {}".format(
-        file)
-    result: bool = os.system(cmd) == 0
-    logging.info("{} {} ".format(result, cmd))
+    cmds = []
+    cmds.append("sed -i 's/let helpAuthor = true/let helpAuthor = false/g' {}".format(
+        file))
+    cmds.append("sed -i 's/const helpAuthor = true/const helpAuthor = false/g' {}".format(
+        file))
+
+    for cmd in cmds:
+        result: bool = os.system(cmd) == 0
+        logging.info("{} {} ".format(result, cmd))
 
 def is_need_skip(dir_name, file_name) -> bool:
     __skip_check = False
