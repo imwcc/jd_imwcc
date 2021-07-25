@@ -73,6 +73,8 @@ if __name__ == '__main__':
             logging.info("file {} 在排除列表中".format(file_name))
             continue
 
+        file_name_obsolute_path: str = os.path.join(new_scripts_dir, file_name)
+
         cmd1 = "cd {}; sed -i 's/const ShHelpAuthorFlag = true/const ShHelpAuthorFlag = false/g' {}".format(
             new_scripts_dir, file_name)
         cmd2 = "cd {};sed -i 's/\$.innerShInviteLists = getRandomArrayElements/ \/\/$.innerShInviteLists = getRandomArrayElements/g' {}".format(
@@ -88,5 +90,5 @@ if __name__ == '__main__':
         for cmd in cmds:
             logging.info("run {}".format(cmd))
             os.system(cmd)
-        print('cp {} /jd/scripts'.format(file_name))
-        os.system('cp {} /jd/scripts'.format(file_name))
+        print('cp {} /jd/scripts'.format(file_name_obsolute_path))
+        os.system('cp {} /jd/scripts'.format(file_name_obsolute_path))
