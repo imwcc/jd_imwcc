@@ -92,5 +92,5 @@ if __name__ == '__main__':
             os.system(cmd)
 
         if not file_name.startswith('jd_'):
-            print('cp {} /jd/scripts'.format(file_name_obsolute_path))
+            logging.info('cp {} /jd/scripts'.format(file_name_obsolute_path))
             os.system('cp {} /jd/scripts'.format(file_name_obsolute_path))
