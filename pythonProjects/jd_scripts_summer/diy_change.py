@@ -15,7 +15,7 @@ logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(leve
 logging.info(FILE_DIR)
 
 HOST_NAME = socket.gethostname()
-DEBUG = HOST_NAME != 'jd-arvin'
+DEBUG = 'jd-arvin' not in HOST_NAME
 
 RESULT_FILE = os.path.join(FILE_DIR, 'task.yaml')
 
@@ -90,5 +90,7 @@ if __name__ == '__main__':
         for cmd in cmds:
             logging.info("run {}".format(cmd))
             os.system(cmd)
-        print('cp {} /jd/scripts'.format(file_name_obsolute_path))
-        os.system('cp {} /jd/scripts'.format(file_name_obsolute_path))
+
+        if not file_name.startswith('jd_'):
+            print('cp {} /jd/scripts'.format(file_name_obsolute_path))
+            os.system('cp {} /jd/scripts'.format(file_name_obsolute_path))
