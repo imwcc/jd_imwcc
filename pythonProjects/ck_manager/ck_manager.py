@@ -38,8 +38,8 @@ config.read(ck_manager_config)
 
 out_put_ck_files = []
 max_support_user_single = 37
-# 线程池切片比例，过小会导致线程池过大，容易卡死
-thread_poll_size_ratio = 5
+# 线程池大小
+thread_poll_size = 5
 scan_login_url = None
 qinglong_ck_file = None
 admin_pushplus_token = None
@@ -68,12 +68,12 @@ for key in config[config_name]:
     elif key == 'admin_pushplus_token':
         admin_pushplus_token = config.get(config_name, key).replace('\n', '').replace(' ', '')
 
-    elif key == 'thread_poll_size_ratio':
+    elif key == 'thread_poll_size':
         try:
-            thread_poll_size_ratio = int(config.get(config_name, key).replace(' ', ''))
+            thread_poll_size = int(config.get(config_name, key).replace(' ', ''))
         except Exception as e:
             logging.error(e)
-            thread_poll_size_ratio = 5
+            thread_poll_size = 5
     else:
         logging.error("不支持的 key: " + key)
 
@@ -157,7 +157,7 @@ if __name__ == '__main__':
                             user_info_l.append(new_user)
         # 4. 并发刷新登陆状态
         logging.info("检查登陆状态开始")
-        executor = ThreadPoolExecutor(max_workers=len(user_info_l) / thread_poll_size_ratio)
+        executor = ThreadPoolExecutor(max_workers=thread_poll_size)
         for user_info in user_info_l:
             if not FORCE_LOGIN_CHECK and user_info.get_login_status() == LoginStatus.INVALID_LOGIN.value:
                 user_info.to_string()
