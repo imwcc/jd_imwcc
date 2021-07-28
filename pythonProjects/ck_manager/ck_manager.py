@@ -95,7 +95,7 @@ def bubbleSort(arr: list):
 
 
 def get_pt_pin(ck: str):
-    return ck.split('pt_pin=')[-1].replace(';', '')
+    return ck.split('pt_pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
 
 
 def send_notify(user: UserInfo):

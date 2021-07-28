@@ -81,7 +81,7 @@ class UserInfo:
         return getattr(self, attr)
 
     def get_pt_pin(self):
-        return self.get_cookie().split('pt_pin=')[-1].replace(';', '')
+        return self.get_cookie().split('pt_pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
 
     def to_string(self):
         for attr, value in self.__dict__.items():
