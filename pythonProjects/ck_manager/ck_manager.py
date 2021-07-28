@@ -156,11 +156,11 @@ if __name__ == '__main__':
                             new_user.to_string()
                             user_info_l.append(new_user)
         # 4. 并发刷新登陆状态
-        logging.info("检查登陆状态开始")
+        logging.info("检查登陆状态开始, 线程池数量: {}".format(thread_poll_size))
         executor = ThreadPoolExecutor(max_workers=thread_poll_size)
         for user_info in user_info_l:
             if not FORCE_LOGIN_CHECK and user_info.get_login_status() == LoginStatus.INVALID_LOGIN.value:
-                user_info.to_string()
+                logging.info("nickName={} pt_pin={}登陆已经失效，忽略检查".format(user_info.get_nick_name(), user_info.get_pt_pin()))
                 continue
 
 
@@ -175,7 +175,7 @@ if __name__ == '__main__':
 
 
             all_task = [executor.submit(check_login, user_info)]
-        wait(all_task, return_when=ALL_COMPLETED)
+        wait(all_task, return_when=ALL_COMPLETED, timeout=10)
         executor.shutdown()
         logging.info("检查登陆状态完成")
 
