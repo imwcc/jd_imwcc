@@ -189,15 +189,15 @@ if __name__ == '__main__':
                     logging.info("忽略用户: " + user_info.get_pt_pin())
         logging.info("{}个有效用户".format(len(out_v4_user_list)))
         for out_v4_ck_file in out_put_ck_files:
-            logging.info("开始写入文件: " + out_v4_ck_file)
             count = 0
             with open(out_v4_ck_file, 'w') as f:
                 for user_info in out_v4_user_list:
                     count += 1
                     f.writelines('Cookie{}="{}"\n'.format(count, user_info.get_cookie()))
                     if count == max_support_user_single:
-                        logging.info("文件写满: {} {}个".format(out_v4_ck_file, max_support_user_single))
                         break
+
+            logging.info("文件{} 写入{}个".format(out_v4_ck_file, count))
             # 上一轮输出写满的情况,保留前部3个用户到第二容器
             if count == max_support_user_single:
                 out_v4_user_list = out_v4_user_list[0:3] + out_v4_user_list[max_support_user_single:]
