@@ -2,3 +2,4 @@
 */*/task.yaml
 pythonProjects/crontab.list
 pythonProjects/test
+*/__pycache__
