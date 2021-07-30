@@ -68,7 +68,6 @@ class FileEventHandler(FileSystemEventHandler):
         else:
             print("file modified:{0}".format(event.src_path))
             if 'qinglong' in event.src_path:
-
                 cmd = f'cp -f {event.src_path} {qinglong_target_path}'
                 logging.info(f'run {cmd}')
                 os.system(cmd)
@@ -83,6 +82,7 @@ if __name__ == "__main__":
     observer = Observer()
     event_handler = FileEventHandler()
     for file in observer_files:
+        logging.info(f"begin observer: {file}")
         observer.schedule(event_handler, file, True)
     observer.start()
     try:
