@@ -160,7 +160,8 @@ if __name__ == '__main__':
         executor = ThreadPoolExecutor(max_workers=thread_poll_size)
         for user_info in user_info_l:
             if not FORCE_LOGIN_CHECK and user_info.get_login_status() == LoginStatus.INVALID_LOGIN.value:
-                logging.info("nickName={} pt_pin={}登陆已经失效，忽略检查".format(user_info.get_nick_name(), user_info.get_pt_pin()))
+                logging.info(
+                    "nickName={} pt_pin={}登陆已经失效，忽略检查".format(user_info.get_nick_name(), user_info.get_pt_pin()))
                 continue
 
 
@@ -204,6 +205,10 @@ if __name__ == '__main__':
             else:
                 logging.info("写入 v4 完成")
                 break
+
+        # 6. 格式化优先级
+        for index in range(len(user_info_l)):
+            user_info_l[index].set_priority(index + 1)
 
         with open(yamlPath, 'w', encoding='utf-8') as w_f:
             # 覆盖原先的配置文件

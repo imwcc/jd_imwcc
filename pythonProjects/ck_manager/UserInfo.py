@@ -1,3 +1,4 @@
+import datetime
 import sys
 import logging
 import os
@@ -112,6 +113,10 @@ class UserInfo:
         attr = str(sys._getframe().f_code.co_name).replace('set_', '')
         setattr(self, attr, value)
 
+    def set_priority(self, value: str):
+        attr = str(sys._getframe().f_code.co_name).replace('set_', '')
+        setattr(self, attr, value)
+
     def is_login(self):
         headers = {
             'Accept': '*/*',
@@ -143,17 +148,27 @@ class UserInfo:
             logging.error("Error: {} {}".format(self.get_cookie(), response))
             return False
 
+    def is_expired(self):
+        out_of_date = datetime.datetime.strptime(str(self.get_register_time()), '%Y-%m-%d')
+        current_date = datetime.datetime.strptime(str(date.today()), '%Y-%m-%d')
+        return {
+            "is_expired": (current_date-out_of_date).days < 0,
+            "remaining_days": (current_date-out_of_date).days
+        }
+
+
 if __name__ == '__main__':
     logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                         level=logging.DEBUG)
     ck = os.getenv('cookie')
     if ck is None:
         ck = 1
-
-    userInfo = UserInfo(ck, name='name', wechart='3', out_of_time='out_of_time', priority=1)
-    assert userInfo.get_cookie() == ck, userInfo.get_cookie()
+    userInfo = UserInfo(ck, name='name', wechart='3', out_of_time=date.today(), priority=1)
+    assert userInfo.get_cookie() == str(ck), userInfo.get_cookie()
     assert userInfo.get_name() == 'name', userInfo.get_name()
     assert userInfo.get_wechart() == '3', userInfo.wechart()
-    assert userInfo.get_out_of_time() == 'out_of_time', userInfo.out_of_time()
+    assert userInfo.get_out_of_time() == date.today(), userInfo.out_of_time()
     assert userInfo.get_priority() == 1, userInfo.priority()
-    print(userInfo.is_login())
+    a = datetime.datetime.strptime(str(userInfo.get_register_time()), '%Y-%m-%d')
+    b = datetime.datetime.strptime(str(date.today()), '%Y-%m-%d')
+    assert (b-a).days == 0
