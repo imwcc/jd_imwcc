@@ -12,7 +12,7 @@ logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(leve
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 HOST_NAME = socket.gethostname()
-DEBUG = HOST_NAME != 'jd-arvin'
+DEBUG = 'jd-arvin' not in HOST_NAME
 
 exclude_dir = []
 priority_order_list = []
@@ -38,7 +38,7 @@ logging.info("exclude dir {}".format(exclude_dir))
 logging.info("scripts_config dir {}".format(priority_order_list))
 logging.info("exclude_file_list {}".format(exclude_file_list))
 
-if HOST_NAME == 'jd-arvin':
+if 'jd-arvin' in HOST_NAME:
     ROOT_DIR = '/jd/own'
     crontab_imwcc_file = '/jd/own/imwcc_jd_imwcc/imwcc_crontab.list'
     crontab_result_file = '/jd/config/crontab.list'

@@ -17,7 +17,7 @@ logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(leve
 logging.info(FILE_DIR)
 
 HOST_NAME = socket.gethostname()
-DEBUG = HOST_NAME != 'jd-arvin'
+DEBUG = 'jd-arvin' not in HOST_NAME
 
 RESULT_FILE = os.path.join(FILE_DIR, 'task.yaml')
 

@@ -20,7 +20,7 @@ logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(leve
 print(FILE_DIR)
 
 HOST_NAME = socket.gethostname()
-DEBUG = HOST_NAME != 'jd-arvin'
+DEBUG = 'jd-arvin' not in HOST_NAME
 
 RESULT_FILE = os.path.join(FILE_DIR, 'task.yaml')
 
@@ -41,14 +41,12 @@ for key in config['EXCLUDE']:
 
 if HOST_NAME == 'arvin-wang':
     ROOT_DIR = '/home/arvin/code'
-
-elif HOST_NAME == 'jd-arvin':
-    ROOT_DIR = '/jd/own'
-
 elif HOST_NAME == 'ubuntu157362':
     ROOT_DIR = '/home/arvin/code'
+else:
+    ROOT_DIR = '/jd/own'
 
-if HOST_NAME == 'jd-arvin':
+if 'jd-arvin' in HOST_NAME:
     new_scripts_dir = os.path.join(ROOT_DIR, 'zero205_JD_tencent_scf')
 else:
     new_scripts_dir = os.path.join(ROOT_DIR, 'JD_tencent_scf')

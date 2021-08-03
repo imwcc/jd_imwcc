@@ -56,7 +56,7 @@ for key in config[config_name]:
         logging.error("不支持的 key: " + key)
 
 logging.info("HOST_NAME script_name ROOT_DIR {} {} {}".format(HOST_NAME, script_name, ROOT_DIR))
-assert HOST_NAME is not None
+# assert HOST_NAME is not None
 assert script_name is not None
 assert ROOT_DIR is not None
 

@@ -18,7 +18,7 @@ print(FILE_DIR)
 # ========================== 不变
 
 HOST_NAME = socket.gethostname()
-DEBUG = HOST_NAME != 'jd-arvin'
+DEBUG = 'jd-arvin' not in HOST_NAME
 
 RESULT_FILE = os.path.join(FILE_DIR, 'task.yaml')
 
@@ -37,15 +37,13 @@ for key in config['EXCLUDE']:
 
 if HOST_NAME == 'arvin-wang':
     ROOT_DIR = '/home/arvin/code'
-
-elif HOST_NAME == 'jd-arvin':
-    ROOT_DIR = '/jd/own'
-
 elif HOST_NAME == 'ubuntu157362':
     ROOT_DIR = '/home/arvin/code'
+else:
+    ROOT_DIR = '/jd/own'
 # ========================== 不变
 
-if HOST_NAME == 'jd-arvin':
+if 'jd-arvin' in HOST_NAME:
     new_scripts_dir = os.path.join(ROOT_DIR, 'wuzhi04_MyActions')
 else:
     new_scripts_dir = os.path.join(ROOT_DIR, 'MyActions')
