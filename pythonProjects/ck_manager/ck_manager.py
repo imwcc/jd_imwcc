@@ -180,7 +180,7 @@ if __name__ == '__main__':
 
 
             all_task = [executor.submit(check_login, user_info)]
-        wait(all_task, return_when=ALL_COMPLETED, timeout=10)
+        wait(all_task, return_when=ALL_COMPLETED, timeout=600)
         executor.shutdown()
         logging.info("检查登陆状态完成")
 
