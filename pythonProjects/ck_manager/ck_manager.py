@@ -68,6 +68,9 @@ for key in config[config_name]:
     elif key == 'admin_pushplus_token':
         admin_pushplus_token = config.get(config_name, key).replace('\n', '').replace(' ', '')
 
+    elif key == 'force_login_check':
+        FORCE_LOGIN_CHECK = config.get(config_name, key).replace('\n', '').replace(' ', '').lower() == 'true'
+
     elif key == 'thread_poll_size':
         try:
             thread_poll_size = int(config.get(config_name, key).replace(' ', ''))
