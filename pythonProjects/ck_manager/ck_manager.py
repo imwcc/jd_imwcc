@@ -162,6 +162,7 @@ if __name__ == '__main__':
         logging.info("检查登陆状态开始, 线程池数量: {}".format(thread_poll_size))
         executor = ThreadPoolExecutor(max_workers=thread_poll_size)
         for user_info in user_info_l:
+            logging.info("开始检查 nickName={} pt_pin={}".format(user_info.get_nick_name(), user_info.get_pt_pin()))
             if not FORCE_LOGIN_CHECK and user_info.get_login_status() == LoginStatus.INVALID_LOGIN.value:
                 logging.info(
                     "nickName={} pt_pin={}登陆已经失效，忽略检查".format(user_info.get_nick_name(), user_info.get_pt_pin()))

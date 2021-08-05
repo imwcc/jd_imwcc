@@ -172,3 +172,4 @@ if __name__ == '__main__':
     a = datetime.datetime.strptime(str(userInfo.get_register_time()), '%Y-%m-%d')
     b = datetime.datetime.strptime(str(date.today()), '%Y-%m-%d')
     assert (b-a).days == 0
+    print(userInfo.is_login())
