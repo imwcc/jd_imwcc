@@ -68,6 +68,12 @@ if __name__ == '__main__':
 
 
     for file_name in os.listdir(new_scripts_dir):
+        if file_name == 'utils' and os.path.isdir(file_name):
+            cmd = 'cp -rf {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
+            logging.info("run {}".format(cmd))
+            os.system(cmd)
+            continue
+
         if '.js' not in file_name:
             continue
         if file_name in exclude_file_list:
@@ -86,5 +92,9 @@ if __name__ == '__main__':
 
         cmds = [cmd1, cmd2, cmd3, remove_nick_name]
         for cmd in cmds:
+            logging.info("run {}".format(cmd))
+            os.system(cmd)
+        if os.path.isfile(file_name) and not file_name.startswith('jd'):
+            cmd = 'cp -f {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
             logging.info("run {}".format(cmd))
             os.system(cmd)
