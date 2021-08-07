@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
 
     for file_name in os.listdir(new_scripts_dir):
-        if file_name == 'utils' and os.path.isdir(file_name):
+        if file_name == 'utils' and os.path.isdir(os.path.join(new_scripts_dir, file_name)):
             cmd = 'cp -rf {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
             logging.info("run {}".format(cmd))
             os.system(cmd)
