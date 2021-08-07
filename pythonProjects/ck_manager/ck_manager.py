@@ -43,6 +43,7 @@ thread_poll_size = 5
 scan_login_url = None
 qinglong_ck_file = None
 admin_pushplus_token = None
+external_ck_file = None
 
 if not DEBUG:
     config_name = 'CONFIG'
@@ -70,6 +71,9 @@ for key in config[config_name]:
 
     elif key == 'force_login_check':
         FORCE_LOGIN_CHECK = config.get(config_name, key).replace('\n', '').replace(' ', '').lower() == 'true'
+
+    elif key == 'external_ck_file':
+        external_ck_file = config.get(config_name, key).replace('\n', '').replace(' ', '')
 
     elif key == 'thread_poll_size':
         try:
@@ -193,6 +197,41 @@ if __name__ == '__main__':
                 else:
                     logging.info("忽略用户: " + user_info.get_pt_pin())
         logging.info("{}个有效用户".format(len(out_v4_user_list)))
+        # 用户不足的时候，help from friends
+        if len(out_v4_user_list) < len(out_put_ck_files)*max_support_user_single:
+            request_ck_number = len(out_put_ck_files)*max_support_user_single - len(out_v4_user_list)
+            logging.info("用户不足，还需要加载{}个".format(request_ck_number))
+            # 1 从文本加载后需要倒叙
+            external_ck_list = []
+            if external_ck_file is not None and os.path.isfile(external_ck_file):
+                with open(external_ck_file, 'r') as f:
+                    for ck in f.readlines():
+                        ck = ck.replace(' ', '').replace('\n', '').replace('"', '')
+                        if ck == '':
+                            continue
+                        if 'pt_pin' not in ck or 'pt_key' not in ck:
+                            logging.error(f'不是有效的ck {ck}')
+                            continue
+                        external_ck_list.append(ck)
+            external_ck_list.reverse()
+            # 2. 加载进 out_v4_ck_file
+            for ck in external_ck_list:
+                user = UserInfo(ck=ck)
+                if user.is_login():
+                    is_new = True
+                    for user_info in out_v4_user_list:
+                        if user_info.get_pt_pin() == user.get_pt_pin():
+                            is_new = False
+                            break
+                    if is_new:
+                        out_v4_user_list.append(user)
+                if len(out_v4_user_list) == len(out_put_ck_files)*max_support_user_single:
+                    logging.info("加载外部ck完成")
+                    break
+            if len(out_v4_user_list) < len(out_put_ck_files)*max_support_user_single:
+                logging.info("加载外部ck没有完成, 差 {}个".format(len(out_put_ck_files)*max_support_user_single - len(out_v4_user_list)))
+            logging.info("加载外部用户后， {}个有效用户".format(len(out_v4_user_list)))
+
         for out_v4_ck_file in out_put_ck_files:
             count = 0
             with open(out_v4_ck_file, 'w') as f:
@@ -201,11 +240,10 @@ if __name__ == '__main__':
                     f.writelines('Cookie{}="{}"\n'.format(count, user_info.get_cookie()))
                     if count == max_support_user_single:
                         break
-
             logging.info("文件{} 写入{}个".format(out_v4_ck_file, count))
             # 上一轮输出写满的情况,保留前部3个用户到第二容器
             if count == max_support_user_single:
-                out_v4_user_list = out_v4_user_list[0:3] + out_v4_user_list[max_support_user_single:]
+                out_v4_user_list = out_v4_user_list[0:4] + out_v4_user_list[max_support_user_single:]
             else:
                 logging.info("写入 v4 完成")
                 break
