@@ -65,8 +65,6 @@ logging.info(new_scripts_dir)
 
 if __name__ == '__main__':
     scripts_list = []
-    cmd1 = "cd {}; sed -i 's/const ShHelpAuthorFlag = true/const ShHelpAuthorFlag = false/g' {}".format(
-        new_scripts_dir, 'jd_bean_home.js')
 
 
     for file_name in os.listdir(new_scripts_dir):
@@ -84,10 +82,9 @@ if __name__ == '__main__':
         cmd3 = "cd {}; sed -i 's/$.ShInviteLists.push(...$.ShInviteList,/ \/\/$.ShInviteLists.push(...$.ShInviteList,/g' {}".format(
             new_scripts_dir, file_name)
 
-        cmd4 = "cd {}; sed -i 's/\/\/ $.secretp = $.secretpInfo\[$.UserName\];/$.ShInviteLists = $.ShInviteList.slice(0,1)/g'  jd_summer_movement_help.js".format(
-            new_scripts_dir)
+        remove_nick_name = "cd {};sed -i 's/$.nickName\ =\ data.data.userInfo.baseInfo.nickname/$.nickName=\"\"/g' {}".format(new_scripts_dir, file_name)
 
-        cmds = [cmd1, cmd2, cmd3, cmd4]
+        cmds = [cmd1, cmd2, cmd3, remove_nick_name]
         for cmd in cmds:
             logging.info("run {}".format(cmd))
             os.system(cmd)
