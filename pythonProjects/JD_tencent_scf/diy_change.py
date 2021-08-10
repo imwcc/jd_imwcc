@@ -65,7 +65,11 @@ logging.info(new_scripts_dir)
 
 if __name__ == '__main__':
     scripts_list = []
+    cmds = []
+    cmd_1 = '''sed -i  's/await exec(`\${process.execPath} \${JD_DailyBonusPath} >> \${resultPath}`);/ await exec(`bash -x -D -l -c  \" \${process.execPath} \/jd\/scripts\/\${JD_DailyBonusPath}\"`/g' jd_bean_sign.js'''
+    cmds.append(cmd_1)
+    cmd_2 = f'cp {new_scripts_dir}/JDJRValidator_Smiek.js /jd/scripts'
+    cmds.append(cmd_2)
 
-    cmd = '''sed -i  's/await exec(`\${process.execPath} \${JD_DailyBonusPath} >> \${resultPath}`);/ await exec(`bash -x -D -l -c  \" \${process.execPath} \/jd\/scripts\/\${JD_DailyBonusPath}\"`/g' jd_bean_sign.js'''
-
-    os.system('cd {};{}'.format(new_scripts_dir, cmd))
+    for cmd in cmds:
+        os.system('cd {};{}'.format(new_scripts_dir, cmd))
