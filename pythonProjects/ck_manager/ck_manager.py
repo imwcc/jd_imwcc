@@ -141,7 +141,7 @@ if __name__ == '__main__':
         # 2. 根据优先级排序
         bubbleSort(user_info_l)
 
-        # 3. 更新认证 or 添加新用户
+        # 3. 更新CK or 添加新用户
         if os.path.isfile(qinglong_ck_file):
             with open(qinglong_ck_file, 'r', encoding='utf-8') as f:
                 for new_ck in f.readlines():
@@ -157,6 +157,7 @@ if __name__ == '__main__':
                                 else:
                                     logging.info("{} 更新ck: {}".format(pt_pin, new_ck))
                                     user_info.set_cookie(new_ck)
+                                    user_info.set_login_status(LoginStatus.NEED_CHECK.value)
                         if is_new_ck:
                             new_user = UserInfo(new_ck)
                             logging.info("添加新用户 {}".format(new_user))
