@@ -17,12 +17,16 @@ else:
 
 if DEBUG:
     v4_ck_file = os.getenv('v4_ck_file')
-
+    root_dir = '/home/arvin/code/jd_scripts'
 else:
     v4_ck_file = '/jd/config/cookie.sh'
+    root_dir = '/jd/scripts'
+
 
 assert os.path.isfile(yamlPath)
 assert os.path.isfile(v4_ck_file)
+if not DEBUG:
+    assert os.path.isfile(os.path.join(root_dir, 'jd_all_bean_change.js')), "jd_all_bean_change /jd/scripts' not seen"
 
 
 def send_bean_notify(user: UserInfo):
@@ -32,11 +36,7 @@ def send_bean_notify(user: UserInfo):
         logging.error("用户没有配置push 通知 {} {}".format(user.get_nick_name(), user.get_pt_pin()))
         return -1
     logging.info("开始发送通知 to： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
-    if DEBUG:
-        root_dir = '/home/arvin/code/jd_scripts'
-    else:
-        root_dir = '/jd/scripts'
-    cmd = "cd {};export JD_COOKIE=\"{}\";export PUSH_PLUS_TOKEN={}; node jd_bean_change.js".format(root_dir, user.get_cookie(),
+    cmd = "cd {};export JD_COOKIE=\"{}\";export PUSH_PLUS_TOKEN={}; node jd_all_bean_change.js".format(root_dir, user.get_cookie(),
                                                                        user.get_pushplus_token())
     logging.info(cmd)
     os.system(cmd)
