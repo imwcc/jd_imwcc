@@ -1,5 +1,5 @@
 import os
-from UserInfo import UserInfo
+from UserInfo import UserInfo, LoginStatus
 import socket
 import yaml
 import logging
@@ -22,7 +22,6 @@ else:
     v4_ck_file = '/jd/config/cookie.sh'
     root_dir = '/jd/scripts'
 
-
 assert os.path.isfile(yamlPath)
 assert os.path.isfile(v4_ck_file)
 if not DEBUG:
@@ -36,8 +35,9 @@ def send_bean_notify(user: UserInfo):
         logging.error("用户没有配置push 通知 {} {}".format(user.get_nick_name(), user.get_pt_pin()))
         return -1
     logging.info("开始发送通知 to： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
-    cmd = "cd {};export JD_COOKIE=\"{}\";export PUSH_PLUS_TOKEN={}; node jd_all_bean_change.js".format(root_dir, user.get_cookie(),
-                                                                       user.get_pushplus_token())
+    cmd = "cd {};export JD_COOKIE=\"{}\";export PUSH_PLUS_TOKEN={}; node jd_all_bean_change.js".format(root_dir,
+                                                                                                       user.get_cookie(),
+                                                                                                       user.get_pushplus_token())
     logging.info(cmd)
     os.system(cmd)
 
@@ -62,5 +62,6 @@ if __name__ == '__main__':
                     pt_pin = get_pt_pin(new_ck)
                     for user_info in user_info_l:
                         if user_info.get_pt_pin() == pt_pin:
-                            if user_info.get_pushplus_token() is not None:
-                                send_bean_notify(user_info)
+                            # if user_info.get_pushplus_token() is not None and user_info.get_login_status() < \
+                            #         LoginStatus.INVALID_LOGIN.value:
+                            send_bean_notify(user_info)
