@@ -1,6 +1,5 @@
+import os.path
 import socket
-from parse_yaml import parse_yaml
-from sendNotify import sendNotify
 import logging
 
 HOST_NAME = socket.gethostname()
@@ -51,7 +50,8 @@ def get_crontab_from_line(line: str) -> str:
                     break
     return crontab_config
 
-def get_js_name(line:str) -> str:
+
+def get_js_name(line: str) -> str:
     result = None
     if '.js' in line:
         for key in line.split(' '):
@@ -60,3 +60,39 @@ def get_js_name(line:str) -> str:
     return result
 
 
+def get_env_name(file: str) -> str:
+    result = 'not found'
+    if not os.path.isfile(file):
+        logging.error("file is not found: " + file)
+        return result
+    with open(file, 'r', encoding="utf-8") as f:
+        for line in f.readlines():
+            line = line.strip()
+
+            if "new Env" in line:
+                begin_index = line.find('new Env') + 8
+                end_index = -1
+                for index, ch in enumerate(line):
+                    if str(ch) == ')':
+                        end_index = index
+                # logging.info(line)
+                # logging.info(type(begin_index))
+                # logging.info(type(end_index))
+                # logging.info(begin_index, end_index)
+                result = str(line[begin_index:end_index]).replace("'", "").replace("\"", "")
+                # logging.info("名字: {}".format(schedule_name))
+                is_find_Env = True
+            elif "new API" in line:
+                begin_index = line.find('new API') + 8
+                end_index = -1
+                for index, ch in enumerate(line):
+                    if str(ch) == ')':
+                        end_index = index
+                # logging.info(line)
+                # logging.info(type(begin_index))
+                # logging.info(type(end_index))
+                # logging.info(begin_index, end_index)
+                result = str(line[begin_index:end_index]).replace("'", "").replace("\"", "")
+                # logging.info("名字: {}".format(schedule_name))
+                is_find_Env = True
+    return result

@@ -3,19 +3,14 @@ import sys
 import os
 import socket
 import yaml
+
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(os.path.dirname(FILE_DIR)))
-from utils import parse_yaml
-
+from utils import parse_yaml, utils_tool
 import logging
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                     level=logging.DEBUG)
-
-
-print(FILE_DIR)
-
-# ========================== 不变
 
 HOST_NAME = socket.gethostname()
 DEBUG = 'jd-arvin' not in HOST_NAME
@@ -58,8 +53,8 @@ if __name__ == '__main__':
     old_crontab_list = []
     result_crontab_list = []
 
-    yaml_dir = os.path.join(new_scripts_dir, '.github/workflows')
-    yaml_files = os.listdir(yaml_dir)
+    crontab_list_file = os.path.join(new_scripts_dir, 'docker/crontab_list.sh')
+    assert os.path.isfile(crontab_list_file)
 
     yaml_parse = parse_yaml.parse_yaml()
     result_dic = {}
@@ -70,21 +65,31 @@ if __name__ == '__main__':
     logging.info("exclude js list {}".format(exclude_file_list))
     logging.info("exclude yaml list {}".format(exclude_yaml_file_list))
 
-    for yaml_file in yaml_files:
-        try:
-            if yaml_file in exclude_yaml_file_list:
-                logging.info("yaml file {} In exclude list".format(yaml_dic.get('yaml_file_name')))
+    with open(crontab_list_file, 'r', encoding="utf-8") as f:
+        for line in f.readlines():
+            line = line.strip()
+            if line.startswith('#'):
                 continue
-
-            yaml_dic = yaml_parse.begin_parse_myactions_file(os.path.join(yaml_dir, yaml_file), new_scripts_dir)
-            if yaml_dic is not None and yaml_dic != {}:
-                if yaml_dic.get('file_name') in exclude_file_list:
-                    logging.info("js file {} In exclude list".format(yaml_dic.get('file_name')))
-                    continue
-                result_dic['tasks'].append(yaml_dic)
-        except Exception as e:
-            logging.error(yaml_file)
-            logging.error(str(e))
+            is_find_schedule_cron = False
+            if '.js' in line and '*' in line:
+                crontab_config = utils_tool.get_crontab_from_line(line)
+                js_name = utils_tool.get_js_name(line)
+                script_file = os.path.join(new_scripts_dir, js_name)
+                env_name = utils_tool.get_env_name(script_file)
+                if os.path.isfile(script_file):
+                    if js_name in exclude_file_list:
+                        logging.warning("skip, due to {} in exclude_file_list".format(js_name))
+                        continue
+                    temp_dic = {}
+                    temp_dic['name'] = env_name
+                    temp_dic['file_name'] = js_name
+                    temp_dic['script_dir'] = new_scripts_dir
+                    temp_dic['schedule_cron'] = crontab_config
+                    temp_dic['script_file'] = script_file
+                    logging.info(temp_dic)
+                    result_dic.get('tasks').append(temp_dic)
+                else:
+                    logging.error("{} not found".format(script_file))
 
     with open(RESULT_FILE, 'w', encoding="utf-8") as f:
         yaml.dump(result_dic, f, encoding='utf-8', allow_unicode=True)
