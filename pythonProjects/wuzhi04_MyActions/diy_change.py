@@ -9,6 +9,7 @@ FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(os.path.dirname(FILE_DIR)))
 # sys.path.append("..")
 # from utils import sendNotify
+from utils import parse_yaml, utils_tool
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                     level=logging.DEBUG)
@@ -66,7 +67,6 @@ logging.info(new_scripts_dir)
 if __name__ == '__main__':
     scripts_list = []
 
-
     for file_name in os.listdir(new_scripts_dir):
         if file_name == 'utils' and os.path.isdir(os.path.join(new_scripts_dir, file_name)):
             cmd = 'cp -rf {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
@@ -80,6 +80,9 @@ if __name__ == '__main__':
             logging.info("file {} 在排除列表中".format(file_name))
             continue
 
+        utils_tool.replace_file_line("/home/arvin/code/MyActions/jd_redPacket.js", "$.authorMyShareIds = ",
+                                     "  $.authorMyShareIds=[];\n")
+
         cmd1 = "cd {}; sed -i 's/const ShHelpAuthorFlag = true/const ShHelpAuthorFlag = false/g' {}".format(
             new_scripts_dir, file_name)
         cmd2 = "cd {};sed -i 's/\$.innerShInviteLists = getRandomArrayElements/ \/\/$.innerShInviteLists = getRandomArrayElements/g' {}".format(
@@ -88,7 +91,8 @@ if __name__ == '__main__':
         cmd3 = "cd {}; sed -i 's/$.ShInviteLists.push(...$.ShInviteList,/ \/\/$.ShInviteLists.push(...$.ShInviteList,/g' {}".format(
             new_scripts_dir, file_name)
 
-        remove_nick_name = "cd {};sed -i 's/$.nickName\ =\ data.data.userInfo.baseInfo.nickname/$.nickName=\"\"/g' {}".format(new_scripts_dir, file_name)
+        remove_nick_name = "cd {};sed -i 's/$.nickName\ =\ data.data.userInfo.baseInfo.nickname/$.nickName=\"\"/g' {}".format(
+            new_scripts_dir, file_name)
 
         cmds = [cmd1, cmd2, cmd3, remove_nick_name]
         for cmd in cmds:

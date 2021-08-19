@@ -96,3 +96,37 @@ def get_env_name(file: str) -> str:
                 # logging.info("名字: {}".format(schedule_name))
                 is_find_Env = True
     return result
+
+# 替换文件中匹配字符串
+def replace_file_str(target_file, source: str, target: str):
+    assert os.path.isfile(target_file)
+    cache_file = []
+    count = 0
+    with open(target_file, mode='r', encoding='utf-8') as f:
+        for line in f.readlines():
+            old = line
+            line = line.replace(source, target)
+            if line != old:
+                logging.info("replace: \"{}\" to \"{}\"".format(old, line).replace('\n', ''))
+                count += 1
+            cache_file.append(line)
+    logging.info("replace count: {}".format(count))
+    with open(target_file, mode='w', encoding='utf-8') as f:
+        f.write(''.join(cache_file))
+
+def replace_file_line(target_file, source: str, target: str):
+    assert os.path.isfile(target_file)
+    cache_file = []
+    count = 0
+    with open(target_file, mode='r', encoding='utf-8') as f:
+        for line in f.readlines():
+            old = line
+            if source in line:
+                line = target
+            if line != old:
+                logging.info("replace: \"{}\" to \"{}\"".format(old, line).replace('\n', ''))
+                count += 1
+            cache_file.append(line)
+    logging.info("replace count: {}".format(count))
+    with open(target_file, mode='w', encoding='utf-8') as f:
+        f.write(''.join(cache_file))
