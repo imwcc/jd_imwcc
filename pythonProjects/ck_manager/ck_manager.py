@@ -12,7 +12,7 @@ logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(leve
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 HOST_NAME = socket.gethostname()
 
-if os.path.isdir('/jd/config') and HOST_NAME != 'jd-arvin':
+if os.path.isdir('/jd/config') and HOST_NAME != 'jd-arvin' and HOST_NAME != 'jd-arvin-all':
     logging.info("只需要在一台主机上运行，{}没必要运行".format(HOST_NAME))
     exit(0)
 
