@@ -3,7 +3,7 @@
 ## 文件路径、脚本网址
 dir_shell=$(dirname $(readlink -f "$0"))
 dir_root=$dir_shell
-url_scripts=${JD_SCRIPTS_URL:-git@jd_scripts_gitee:lxk0301/jd_scripts.git}
+url_scripts='https://github.com/wuzhi04/MyActions.git'
 send_mark=$dir_shell/send_mark
 
 ## 导入通用变量与函数
@@ -454,7 +454,7 @@ update_scripts () {
     if [ -d $dir_scripts/.git ]; then
         git_pull_scripts $dir_scripts
     else
-        git_clone_scripts $url_scripts $dir_scripts "master"
+        git_clone_scripts $url_scripts $dir_scripts "main"
     fi
 
     if [[ $exit_status -eq 0 ]]; then
