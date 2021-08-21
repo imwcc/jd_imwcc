@@ -13,6 +13,7 @@ if [ ! -x "$shell_dir" ]; then
   exit -1
 fi
 
+. $shell_dir/npm_install.sh
 . $shell_dir/replace_js.sh
 . $shell_dir/sed_code.sh
 . $shell_dir/replace_shell.sh
