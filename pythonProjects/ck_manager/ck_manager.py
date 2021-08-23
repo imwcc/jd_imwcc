@@ -5,6 +5,7 @@ from UserInfo import UserInfo, LoginStatus
 import logging
 import configparser
 import pushPlusNotify
+import traceback
 from concurrent.futures import ThreadPoolExecutor, wait, ALL_COMPLETED
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
@@ -268,5 +269,7 @@ if __name__ == '__main__':
             yaml.dump(yaml_load_result, w_f, encoding='utf-8', allow_unicode=True)
     except Exception as e:
         logging.error(e)
-        e = "Host: {}\n{}".format(HOST_NAME, str(e))
+        msg = traceback.format_exc()
+        e = "Host: {}\n{}\n{}".format(HOST_NAME, msg, str(e))
+        logging.error(e)
         send_fata_message(e)
