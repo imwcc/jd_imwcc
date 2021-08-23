@@ -79,6 +79,9 @@ if __name__ == '__main__':
                     if file_name in exclude_file_list:
                         logging.info("js {} 在排除列表中，忽略".format(file_name))
                         continue
+                    if '.js' not in file_name:
+                        logging.info("没有 js file，忽略".format(file_name))
+                        continue
                     temp_dic = {}
                     temp_dic['name'] = item.get('name')
                     temp_dic['schedule_cron'] = item.get('time')
