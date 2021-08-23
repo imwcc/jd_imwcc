@@ -268,4 +268,5 @@ if __name__ == '__main__':
             yaml.dump(yaml_load_result, w_f, encoding='utf-8', allow_unicode=True)
     except Exception as e:
         logging.error(e)
+        e = "Host: {}\n{}".format(HOST_NAME, str(e))
         send_fata_message(e)
