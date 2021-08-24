@@ -126,21 +126,22 @@ class UserInfo:
             'Accept-Language': 'zh-cn',
             'Connection': 'keep-alive',
             'Cookie': self.get_cookie(),
-            'Referer': "hhttps://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
-            'User-Agent': "jdapp;android;10.0.2;10;network/wifi;Mozilla/5.0 (Linux; Android 10; ONEPLUS A5010 Build/QKQ1.191014.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36",
-            'Host': 'me-api.jd.com',
+            'Referer': "https://home.m.jd.com/myJd/newhome.action",
+            'User-Agent': "jdapp;iPhone;10.0.2;14.3;network/wifi;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
+            'Host': 'wq.jd.com',
         }
         response = requests.get('https://wq.jd.com/user_new/info/GetJDUserInfoUnion?orgFlag=JD_PinGou_New&callSource=mainorder', headers=headers)
         if response.status_code != 200:
+            logging.error("GetJDUserInfoUnion failed, switch to new API me-api.jd.com")
             headers = {
                 'Accept': '*/*',
                 'Accept-Encoding': 'gzip, deflate, br',
                 'Accept-Language': 'zh-cn',
                 'Connection': 'keep-alive',
                 'Cookie': self.get_cookie(),
-                'Referer': "https://home.m.jd.com/myJd/newhome.action",
-                'User-Agent': "jdapp;android;10.0.2;10;network/wifi;Mozilla/5.0 (Linux; Android 10; ONEPLUS A5010 Build/QKQ1.191014.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36",
-                'Host': 'wq.jd.com',
+                'Referer': "hhttps://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
+                'User-Agent': "jdapp;iPhone;10.0.2;14.3;network/wifi;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
+                'Host': 'me-api.jd.com',
             }
             response = requests.get('https://me-api.jd.com/user_new/info/GetJDUserInfoUnion', headers=headers)
         try:
