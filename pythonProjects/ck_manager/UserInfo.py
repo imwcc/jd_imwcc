@@ -4,6 +4,8 @@ import logging
 import os
 from enum import Enum
 from datetime import date
+import json
+import traceback
 
 # 封装UserInfo
 # 方便扩展修改维护
@@ -129,7 +131,12 @@ class UserInfo:
             'Host': 'wq.jd.com',
         }
         response = requests.get('https://wq.jd.com/user_new/info/GetJDUserInfoUnion?orgFlag=JD_PinGou_New&callSource=mainorder', headers=headers)
-        response = response.json()
+        try:
+            response = response.json()
+        except json.JSONDecodeError as err:
+            logging.error(traceback.format_exc())
+            logging.error("decode jason failed: error: {} ck:{} response:{}".format(str(err), self.get_cookie(), response))
+            return False
         # print(response)
         if response.get('retcode') == 0:
             user_name = response['data']['userInfo']['baseInfo']['nickname']
