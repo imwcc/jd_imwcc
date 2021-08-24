@@ -228,7 +228,7 @@ if __name__ == '__main__':
                     if is_new:
                         out_v4_user_list.append(user)
                 if len(out_v4_user_list) == len(out_put_ck_files)*max_support_user_single:
-                    logging.info("加载外部ck完成")
+                    logging.info("加载外部ck{}个完成".format(request_ck_number))
                     break
             if len(out_v4_user_list) < len(out_put_ck_files)*max_support_user_single:
                 logging.info("加载外部ck没有完成, 差 {}个".format(len(out_put_ck_files)*max_support_user_single - len(out_v4_user_list)))
