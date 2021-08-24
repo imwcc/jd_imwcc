@@ -126,29 +126,41 @@ class UserInfo:
             'Accept-Language': 'zh-cn',
             'Connection': 'keep-alive',
             'Cookie': self.get_cookie(),
-            'Referer': "https://home.m.jd.com/myJd/newhome.action",
+            'Referer': "hhttps://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
             'User-Agent': "jdapp;android;10.0.2;10;network/wifi;Mozilla/5.0 (Linux; Android 10; ONEPLUS A5010 Build/QKQ1.191014.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36",
-            'Host': 'wq.jd.com',
+            'Host': 'me-api.jd.com',
         }
         response = requests.get('https://wq.jd.com/user_new/info/GetJDUserInfoUnion?orgFlag=JD_PinGou_New&callSource=mainorder', headers=headers)
+        if response.status_code != 200:
+            headers = {
+                'Accept': '*/*',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Accept-Language': 'zh-cn',
+                'Connection': 'keep-alive',
+                'Cookie': self.get_cookie(),
+                'Referer': "https://home.m.jd.com/myJd/newhome.action",
+                'User-Agent': "jdapp;android;10.0.2;10;network/wifi;Mozilla/5.0 (Linux; Android 10; ONEPLUS A5010 Build/QKQ1.191014.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36",
+                'Host': 'wq.jd.com',
+            }
+            response = requests.get('https://me-api.jd.com/user_new/info/GetJDUserInfoUnion', headers=headers)
         try:
             response = response.json()
         except json.JSONDecodeError as err:
             logging.error(traceback.format_exc())
-            logging.error("decode jason failed: error: {} ck:{} response:{}".format(str(err), self.get_cookie(), response))
+            logging.error("decode jason failed: error: {} ck:{} response code:{} response.txt:{}".format(str(err), self.get_cookie(), response, response.text))
             return False
         # print(response)
-        if response.get('retcode') == 0:
+        if response.get('retcode') == 0 or response.get('retcode') == '0':
             user_name = response['data']['userInfo']['baseInfo']['nickname']
             curPin = response['data']['userInfo']['baseInfo']['curPin']
             logging.info("{} {} 登陆成功".format(self.get_cookie(), user_name))
             logging.info("curPin={}".format(curPin))
             self.set_nick_name(user_name)
             return True
-        elif response.get('retcode') == 13:
+        elif response.get('retcode') == 13 or response.get('retcode') == '13':
             logging.info("{} 登陆失效".format(self.get_cookie()))
             return False
-        elif response.get('retcode') == 1001:
+        elif response.get('retcode') == 1001 or response.get('retcode') == '1001':
             logging.info("{} 登陆失效".format(self.get_cookie()))
             return False
         else:
