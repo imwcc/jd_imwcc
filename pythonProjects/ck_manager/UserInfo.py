@@ -52,6 +52,10 @@ class UserInfo:
         if self.priority is None:
             self.priority = 888
 
+        self.vip_level = kwargs.get('vip_level')
+        if self.vip_level is None:
+            self.vip_level = 888
+
         self.nick_name = kwargs.get('nick_name')
         self.pushplus_token = kwargs.get('pushplus_token')
         if kwargs.get('login_status') is None:
@@ -90,6 +94,10 @@ class UserInfo:
         return getattr(self, attr)
 
     def get_priority(self):
+        attr = str(sys._getframe().f_code.co_name).replace('get_', '')
+        return getattr(self, attr)
+
+    def get_vip_level(self):
         attr = str(sys._getframe().f_code.co_name).replace('get_', '')
         return getattr(self, attr)
 
@@ -200,6 +208,20 @@ class UserInfo:
         current_date = datetime.datetime.strptime(str(date.today()), '%Y-%m-%d')
         return (current_date - last_login_day).days
 
+    def get_user_dict(self):
+        result_ck = {'name': self.get_name(),
+                     'nick_name': self.get_nick_name(),
+                     'priority': self.get_priority(),
+                     'vip_level': self.get_vip_level(),
+                     'wechart': self.get_wechart(),
+                     'out_of_time': self.get_out_of_time(),
+                     'register_time': self.get_register_time(),
+                     'login_status': self.get_login_status(),
+                     'last_login_date': self.get_last_login_date(),
+                     'cookie': self.get_cookie(),
+                     'pushplus_token': self.get_pushplus_token()
+                     }
+        return result_ck
 
 if __name__ == '__main__':
     logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',

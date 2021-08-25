@@ -30,7 +30,8 @@ else:
     yamlPath = os.getenv('ck_yaml_path')
     ck_manager_config = os.getenv('ck_manager_config')
     ck_out_of_login_yaml = os.path.join(FILE_DIR, 'ck_out_of_login.yaml')
-
+if not os.path.isfile(ck_out_of_login_yaml):
+    os.system(f'touch {ck_out_of_login_yaml}')
 assert os.path.isfile(ck_manager_config)
 assert os.path.isfile(yamlPath)
 
@@ -287,16 +288,7 @@ if __name__ == '__main__':
                     logging.info("用户超期")
                     logging.info(user_info.to_string())
                     continue
-                result_ck = {'name': user_info.get_name(),
-                             'nick_name': user_info.get_nick_name(),
-                             'priority': user_info.get_priority(),
-                             'wechart': user_info.get_wechart(),
-                             'out_of_time': user_info.get_out_of_time(),
-                             'register_time': user_info.get_register_time(),
-                             'login_status': user_info.get_login_status(),
-                             'last_login_date': user_info.get_last_login_date(),
-                             'cookie': user_info.get_cookie(),
-                             'pushplus_token': user_info.get_pushplus_token()}
+                result_ck = user_info.get_user_dict()
                 result_ck_list.append(result_ck)
             yaml_load_result['cookies'] = result_ck_list
             yaml.dump(yaml_load_result, w_f, encoding='utf-8', allow_unicode=True)
@@ -316,16 +308,7 @@ if __name__ == '__main__':
             for user_info in user_info_l:
                 if user_info.get_last_login_date_expired_days() > invalid_user_maximum_keep_days and \
                         user_info.get_nick_name() not in nick_name_list:
-                    result_ck = {'name': user_info.get_name(),
-                                 'nick_name': user_info.get_nick_name(),
-                                 'priority': user_info.get_priority(),
-                                 'wechart': user_info.get_wechart(),
-                                 'out_of_time': user_info.get_out_of_time(),
-                                 'register_time': user_info.get_register_time(),
-                                 'login_status': user_info.get_login_status(),
-                                 'last_login_date': user_info.get_last_login_date(),
-                                 'cookie': user_info.get_cookie(),
-                                 'pushplus_token': user_info.get_pushplus_token()}
+                    result_ck = user_info.get_user_dict()
                     result_ck_list.append(result_ck)
                     logging.info("移除用户: " + str(result_ck))
                     send_admin_message(title="管理员消息", message="用超过{}天未登陆,已移除\n用户信息:{}".
