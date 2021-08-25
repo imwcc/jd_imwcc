@@ -7,6 +7,7 @@ import configparser
 import pushPlusNotify
 import traceback
 from concurrent.futures import ThreadPoolExecutor, wait, ALL_COMPLETED
+import json
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                     level=logging.DEBUG)
@@ -19,13 +20,16 @@ if os.path.isdir('/jd/config') and HOST_NAME != 'jd-arvin' and HOST_NAME != 'jd-
 
 # v4 直接放入config
 ck_manager_config = None
+ck_out_of_login_yaml = None
 if os.path.isdir('/jd/config'):
     # 获取配置文件的路径
     yamlPath = os.path.join('/jd/config', 'ck.yaml')
     ck_manager_config = os.path.join('/jd/config', 'ck_manager.cfg')
+    ck_out_of_login_yaml = os.path.join('/jd/config', 'ck_out_of_login.yaml')
 else:
     yamlPath = os.getenv('ck_yaml_path')
     ck_manager_config = os.getenv('ck_manager_config')
+    ck_out_of_login_yaml = os.path.join(FILE_DIR, 'ck_out_of_login.yaml')
 
 assert os.path.isfile(ck_manager_config)
 assert os.path.isfile(yamlPath)
@@ -41,6 +45,8 @@ out_put_ck_files = []
 max_support_user_single = 37
 # 线程池大小
 thread_poll_size = 5
+# 连续超过五天没有登陆,则删除该用户所有信息
+invalid_user_maximum_keep_days = 6
 scan_login_url = None
 qinglong_ck_file = None
 admin_pushplus_token = None
@@ -66,6 +72,9 @@ for key in config[config_name]:
         scan_login_url = config.get(config_name, key).replace('\n', '').replace(' ', '')
     elif key == 'qinglong_ck_file':
         qinglong_ck_file = config.get(config_name, key).replace('\n', '').replace(' ', '')
+
+    elif key == 'invalid_user_maximum_keep_days ':
+        invalid_user_maximum_keep_days = config.get(config_name, key).replace('\n', '').replace(' ', '')
 
     elif key == 'admin_pushplus_token':
         admin_pushplus_token = config.get(config_name, key).replace('\n', '').replace(' ', '')
@@ -107,6 +116,8 @@ def get_pt_pin(ck: str):
 
 
 def send_notify(user: UserInfo):
+    if DEBUG:
+        return False
     if user.get_pushplus_token() is None:
         logging.warning("用户没有配置通知")
         return 0
@@ -120,8 +131,20 @@ def send_notify(user: UserInfo):
 def is_need_skip(user: UserInfo):
     return False
 
+def send_admin_message(title:str, message:str):
+    if DEBUG:
+        logging.info("send_admin_message skip just for debug");
+        logging.info("title: {}\nmessage:{}".format(title, message))
+        return
+    if admin_pushplus_token is None:
+        logging.error("没有配置管理员token")
+        return -1
+    pushPlusNotify.pushPlusNotify(admin_pushplus_token, str(message), title=title)
 
 def send_fata_message(e):
+    if DEBUG:
+        logging.info("debug skip");
+        return
     if admin_pushplus_token is None:
         logging.error("没有配置管理员token")
         return -1
@@ -179,6 +202,7 @@ if __name__ == '__main__':
                 if user.is_login():
                     logging.info("nickName={} pt_pin={}登陆成功".format(user.get_nick_name(), user.get_pt_pin()))
                     user.set_login_status(LoginStatus.LAST_LOGINED.value)
+                    user.update_last_login_date()
                 else:
                     logging.warning("用户登陆失效： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
                     send_notify(user)
@@ -200,8 +224,8 @@ if __name__ == '__main__':
                     logging.info("忽略用户: " + user_info.get_pt_pin())
         logging.info("{}个有效用户".format(len(out_v4_user_list)))
         # 用户不足的时候，help from friends
-        if len(out_v4_user_list) < len(out_put_ck_files)*max_support_user_single:
-            request_ck_number = len(out_put_ck_files)*max_support_user_single - len(out_v4_user_list)
+        if len(out_v4_user_list) < len(out_put_ck_files) * max_support_user_single:
+            request_ck_number = len(out_put_ck_files) * max_support_user_single - len(out_v4_user_list)
             logging.info("用户不足，还需要加载{}个".format(request_ck_number))
             # 1 从文本加载后需要倒叙
             external_ck_list = []
@@ -227,11 +251,12 @@ if __name__ == '__main__':
                             break
                     if is_new:
                         out_v4_user_list.append(user)
-                if len(out_v4_user_list) == len(out_put_ck_files)*max_support_user_single:
+                if len(out_v4_user_list) == len(out_put_ck_files) * max_support_user_single:
                     logging.info("加载外部ck{}个完成".format(request_ck_number))
                     break
-            if len(out_v4_user_list) < len(out_put_ck_files)*max_support_user_single:
-                logging.info("加载外部ck没有完成, 差 {}个".format(len(out_put_ck_files)*max_support_user_single - len(out_v4_user_list)))
+            if len(out_v4_user_list) < len(out_put_ck_files) * max_support_user_single:
+                logging.info(
+                    "加载外部ck没有完成, 差 {}个".format(len(out_put_ck_files) * max_support_user_single - len(out_v4_user_list)))
             logging.info("加载外部用户后， {}个有效用户".format(len(out_v4_user_list)))
 
         for out_v4_ck_file in out_put_ck_files:
@@ -258,15 +283,58 @@ if __name__ == '__main__':
             # 覆盖原先的配置文件
             result_ck_list = []
             for user_info in user_info_l:
-                result_ck = {'cookie': user_info.get_cookie(), 'name': user_info.get_name(),
-                             'wechart': user_info.get_wechart(), 'out_of_time': user_info.get_out_of_time(),
-                             'register_time': user_info.get_register_time(), 'priority': user_info.get_priority(),
-                             'login_status': user_info.get_login_status(),
+                if user_info.get_last_login_date_expired_days() > invalid_user_maximum_keep_days:
+                    logging.info("用户超期")
+                    logging.info(user_info.to_string())
+                    continue
+                result_ck = {'name': user_info.get_name(),
                              'nick_name': user_info.get_nick_name(),
+                             'priority': user_info.get_priority(),
+                             'wechart': user_info.get_wechart(),
+                             'out_of_time': user_info.get_out_of_time(),
+                             'register_time': user_info.get_register_time(),
+                             'login_status': user_info.get_login_status(),
+                             'last_login_date': user_info.get_last_login_date(),
+                             'cookie': user_info.get_cookie(),
                              'pushplus_token': user_info.get_pushplus_token()}
                 result_ck_list.append(result_ck)
             yaml_load_result['cookies'] = result_ck_list
             yaml.dump(yaml_load_result, w_f, encoding='utf-8', allow_unicode=True)
+
+        yaml_out_of_login_result = None
+        with open(ck_out_of_login_yaml, 'r') as w_f:
+            yaml_out_of_login_result = yaml.load(w_f.read(), Loader=yaml.FullLoader)
+            if yaml_out_of_login_result is None:
+                logging.error("yaml_out_of_login_result is None")
+                yaml_out_of_login_result = {'cookies': []}
+
+        with open(ck_out_of_login_yaml, 'a+') as w_f:
+            nick_name_list = []
+            for ck in yaml_out_of_login_result.get('cookies'):
+                nick_name_list.append(ck.get('nick_name'))
+            result_ck_list = []
+            for user_info in user_info_l:
+                if user_info.get_last_login_date_expired_days() > invalid_user_maximum_keep_days and \
+                        user_info.get_nick_name() not in nick_name_list:
+                    result_ck = {'name': user_info.get_name(),
+                                 'nick_name': user_info.get_nick_name(),
+                                 'priority': user_info.get_priority(),
+                                 'wechart': user_info.get_wechart(),
+                                 'out_of_time': user_info.get_out_of_time(),
+                                 'register_time': user_info.get_register_time(),
+                                 'login_status': user_info.get_login_status(),
+                                 'last_login_date': user_info.get_last_login_date(),
+                                 'cookie': user_info.get_cookie(),
+                                 'pushplus_token': user_info.get_pushplus_token()}
+                    result_ck_list.append(result_ck)
+                    logging.info("移除用户: " + str(result_ck))
+                    send_admin_message(title="管理员消息", message="用超过{}天未登陆,已移除\n用户信息:{}".
+                                       format(invalid_user_maximum_keep_days, str(json.dumps(result_ck, indent=1, sort_keys=True, default=str))))
+            if yaml_out_of_login_result.get('cookies') is None:
+                yaml_out_of_login_result['cookies'] = result_ck_list
+            else:
+                yaml_out_of_login_result['cookies'] = yaml_out_of_login_result.get('cookies') + result_ck_list
+            yaml.dump(yaml_out_of_login_result, w_f, encoding='utf-8', allow_unicode=True)
     except Exception as e:
         logging.error(e)
         msg = traceback.format_exc()

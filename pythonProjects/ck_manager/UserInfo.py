@@ -11,6 +11,7 @@ import traceback
 # 方便扩展修改维护
 import requests
 
+
 class LoginStatus(Enum):
     # ck 更新过
     NEED_CHECK = 0
@@ -25,6 +26,7 @@ class LoginStatus(Enum):
             if value == LoginStatus.__getitem__(i).value:
                 return True
         return False
+
 
 class UserInfo:
     def __init__(self, ck=None, **kwargs):
@@ -42,6 +44,10 @@ class UserInfo:
         self.register_time = kwargs.get('register_time')
         if self.register_time is None:
             self.register_time = date.today()
+        self.last_login_date = kwargs.get('last_login_date')  # 记录上次查询到登陆成功的日期
+        if self.last_login_date is None:
+            self.last_login_date = date.today()
+
         self.priority = kwargs.get('priority')
         if self.priority is None:
             self.priority = 888
@@ -62,7 +68,7 @@ class UserInfo:
         attr = str(sys._getframe().f_code.co_name).replace('get_', '')
         return getattr(self, attr)
 
-    def set_cookie(self, value:str):
+    def set_cookie(self, value: str):
         value = value.strip().replace(' ', '').replace('\n', '')
         attr = str(sys._getframe().f_code.co_name).replace('set_', '')
         setattr(self, attr, value)
@@ -76,6 +82,10 @@ class UserInfo:
         return getattr(self, attr)
 
     def get_register_time(self):
+        attr = str(sys._getframe().f_code.co_name).replace('get_', '')
+        return getattr(self, attr)
+
+    def get_last_login_date(self):
         attr = str(sys._getframe().f_code.co_name).replace('get_', '')
         return getattr(self, attr)
 
@@ -119,6 +129,10 @@ class UserInfo:
         attr = str(sys._getframe().f_code.co_name).replace('set_', '')
         setattr(self, attr, value)
 
+    def update_last_login_date(self):
+        attr = str(sys._getframe().f_code.co_name).replace('update_', '')
+        return setattr(self, attr, date.today())
+
     def is_login(self):
         headers = {
             'Accept': '*/*',
@@ -130,7 +144,9 @@ class UserInfo:
             'User-Agent': "jdapp;iPhone;10.0.2;14.3;network/wifi;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
             'Host': 'wq.jd.com',
         }
-        response = requests.get('https://wq.jd.com/user_new/info/GetJDUserInfoUnion?orgFlag=JD_PinGou_New&callSource=mainorder', headers=headers)
+        response = requests.get(
+            'https://wq.jd.com/user_new/info/GetJDUserInfoUnion?orgFlag=JD_PinGou_New&callSource=mainorder',
+            headers=headers)
         if response.status_code != 200:
             logging.error("GetJDUserInfoUnion failed, switch to new API me-api.jd.com")
             headers = {
@@ -148,7 +164,10 @@ class UserInfo:
             response = response.json()
         except json.JSONDecodeError as err:
             logging.error(traceback.format_exc())
-            logging.error("decode jason failed: error: {} ck:{} response code:{} response.txt:{}".format(str(err), self.get_cookie(), response, response.text))
+            logging.error("decode jason failed: error: {} ck:{} response code:{} response.txt:{}".format(str(err),
+                                                                                                         self.get_cookie(),
+                                                                                                         response,
+                                                                                                         response.text))
             return False
         # print(response)
         if response.get('retcode') == 0 or response.get('retcode') == '0':
@@ -172,9 +191,14 @@ class UserInfo:
         out_of_date = datetime.datetime.strptime(str(self.get_register_time()), '%Y-%m-%d')
         current_date = datetime.datetime.strptime(str(date.today()), '%Y-%m-%d')
         return {
-            "is_expired": (current_date-out_of_date).days < 0,
-            "remaining_days": (current_date-out_of_date).days
+            "is_expired": (current_date - out_of_date).days < 0,
+            "remaining_days": (current_date - out_of_date).days
         }
+
+    def get_last_login_date_expired_days(self) -> int:
+        last_login_day = datetime.datetime.strptime(str(self.get_last_login_date()), '%Y-%m-%d')
+        current_date = datetime.datetime.strptime(str(date.today()), '%Y-%m-%d')
+        return (current_date - last_login_day).days
 
 
 if __name__ == '__main__':
@@ -191,5 +215,5 @@ if __name__ == '__main__':
     assert userInfo.get_priority() == 1, userInfo.priority()
     a = datetime.datetime.strptime(str(userInfo.get_register_time()), '%Y-%m-%d')
     b = datetime.datetime.strptime(str(date.today()), '%Y-%m-%d')
-    assert (b-a).days == 0
+    assert (b - a).days == 0
     print(userInfo.is_login())
