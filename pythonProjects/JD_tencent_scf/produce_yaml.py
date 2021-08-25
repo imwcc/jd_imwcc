@@ -80,7 +80,7 @@ if __name__ == '__main__':
                         logging.info("js {} 在排除列表中，忽略".format(file_name))
                         continue
                     if '.js' not in file_name:
-                        logging.info("没有 js file，忽略".format(file_name))
+                        logging.info("没有 js file，忽略 {}".format(file_name))
                         continue
                     temp_dic = {}
                     temp_dic['name'] = item.get('name')
