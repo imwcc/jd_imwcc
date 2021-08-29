@@ -132,7 +132,8 @@ def send_notify(user: UserInfo):
 def is_need_skip(user: UserInfo):
     return False
 
-def send_admin_message(title:str, message:str):
+
+def send_admin_message(title: str, message: str):
     if DEBUG:
         logging.info("send_admin_message skip just for debug");
         logging.info("title: {}\nmessage:{}".format(title, message))
@@ -141,6 +142,7 @@ def send_admin_message(title:str, message:str):
         logging.error("没有配置管理员token")
         return -1
     pushPlusNotify.pushPlusNotify(admin_pushplus_token, str(message), title=title)
+
 
 def send_fata_message(e):
     if DEBUG:
@@ -152,6 +154,25 @@ def send_fata_message(e):
     title = "ck管理器加载失败"
     pushPlusNotify.pushPlusNotify(admin_pushplus_token, str(e), title=title)
 
+
+def format_qinglong_22_ck(ck: str):
+    result = ''
+    if 'pt_key' in ck and 'pt_pin' in ck:
+        pt_key = None
+        pt_pin = None
+        for i in ck.split(';'):
+            i = i.strip().replace(' ', '').replace('\n', '')
+            if i.startswith('pt_key'):
+                pt_key = i
+            elif i.startswith('pt_pin'):
+                pt_pin = i
+        if pt_key is None or pt_pin is None:
+            logging.error("pt_key or pt_pin not int ck str")
+        else:
+            result = f'{pt_key};{pt_pin}'
+    else:
+        logging.error("pt_key or pt_pin not int ck str")
+    return result
 
 if __name__ == '__main__':
     try:
@@ -171,6 +192,7 @@ if __name__ == '__main__':
             with open(qinglong_ck_file, 'r', encoding='utf-8') as f:
                 for new_ck in f.readlines():
                     new_ck = new_ck.replace(' ', '').replace('\n', '').strip()
+                    new_ck = format_qinglong_22_ck(new_ck)
                     if new_ck != '':
                         pt_pin = get_pt_pin(new_ck)
                         is_new_ck = True
@@ -188,6 +210,8 @@ if __name__ == '__main__':
                             logging.info("添加新用户 {}".format(new_user))
                             new_user.to_string()
                             user_info_l.append(new_user)
+                    else:
+                        logging.error("cat null qinglong ck: {}".format(new_ck))
         # 4. 并发刷新登陆状态
         logging.info("检查登陆状态开始, 线程池数量: {}".format(thread_poll_size))
         executor = ThreadPoolExecutor(max_workers=thread_poll_size)
@@ -312,7 +336,8 @@ if __name__ == '__main__':
                     result_ck_list.append(result_ck)
                     logging.info("移除用户: " + str(result_ck))
                     send_admin_message(title="管理员消息", message="用超过{}天未登陆,已移除\n用户信息:{}".
-                                       format(invalid_user_maximum_keep_days, str(json.dumps(result_ck, indent=1, sort_keys=True, default=str))))
+                                       format(invalid_user_maximum_keep_days,
+                                              str(json.dumps(result_ck, indent=1, sort_keys=True, default=str))))
             if yaml_out_of_login_result.get('cookies') is None:
                 yaml_out_of_login_result['cookies'] = result_ck_list
             else:
