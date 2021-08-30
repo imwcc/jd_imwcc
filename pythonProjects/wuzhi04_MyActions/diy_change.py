@@ -80,7 +80,7 @@ if __name__ == '__main__':
             logging.info("file {} 在排除列表中".format(file_name))
             continue
 
-        utils_tool.replace_file_line("/home/arvin/code/MyActions/jd_redPacket.js", "$.authorMyShareIds = ",
+        utils_tool.replace_file_line(os.path.join(new_scripts_dir, file_name), "$.authorMyShareIds = ",
                                      "  $.authorMyShareIds=[];\n")
 
         cmd1 = "cd {}; sed -i 's/const ShHelpAuthorFlag = true/const ShHelpAuthorFlag = false/g' {}".format(
