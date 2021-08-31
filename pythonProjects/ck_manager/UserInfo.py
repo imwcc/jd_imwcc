@@ -224,7 +224,7 @@ class UserInfo:
         return result_ck
 
     def format_ck(self):
-        if self.cookie != None and self.cookie != '' and len(str(self.cookie) > 0):
+        if self.cookie != None and self.cookie != '' and len(str(self.cookie)) > 0:
             ck = self.cookie.strip().replace(' ', '').replace('\n', '')
             if not ck.endswith(';'):
                 ck = ck + ';'
