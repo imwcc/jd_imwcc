@@ -223,6 +223,14 @@ class UserInfo:
                      }
         return result_ck
 
+    def format_ck(self):
+        if self.cookie != None and self.cookie != '' and len(str(self.cookie) > 0):
+            ck = self.cookie.strip().replace(' ', '').replace('\n', '')
+            if not ck.endswith(';'):
+                ck = ck + ';'
+            self.cookie = ck
+        return self
+
 if __name__ == '__main__':
     logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                         level=logging.DEBUG)

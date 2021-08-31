@@ -169,7 +169,7 @@ def format_qinglong_22_ck(ck: str):
         if pt_key is None or pt_pin is None:
             logging.error("pt_key or pt_pin not int ck str")
         else:
-            result = f'{pt_key};{pt_pin}'
+            result = f'{pt_key};{pt_pin};'
     else:
         logging.error("pt_key or pt_pin not int ck str")
     return result
@@ -182,7 +182,7 @@ if __name__ == '__main__':
         with open(yamlPath, 'r', encoding='utf-8') as f:
             yaml_load_result = yaml.load(f.read(), Loader=yaml.FullLoader)
             for ck in yaml_load_result.get('cookies'):
-                user_info_l.append(UserInfo(**ck))
+                user_info_l.append(UserInfo(**ck).format_ck())
 
         # 2. 根据优先级排序
         bubbleSort(user_info_l)
