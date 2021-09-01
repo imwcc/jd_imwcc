@@ -230,6 +230,18 @@ if __name__ == '__main__':
                             user_info_l.append(new_user)
                     else:
                         logging.error("cat null qinglong ck: {}".format(new_ck))
+        # 4.0 update app key
+        logging.info("begin update_ws_key_to_pt_key")
+        for user_info in user_info_l:
+            if user_info.get_appkey() is not None:
+                if not user_info.update_ws_key_to_pt_key():
+                    logging.error("{} app key to pt_key 更新失败".format(user_info.get_pt_pin()))
+                    send_notify(user_info, title='app key已失效,请联系管理员', content=''''请联系管理员配置\n''')
+                else:
+                    logging.info("{} app key to pt_key 更新成功".format(user_info.get_pt_pin()))
+                    user_info.set_login_status(LoginStatus.NEED_CHECK.value)
+        logging.info("done update_ws_key_to_pt_key")
+
         # 4. 并发刷新登陆状态
         logging.info("检查登陆状态开始, 线程池数量: {}".format(thread_poll_size))
         executor = ThreadPoolExecutor(max_workers=thread_poll_size)
@@ -239,13 +251,6 @@ if __name__ == '__main__':
                 logging.info(
                     "nickName={} pt_pin={}登陆已经失效，忽略检查".format(user_info.get_nick_name(), user_info.get_pt_pin()))
                 continue
-
-            logging.info("begin update_ws_key_to_pt_key")
-            if not user_info.update_ws_key_to_pt_key():
-                send_notify(user_info, title='app key已失效,请联系管理员', content=''''请联系管理员配置\n''')
-            else:
-                logging.info("app key to pt_key 更新成功")
-
             def check_login(user: UserInfo):
                 if user.is_login():
                     logging.info("nickName={} pt_pin={}登陆成功".format(user.get_nick_name(), user.get_pt_pin()))

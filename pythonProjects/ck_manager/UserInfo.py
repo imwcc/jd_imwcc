@@ -118,7 +118,10 @@ class UserInfo:
         return getattr(self, attr)
 
     def get_pt_pin(self):
-        return self.get_cookie().split('pt_pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
+        if self.get_cookie() is not None:
+            return self.get_cookie().split('pt_pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
+        elif self.get_appkey() is not None:
+            return self.get_appkey().split('pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
 
     def get_wskey(self):
         return self.get_appkey().split('wskey=')[-1].replace(';', '').replace('"', '').replace('\'', '')
