@@ -120,6 +120,9 @@ class UserInfo:
     def get_pt_pin(self):
         return self.get_cookie().split('pt_pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
 
+    def get_wskey(self):
+        return self.get_appkey().split('wskey=')[-1].replace(';', '').replace('"', '').replace('\'', '')
+
     def to_string(self):
         for attr, value in self.__dict__.items():
             logging.info("{}={}".format(str(attr), str(value)))
@@ -250,7 +253,7 @@ class UserInfo:
 
     def update_ws_key_to_pt_key(self):
         if self.get_appkey() is not None:
-            appkey = ws_key_to_pt_key(self.get_cookie())
+            appkey = ws_key_to_pt_key(self.get_pt_pin(), self.get_appkey())
             if appkey is not None:
                 self.cookie = appkey
                 return True

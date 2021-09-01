@@ -38,6 +38,7 @@ assert os.path.isfile(yamlPath)
 # 任然检查上次登陆登陆失败且没有更新ck的用户登陆状态
 FORCE_LOGIN_CHECK = False
 DEBUG = 'jd-arvin' not in HOST_NAME
+disable_user_notify = True
 
 config = configparser.ConfigParser()
 config.read(ck_manager_config)
@@ -119,6 +120,9 @@ def get_pt_pin(ck: str):
 def send_notify(user: UserInfo):
     if DEBUG:
         return False
+    if disable_user_notify:
+        logging.info("disable_user_notify")
+        return False
     if user.get_pushplus_token() is None:
         logging.warning("用户没有配置通知")
         return 0
@@ -130,6 +134,10 @@ def send_notify(user: UserInfo):
 
 def send_notify(user: UserInfo, title='登陆失效，请重新登陆', content="您的登录已经失效\n复制下面连接到浏览器扫码登录:\n"):
     if DEBUG:
+        logging.info("debug return")
+        return False
+    if disable_user_notify:
+        logging.info("disable_user_notify")
         return False
     if user.get_pushplus_token() is None:
         logging.warning("用户没有配置通知")
