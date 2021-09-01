@@ -128,6 +128,15 @@ def send_notify(user: UserInfo):
     content += scan_login_url
     pushPlusNotify.pushPlusNotify(user.get_pushplus_token(), content, title='登陆失效，请重新登陆')
 
+def send_notify(user: UserInfo, title='登陆失效，请重新登陆', content="您的登录已经失效\n复制下面连接到浏览器扫码登录:\n"):
+    if DEBUG:
+        return False
+    if user.get_pushplus_token() is None:
+        logging.warning("用户没有配置通知")
+        return 0
+    content += scan_login_url
+    pushPlusNotify.pushPlusNotify(user.get_pushplus_token(), content, title)
+
 
 def is_need_skip(user: UserInfo):
     return False
@@ -173,6 +182,7 @@ def format_qinglong_22_ck(ck: str):
     else:
         logging.error("pt_key or pt_pin not int ck str")
     return result
+
 
 if __name__ == '__main__':
     try:
@@ -222,6 +232,10 @@ if __name__ == '__main__':
                     "nickName={} pt_pin={}登陆已经失效，忽略检查".format(user_info.get_nick_name(), user_info.get_pt_pin()))
                 continue
 
+            if not user_info.update_ws_key_to_pt_key():
+                send_notify(user_info, title='app key已失效,请联系管理员', content=''''请联系管理员配置\n''')
+            else:
+                logging.info("app key to pt_key 更新成功")
 
             def check_login(user: UserInfo):
                 if user.is_login():
@@ -315,7 +329,7 @@ if __name__ == '__main__':
                 result_ck = user_info.get_user_dict()
                 result_ck_list.append(result_ck)
             yaml_load_result['cookies'] = result_ck_list
-            yaml.dump(yaml_load_result, w_f, encoding='utf-8', allow_unicode=True)
+            yaml.dump(yaml_load_result, w_f, encoding='utf-8', allow_unicode=True, default_flow_style=False,sort_keys=False)
 
         yaml_out_of_login_result = None
         with open(ck_out_of_login_yaml, 'r') as w_f:
@@ -342,7 +356,7 @@ if __name__ == '__main__':
                 yaml_out_of_login_result['cookies'] = result_ck_list
             else:
                 yaml_out_of_login_result['cookies'] = yaml_out_of_login_result.get('cookies') + result_ck_list
-            yaml.dump(yaml_out_of_login_result, w_f, encoding='utf-8', allow_unicode=True)
+            yaml.dump(yaml_out_of_login_result, w_f, encoding='utf-8', allow_unicode=True, default_flow_style=False,sort_keys=False)
     except Exception as e:
         logging.error(e)
         msg = traceback.format_exc()

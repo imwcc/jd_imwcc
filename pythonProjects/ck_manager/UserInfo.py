@@ -6,6 +6,7 @@ from enum import Enum
 from datetime import date
 import json
 import traceback
+from cookie import ws_key_to_pt_key
 
 # 封装UserInfo
 # 方便扩展修改维护
@@ -38,6 +39,12 @@ class UserInfo:
         assert self.cookie is not None
         self.cookie = str(self.cookie).replace(' ', '')
         assert self.cookie != ''
+
+        self.appkey = kwargs.get('appkey', None)
+
+        self.cookie = str(self.cookie).replace(' ', '')
+        assert self.cookie != ''
+
         self.name = kwargs.get('name')
         self.wechart = kwargs.get('wechart')
         self.out_of_time = kwargs.get('out_of_time')
@@ -72,7 +79,16 @@ class UserInfo:
         attr = str(sys._getframe().f_code.co_name).replace('get_', '')
         return getattr(self, attr)
 
+    def get_appkey(self):
+        attr = str(sys._getframe().f_code.co_name).replace('get_', '')
+        return getattr(self, attr)
+
     def set_cookie(self, value: str):
+        value = value.strip().replace(' ', '').replace('\n', '')
+        attr = str(sys._getframe().f_code.co_name).replace('set_', '')
+        setattr(self, attr, value)
+
+    def set_appkey(self, value: str):
         value = value.strip().replace(' ', '').replace('\n', '')
         attr = str(sys._getframe().f_code.co_name).replace('set_', '')
         setattr(self, attr, value)
@@ -219,6 +235,7 @@ class UserInfo:
                      'login_status': self.get_login_status(),
                      'last_login_date': self.get_last_login_date(),
                      'cookie': self.get_cookie(),
+                     'appkey': self.get_appkey(),
                      'pushplus_token': self.get_pushplus_token()
                      }
         return result_ck
@@ -230,6 +247,17 @@ class UserInfo:
                 ck = ck + ';'
             self.cookie = ck
         return self
+
+    def update_ws_key_to_pt_key(self):
+        if self.get_appkey() is not None:
+            appkey = ws_key_to_pt_key(self.get_cookie())
+            if appkey is not None:
+                self.cookie = appkey
+                return True
+            else:
+                logging.error('ws_key 可能已失效')
+                return False
+
 
 if __name__ == '__main__':
     logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
