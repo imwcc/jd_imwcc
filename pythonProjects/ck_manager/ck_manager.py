@@ -240,6 +240,7 @@ if __name__ == '__main__':
                     "nickName={} pt_pin={}登陆已经失效，忽略检查".format(user_info.get_nick_name(), user_info.get_pt_pin()))
                 continue
 
+            logging.info("begin update_ws_key_to_pt_key")
             if not user_info.update_ws_key_to_pt_key():
                 send_notify(user_info, title='app key已失效,请联系管理员', content=''''请联系管理员配置\n''')
             else:
