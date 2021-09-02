@@ -1,4 +1,6 @@
 import socket
+import sys
+
 import yaml
 import os
 from UserInfo import UserInfo, LoginStatus
@@ -191,16 +193,19 @@ def format_qinglong_22_ck(ck: str):
         logging.error("pt_key or pt_pin not int ck str")
     return result
 
-
-if __name__ == '__main__':
+def main(args):
+    is_update_ck = 'update_appkey' in (' '.join(args))
     try:
         # 1. 导入 yaml
         user_info_l = []
         yaml_load_result = None
         with open(yamlPath, 'r', encoding='utf-8') as f:
             yaml_load_result = yaml.load(f.read(), Loader=yaml.FullLoader)
+            signServer = yaml_load_result.get('sign_server', None)
+            if signServer is None:
+                send_admin_message("sign error", "signserver 没有配置")
             for ck in yaml_load_result.get('cookies'):
-                user_info_l.append(UserInfo(**ck).format_ck())
+                user_info_l.append(UserInfo(sign_server=signServer, **ck).format_ck())
 
         # 2. 根据优先级排序
         bubbleSort(user_info_l)
@@ -233,6 +238,9 @@ if __name__ == '__main__':
         # 4.0 update app key
         logging.info("begin update_ws_key_to_pt_key")
         for user_info in user_info_l:
+            if not is_update_ck:
+                logging.info("is_update_ck false, skip update ck")
+                break
             if user_info.get_appkey() is not None:
                 if not user_info.update_ws_key_to_pt_key():
                     logging.error("{} app key to pt_key 更新失败".format(user_info.get_pt_pin()))
@@ -377,3 +385,6 @@ if __name__ == '__main__':
         e = "Host: {}\n{}\n{}".format(HOST_NAME, msg, str(e))
         logging.error(e)
         send_fata_message(e)
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

@@ -30,13 +30,17 @@ class LoginStatus(Enum):
 
 
 class UserInfo:
-    def __init__(self, ck=None, **kwargs):
+    def __init__(self, ck=None, sign_server=None, **kwargs):
         if ck is None:
             assert kwargs.get('cookie', None) is not None
             self.cookie = kwargs.get('cookie', None)
         else:
             self.cookie = ck
         assert self.cookie is not None
+
+        # todo move to global config
+        self.sign_server = sign_server
+
         self.cookie = str(self.cookie).replace(' ', '')
         assert self.cookie != ''
 
@@ -46,6 +50,7 @@ class UserInfo:
         assert self.cookie != ''
 
         self.name = kwargs.get('name')
+        self.uuid = kwargs.get('uuid', '')
         self.wechart = kwargs.get('wechart')
         self.out_of_time = kwargs.get('out_of_time')
         self.register_time = kwargs.get('register_time')
@@ -72,6 +77,10 @@ class UserInfo:
             self.login_status = kwargs.get('login_status')
 
     def get_name(self):
+        attr = str(sys._getframe().f_code.co_name).replace('get_', '')
+        return getattr(self, attr)
+
+    def get_uuid(self):
         attr = str(sys._getframe().f_code.co_name).replace('get_', '')
         return getattr(self, attr)
 
@@ -144,6 +153,10 @@ class UserInfo:
         return getattr(self, attr)
 
     def set_nick_name(self, value: str):
+        attr = str(sys._getframe().f_code.co_name).replace('set_', '')
+        setattr(self, attr, value)
+
+    def set_uuid(self, value: str):
         attr = str(sys._getframe().f_code.co_name).replace('set_', '')
         setattr(self, attr, value)
 
@@ -242,7 +255,8 @@ class UserInfo:
                      'last_login_date': self.get_last_login_date(),
                      'cookie': self.get_cookie(),
                      'appkey': self.get_appkey(),
-                     'pushplus_token': self.get_pushplus_token()
+                     'pushplus_token': self.get_pushplus_token(),
+                     'uuid': self.get_uuid()
                      }
         return result_ck
 
@@ -256,7 +270,8 @@ class UserInfo:
 
     def update_ws_key_to_pt_key(self):
         if self.get_appkey() is not None:
-            appkey = ws_key_to_pt_key(self.get_pt_pin(), self.get_appkey())
+            appkey = ws_key_to_pt_key(self.get_pt_pin(), self.get_appkey(), sign_server=self.sign_server,
+                                      uuid=self.get_uuid())
             if appkey is not None:
                 self.cookie = appkey
                 return True
