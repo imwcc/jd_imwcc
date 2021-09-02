@@ -273,7 +273,7 @@ class UserInfo:
             appkey = ws_key_to_pt_key(self.get_pt_pin(), self.get_appkey(), sign_server=self.sign_server,
                                       uuid=self.get_uuid())
             if appkey is not None:
-                self.cookie = appkey
+                self.set_cookie(appkey)
                 return True
             else:
                 logging.error('ws_key 可能已失效')
