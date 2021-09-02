@@ -32,7 +32,7 @@ def ws_key_to_pt_key(pt_pin, ws_key, sign_server, uuid=''):
     body = 'method=url&functionId=genToken&uuid={}'.format(
         uuid) + '&client=android&clientVersion=10.1.1&body={"action":"to",' \
                 '"to":"https://home.m.jd.com/userinfom/QueryUserInfoM"}'
-    response = requests.post('http://jd.zack.xin/sign.php', headers=headers, verify=False, data=body)
+    response = requests.post(sign_server, headers=headers, verify=False, data=body)
     if response.status_code == 200:
         url = str(response.text).strip()
         logging.info("body = " + url)
