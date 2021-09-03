@@ -35,10 +35,13 @@ def send_bean_notify(user: UserInfo):
     if user.get_pushplus_token() is None:
         logging.error("用户没有配置push 通知 {} {}".format(user.get_nick_name(), user.get_pt_pin()))
         return -1
+    bean_change_js_file = 'jd_bean_change_all.js'
+    if not os.path.exists(os.path.join(root_dir, bean_change_js_file)):
+        logging.error("jd_bean_change_all 文件不存在")
+        bean_change_js_file = 'jd_all_bean_change.js'
     logging.info("开始发送通知 to： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
-    cmd = "cd {};export JD_COOKIE=\"{}\";export PUSH_PLUS_TOKEN={}; node jd_all_bean_change.js".format(root_dir,
-                                                                                                       user.get_cookie(),
-                                                                                                       user.get_pushplus_token())
+    cmd = "cd {};export JD_COOKIE=\"{}\";export PUSH_PLUS_TOKEN={}; node {}}.js". \
+        format(root_dir, bean_change_js_file, user.get_cookie(), user.get_pushplus_token())
     logging.info(cmd)
     os.system(cmd)
 
