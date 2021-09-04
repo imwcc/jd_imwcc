@@ -40,8 +40,8 @@ def send_bean_notify(user: UserInfo):
         logging.error("jd_bean_change_all 文件不存在")
         bean_change_js_file = 'jd_all_bean_change.js'
     logging.info("开始发送通知 to： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
-    cmd = "cd {};export JD_COOKIE=\"{}\";export PUSH_PLUS_TOKEN={}; node {}}.js". \
-        format(root_dir, bean_change_js_file, user.get_cookie(), user.get_pushplus_token())
+    cmd = "cd {};export JD_COOKIE=\"{}\";export PUSH_PLUS_TOKEN={}; node {}". \
+        format(root_dir, user.get_cookie(), user.get_pushplus_token(), bean_change_js_file)
     logging.info(cmd)
     os.system(cmd)
 
