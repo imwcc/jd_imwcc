@@ -353,6 +353,7 @@ def main(args):
                 result_ck = user_info.get_user_dict()
                 result_ck_list.append(result_ck)
             yaml_load_result['cookies'] = result_ck_list
+            yaml_load_result['valid_user_account'] = gValid_user_acount_number
             yaml.dump(yaml_load_result, w_f, encoding='utf-8', allow_unicode=True, default_flow_style=False,sort_keys=False)
 
         yaml_out_of_login_result = None
@@ -380,8 +381,6 @@ def main(args):
                 yaml_out_of_login_result['cookies'] = result_ck_list
             else:
                 yaml_out_of_login_result['cookies'] = yaml_out_of_login_result.get('cookies') + result_ck_list
-
-            yaml_out_of_login_result['valid_user_account'] = gValid_user_acount_number
             yaml.dump(yaml_out_of_login_result, w_f, encoding='utf-8', allow_unicode=True, default_flow_style=False,sort_keys=False)
     except Exception as e:
         logging.error(e)
