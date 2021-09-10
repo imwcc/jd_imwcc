@@ -12,9 +12,12 @@ from urllib.parse import urlencode
 
 import requests
 import urllib3
+import time
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+Delay = True
+delay_times = 3
 
 def ws_key_to_pt_key(pt_pin, ws_key, sign_server, uuid=''):
     """
@@ -32,6 +35,9 @@ def ws_key_to_pt_key(pt_pin, ws_key, sign_server, uuid=''):
     body = 'method=url&functionId=genToken&uuid={}'.format(
         uuid) + '&client=android&clientVersion=10.1.1&body={"action":"to",' \
                 '"to":"https://home.m.jd.com/userinfom/QueryUserInfoM"}'
+    if Delay:
+        logging.info("sleep delay {}s".format(delay_times))
+        time.sleep(delay_times)
     response = requests.post(sign_server, headers=headers, verify=False, data=body)
     if response.status_code == 200:
         url = str(response.text).strip()
