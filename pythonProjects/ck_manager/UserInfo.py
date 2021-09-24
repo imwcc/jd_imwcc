@@ -31,7 +31,11 @@ class LoginStatus(Enum):
 
 class UserInfo:
     def __init__(self, ck=None, sign_server=None, **kwargs):
-        self.cookie = str(ck).replace(' ', '')
+        if ck is None:
+            self.cookie = kwargs.get('cookie', None)
+        else:
+            self.cookie = str(ck).replace(' ', '')
+
         self.appkey = str(kwargs.get('appkey', None)).replace(' ', '')
 
         # todo move to global config
