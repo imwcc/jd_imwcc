@@ -41,7 +41,7 @@ assert os.path.isfile(yamlPath)
 # 任然检查上次登陆登陆失败且没有更新ck的用户登陆状态
 FORCE_LOGIN_CHECK = False
 DEBUG = 'jd-arvin' not in HOST_NAME
-disable_user_notify = False
+disable_user_notify = True
 
 config = configparser.ConfigParser()
 config.read(ck_manager_config)
