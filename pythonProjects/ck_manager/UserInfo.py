@@ -31,23 +31,11 @@ class LoginStatus(Enum):
 
 class UserInfo:
     def __init__(self, ck=None, sign_server=None, **kwargs):
-        if ck is None:
-            assert kwargs.get('cookie', None) is not None
-            self.cookie = kwargs.get('cookie', None)
-        else:
-            self.cookie = ck
-        assert self.cookie is not None
+        self.cookie = str(ck).replace(' ', '')
+        self.appkey = str(kwargs.get('appkey', None)).replace(' ', '')
 
         # todo move to global config
         self.sign_server = sign_server
-
-        self.cookie = str(self.cookie).replace(' ', '')
-        assert self.cookie != ''
-
-        self.appkey = kwargs.get('appkey', None)
-
-        self.cookie = str(self.cookie).replace(' ', '')
-        assert self.cookie != ''
 
         self.name = kwargs.get('name')
         self.uuid = kwargs.get('uuid', '')
@@ -75,6 +63,12 @@ class UserInfo:
         else:
             assert LoginStatus.is_valid(kwargs.get('login_status'))
             self.login_status = kwargs.get('login_status')
+
+    def has_config_key(self) -> bool:
+        if self.cookie == '' and self.appkey == '':
+            return False
+        else:
+            return True
 
     def get_name(self):
         attr = str(sys._getframe().f_code.co_name).replace('get_', '')

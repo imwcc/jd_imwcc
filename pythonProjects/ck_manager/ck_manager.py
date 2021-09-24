@@ -1,3 +1,4 @@
+import datetime
 import socket
 import sys
 
@@ -134,6 +135,7 @@ def send_notify(user: UserInfo):
     content += scan_login_url
     pushPlusNotify.pushPlusNotify(user.get_pushplus_token(), content, title='登陆失效，请重新登陆')
 
+
 def send_notify(user: UserInfo, title='登陆失效，请重新登陆', content="您的登录已经失效\n复制下面连接到浏览器扫码登录:\n"):
     if DEBUG:
         logging.info("debug return")
@@ -193,6 +195,7 @@ def format_qinglong_22_ck(ck: str):
         logging.error("pt_key or pt_pin not int ck str")
     return result
 
+
 def main(args):
     is_update_ck = 'update_appkey' in (' '.join(args))
     gValid_user_acount_number = 0
@@ -206,7 +209,11 @@ def main(args):
             if signServer is None:
                 send_admin_message("sign error", "signserver 没有配置")
             for ck in yaml_load_result.get('cookies'):
-                user_info_l.append(UserInfo(sign_server=signServer, **ck).format_ck())
+                user = UserInfo(sign_server=signServer, **ck).format_ck()
+                if not user.has_config_key():
+                    logging.error("无效的用户: {}".format(user.get_user_dict()))
+                    continue
+                user_info_l.append(user)
 
         # 2. 根据优先级排序
         bubbleSort(user_info_l)
@@ -251,7 +258,13 @@ def main(args):
                     user_info.set_login_status(LoginStatus.NEED_CHECK.value)
         logging.info("done update_ws_key_to_pt_key")
 
-        # 4. 并发刷新登陆状态
+        # 4.1 更新只有app key的ck
+        for user_info in user_info_l:
+            if user_info.get_appkey() is not None and user_info.get_pt_pin() == '':
+                logging.info("用户需要 update_ws_key_to_pt_key: {}".format(user.get_pt_pin()))
+                user_info.update_ws_key_to_pt_key()
+
+        # 4.2 并发刷新登陆状态
         logging.info("检查登陆状态开始, 线程池数量: {}".format(thread_poll_size))
         executor = ThreadPoolExecutor(max_workers=thread_poll_size)
         for user_info in user_info_l:
@@ -260,16 +273,22 @@ def main(args):
                 logging.info(
                     "nickName={} pt_pin={}登陆已经失效，忽略检查".format(user_info.get_nick_name(), user_info.get_pt_pin()))
                 continue
+
             def check_login(user: UserInfo):
                 if user.is_login():
                     logging.info("nickName={} pt_pin={}登陆成功".format(user.get_nick_name(), user.get_pt_pin()))
                     user.set_login_status(LoginStatus.LAST_LOGINED.value)
                     user.update_last_login_date()
+                elif user.get_wskey() != '':
+                    user.update_ws_key_to_pt_key()
+                    if not user.is_login():
+                        logging.warning("更新wskey依然失效登陆失效： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
+                        send_notify(user, content="更新wskey依然失效登陆失效.\n请联系管理员解决")
+                        user.set_login_status(LoginStatus.INVALID_LOGIN.value)
                 else:
                     logging.warning("用户登陆失效： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
                     send_notify(user)
                     user.set_login_status(LoginStatus.INVALID_LOGIN.value)
-
 
             all_task = [executor.submit(check_login, user_info)]
         wait(all_task, return_when=ALL_COMPLETED, timeout=600)
@@ -354,7 +373,8 @@ def main(args):
                 result_ck_list.append(result_ck)
             yaml_load_result['cookies'] = result_ck_list
             yaml_load_result['valid_user_account'] = gValid_user_acount_number
-            yaml.dump(yaml_load_result, w_f, encoding='utf-8', allow_unicode=True, default_flow_style=False,sort_keys=False)
+            yaml.dump(yaml_load_result, w_f, encoding='utf-8', allow_unicode=True, default_flow_style=False,
+                      sort_keys=False)
 
         yaml_out_of_login_result = None
         with open(ck_out_of_login_yaml, 'r') as w_f:
@@ -381,13 +401,15 @@ def main(args):
                 yaml_out_of_login_result['cookies'] = result_ck_list
             else:
                 yaml_out_of_login_result['cookies'] = yaml_out_of_login_result.get('cookies') + result_ck_list
-            yaml.dump(yaml_out_of_login_result, w_f, encoding='utf-8', allow_unicode=True, default_flow_style=False,sort_keys=False)
+            yaml.dump(yaml_out_of_login_result, w_f, encoding='utf-8', allow_unicode=True, default_flow_style=False,
+                      sort_keys=False)
     except Exception as e:
         logging.error(e)
         msg = traceback.format_exc()
         e = "Host: {}\n{}\n{}".format(HOST_NAME, msg, str(e))
         logging.error(e)
         send_fata_message(e)
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])
