@@ -41,7 +41,7 @@ assert os.path.isfile(yamlPath)
 # 任然检查上次登陆登陆失败且没有更新ck的用户登陆状态
 FORCE_LOGIN_CHECK = False
 DEBUG = 'jd-arvin' not in HOST_NAME
-disable_user_notify = True
+disable_user_notify = False
 
 config = configparser.ConfigParser()
 config.read(ck_manager_config)
@@ -197,7 +197,12 @@ def format_qinglong_22_ck(ck: str):
 
 
 def main(args):
+    global disable_user_notify
     is_update_ck = 'update_appkey' in (' '.join(args))
+    if 'debug' in (' '.join(args)):
+        logging.info("debug is enable")
+        disable_user_notify = True
+
     gValid_user_acount_number = 0
     try:
         # 1. 导入 yaml
