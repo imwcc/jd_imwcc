@@ -265,9 +265,12 @@ def main(args):
 
         # 4.1 更新只有app key的ck
         for user_info in user_info_l:
-            if user_info.get_appkey() is not None and user_info.get_pt_pin() == '':
+            if user_info.get_appkey() is not None and user_info.get_cookie() is None:
                 logging.info("用户需要 update_ws_key_to_pt_key: {}".format(user.get_pt_pin()))
-                user_info.update_ws_key_to_pt_key()
+                if user_info.update_ws_key_to_pt_key():
+                    logging.info("{} app key to pt_key 2 更新成功".format(user_info.get_pt_pin()))
+                else:
+                    logging.info("{} app key to pt_key 2 更新失败".format(user_info.get_pt_pin()))
 
         # 4.2 并发刷新登陆状态
         logging.info("检查登陆状态开始, 线程池数量: {}".format(thread_poll_size))
@@ -284,7 +287,7 @@ def main(args):
                     logging.info("nickName={} pt_pin={}登陆成功".format(user.get_nick_name(), user.get_pt_pin()))
                     user.set_login_status(LoginStatus.LAST_LOGINED.value)
                     user.update_last_login_date()
-                elif user.get_wskey() != '':
+                elif user.get_appkey() is not None:
                     user.update_ws_key_to_pt_key()
                     if not user.is_login():
                         logging.warning("更新wskey依然失效登陆失效： {} {}".format(user.get_nick_name(), user.get_pt_pin()))

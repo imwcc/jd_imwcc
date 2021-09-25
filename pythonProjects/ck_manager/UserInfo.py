@@ -30,13 +30,18 @@ class LoginStatus(Enum):
 
 
 class UserInfo:
+    # ck 和 appkey 没有配置，一律返回None type
     def __init__(self, ck=None, sign_server=None, **kwargs):
         if ck is None:
             self.cookie = kwargs.get('cookie', None)
+            if self.cookie is not None:
+                self.cookie = str(self.cookie).replace(' ', '')
         else:
             self.cookie = str(ck).replace(' ', '')
 
-        self.appkey = str(kwargs.get('appkey', None)).replace(' ', '')
+        self.appkey = kwargs.get('appkey', None)
+        if self.appkey is not None:
+            self.appkey = str(self.appkey).replace(' ', '')
 
         # todo move to global config
         self.sign_server = sign_server
@@ -129,9 +134,14 @@ class UserInfo:
             return self.get_cookie().split('pt_pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
         elif self.get_appkey() is not None:
             return self.get_appkey().split('pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
+        else:
+            return "no_config_pt_pin"
 
     def get_wskey(self):
-        return self.get_appkey().split('wskey=')[-1].replace(';', '').replace('"', '').replace('\'', '')
+        if self.get_appkey() is not None:
+            return self.get_appkey().split('wskey=')[-1].replace(';', '').replace('"', '').replace('\'', '')
+        else:
+            return None
 
     def to_string(self):
         for attr, value in self.__dict__.items():
@@ -294,3 +304,6 @@ if __name__ == '__main__':
     b = datetime.datetime.strptime(str(date.today()), '%Y-%m-%d')
     assert (b - a).days == 0
     print(userInfo.is_login())
+    user = UserInfo()
+    assert user.get_cookie() is None
+    assert user.get_wskey() is None
