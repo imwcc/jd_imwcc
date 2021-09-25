@@ -35,13 +35,13 @@ class UserInfo:
         if ck is None:
             self.cookie = kwargs.get('cookie', None)
             if self.cookie is not None:
-                self.cookie = str(self.cookie).replace(' ', '')
+                self.cookie = str(self.cookie).replace(' ', '').replace('；', '')
         else:
-            self.cookie = str(ck).replace(' ', '')
+            self.cookie = str(ck).replace(' ', '').replace('；', '')
 
         self.appkey = kwargs.get('appkey', None)
         if self.appkey is not None:
-            self.appkey = str(self.appkey).replace(' ', '')
+            self.appkey = str(self.appkey).replace(' ', '').replace('；', '')
 
         # todo move to global config
         self.sign_server = sign_server
