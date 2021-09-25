@@ -130,12 +130,22 @@ class UserInfo:
         return getattr(self, attr)
 
     def get_pt_pin(self):
-        if self.get_cookie() is not None:
-            return self.get_cookie().split('pt_pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
-        elif self.get_appkey() is not None:
-            return self.get_appkey().split('pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
-        else:
+        result_pin = None
+        if self.get_appkey() is not None:
+            for key in str(self.get_appkey()).split(';'):
+                key = key.strip().replace(' ', '')
+                if 'pin=' in key:
+                    result_pin = key.split('pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
+        elif self.get_cookie() is not None:
+            for key in str(self.get_cookie()).split(';'):
+                key = key.strip().replace(' ', '')
+                if 'pt_pin=' in key:
+                    result_pin = key.split('pt_pin=')[-1].replace(';', '').replace('"', '').replace('\'',
+                                                                                                    '')
+        if result_pin is None:
+            logging.error("no pt_pin")
             return "no_config_pt_pin"
+        return result_pin
 
     def get_wskey(self):
         if self.get_appkey() is not None:
@@ -278,7 +288,7 @@ class UserInfo:
 
     def update_ws_key_to_pt_key(self):
         if self.get_appkey() is not None:
-            appkey = ws_key_to_pt_key(self.get_pt_pin(), self.get_appkey(), sign_server=self.sign_server,
+            appkey = ws_key_to_pt_key(self.get_pt_pin(), self.get_wskey(), sign_server=self.sign_server,
                                       uuid=self.get_uuid())
             if appkey is not None:
                 self.set_cookie(appkey)
