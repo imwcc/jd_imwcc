@@ -56,6 +56,7 @@ scan_login_url = None
 qinglong_ck_file = None
 admin_pushplus_token = None
 external_ck_file = None
+flask_server_yaml = None
 
 if not DEBUG:
     config_name = 'CONFIG'
@@ -96,6 +97,9 @@ for key in config[config_name]:
         except Exception as e:
             logging.error(e)
             thread_poll_size = 5
+    elif key == 'flask_server_yaml':
+        flask_server_yaml = config.get(config_name, key).replace('\n', '').replace(' ', '')
+
     else:
         logging.error("不支持的 key: " + key)
 
@@ -198,6 +202,7 @@ def format_qinglong_22_ck(ck: str):
 
 def main(args):
     global disable_user_notify
+    global flask_server_yaml
     is_update_ck = 'update_appkey' in (' '.join(args))
     if 'debug' in (' '.join(args)):
         logging.info("debug is enable")
@@ -219,9 +224,6 @@ def main(args):
                     logging.error("无效的用户: {}".format(user.get_user_dict()))
                     continue
                 user_info_l.append(user)
-
-        # 2. 根据优先级排序
-        bubbleSort(user_info_l)
 
         # 3. 更新CK or 添加新用户
         if os.path.isfile(qinglong_ck_file):
@@ -248,6 +250,38 @@ def main(args):
                             user_info_l.append(new_user)
                     else:
                         logging.error("cat null qinglong ck: {}".format(new_ck))
+
+        # 3.1 更新flask server
+        if os.path.isfile(flask_server_yaml):
+            temp_user_info_l = []
+            with open(flask_server_yaml, 'r', encoding='utf-8') as f:
+                flask_server_yaml = yaml.load(f.read(), Loader=yaml.FullLoader)
+                signServer = flask_server_yaml.get('sign_server', None)
+                if signServer is None:
+                    send_admin_message("sign error", "signserver 没有配置")
+                for ck in flask_server_yaml.get('cookies'):
+                    user = UserInfo(sign_server=signServer, **ck).format_ck()
+                    if not user.has_config_key():
+                        continue
+                    temp_user_info_l.append(user)
+
+            for new_user in temp_user_info_l:
+                is_new_user_from_flask = True
+                for user in user_info_l:
+                    if new_user.get_pt_pin() == user.get_pt_pin():
+                        is_new_user_from_flask = False
+                        logging.info("flask server 更新CK: old:" + str(user.get_user_dict()))
+                        logging.info("flask server 更新CK: new:" + str(new_user.get_user_dict()))
+                        user.update_ck_from_user(new_user)
+                if is_new_user_from_flask:
+                    logging.info("add new user from flask: " + new_user.get_user_dict())
+                    user_info_l.append(new_user)
+        else:
+            logging.error("flask yaml 不存在")
+
+        # 3.2 根据优先级排序
+        bubbleSort(user_info_l)
+
         # 4.0 update app key
         logging.info("begin update_ws_key_to_pt_key")
         for user_info in user_info_l:

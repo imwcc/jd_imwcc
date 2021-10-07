@@ -16,10 +16,10 @@ import time
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-Delay = True
 delay_times = 3
 
-def ws_key_to_pt_key(pt_pin, ws_key, sign_server, uuid=''):
+
+def ws_key_to_pt_key(pt_pin, ws_key, sign_server, uuid='', delay=True):
     """
     ws_key换pt_key
     :return:
@@ -35,7 +35,7 @@ def ws_key_to_pt_key(pt_pin, ws_key, sign_server, uuid=''):
     body = 'method=url&functionId=genToken&uuid={}'.format(
         uuid) + '&client=android&clientVersion=10.1.1&body={"action":"to",' \
                 '"to":"https://home.m.jd.com/userinfom/QueryUserInfoM"}'
-    if Delay:
+    if delay:
         logging.info("sleep delay {}s".format(delay_times))
         time.sleep(delay_times)
     response = requests.post(sign_server, headers=headers, verify=False, data=body)
@@ -57,6 +57,9 @@ def ws_key_to_pt_key(pt_pin, ws_key, sign_server, uuid=''):
         session.get(url, allow_redirects=True)
         for k, v in session.cookies.items():
             if k == 'pt_key':
+                if str(v).startswith("fake_"):
+                    logging.error("fake wskey")
+                    return None
                 return 'pt_key={};pt_pin={};'.format(v, pt_pin)
         return None
     else:

@@ -109,6 +109,11 @@ class UserInfo:
         attr = str(sys._getframe().f_code.co_name).replace('get_', '')
         return getattr(self, attr)
 
+    def set_wechart(self, value: str):
+        value = value.strip().replace(' ', '').replace('\n', '')
+        attr = str(sys._getframe().f_code.co_name).replace('set_', '')
+        setattr(self, attr, value)
+
     def get_out_of_time(self):
         attr = str(sys._getframe().f_code.co_name).replace('get_', '')
         return getattr(self, attr)
@@ -286,10 +291,20 @@ class UserInfo:
             self.cookie = ck
         return self
 
-    def update_ws_key_to_pt_key(self):
+    def update_ck_from_user(self, new_user):
+        if new_user.get_appkey() != None and new_user.get_appkey() != '':
+            self.set_appkey(new_user.get_appkey())
+        if new_user.get_pushplus_token() != None and new_user.get_pushplus_token() != '':
+            self.set_pushplus_token(new_user.get_pushplus_token())
+        if new_user.get_cookie() != None and new_user.get_cookie() != '':
+            self.set_cookie(new_user.get_cookie())
+        if new_user.get_wechart() != None and new_user.get_wechart() != '':
+            self.set_wechart(new_user.get_wechart())
+
+    def update_ws_key_to_pt_key(self, delay=True):
         if self.get_appkey() is not None:
             appkey = ws_key_to_pt_key(self.get_pt_pin(), self.get_wskey(), sign_server=self.sign_server,
-                                      uuid=self.get_uuid())
+                                      uuid=self.get_uuid(), delay=delay)
             if appkey is not None:
                 self.set_cookie(appkey)
                 return True
