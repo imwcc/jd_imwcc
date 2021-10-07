@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ScrollingActivity"
+    tools:showIn="@layout/activity_scrolling">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible"
+        tools:visibility="visible">
+
+
+        <EditText
+            android:id="@+id/pt_pin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:hint="pt_pin 必填项"
+            android:padding="5dp"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/wskey"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:hint="wskey 必填项"
+            android:padding="5dp"
+            android:singleLine="false" />
+
+        <EditText
+            android:id="@+id/pt_key"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:hint="pt_key 必填项"
+            android:padding="5dp"
+            android:singleLine="false" />
+
+        <EditText
+            android:id="@+id/pushplus_token"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:hint="pushplus token 可选项"
+            android:padding="5dp"
+            android:singleLine="false" />
+
+        <EditText
+            android:id="@+id/wechart_id"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:hint="微信号 可选项"
+            android:padding="5dp"
+            android:singleLine="false" />
+
+        <EditText
+            android:id="@+id/server_address"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:hint="服务器地址"
+            android:text="http://s1.s100.vip:22468"
+            android:padding="5dp"
+            android:singleLine="false" />
+
+        <Button
+            android:id="@+id/submit_ck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="提交"></Button>
+
+        <Button
+            android:id="@+id/ping_server"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ping Server"></Button>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="提交前，先点击右下角ping按钮，测试服务器是否可用，如果可用，提交按钮才可以使用。\nwskey和pt_key两者是二一的状态，pt_pin是必填项目。
+\npushplus token如果原来已结提交过服务器，就不要填写，保留空文本即可，wechart同理。"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>
