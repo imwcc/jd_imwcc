@@ -1,4 +1,3 @@
-import json
 import logging
 import os
 import time
@@ -83,6 +82,7 @@ class UserView(Resource):
                 user.update_ck_from_user(new_user)
 
         if is_new_user:
+            logging.info("添加新用户: new:" + str(new_user.get_user_dict()))
             user_info_l.append(new_user)
 
         with open(yamlPath, 'w', encoding='utf-8') as w_f:
