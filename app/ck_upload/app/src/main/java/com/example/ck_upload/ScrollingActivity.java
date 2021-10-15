@@ -60,6 +60,7 @@ public class ScrollingActivity extends AppCompatActivity {
     private EditText pt_key;
     private EditText push_token;
     private EditText wechart_id;
+    private EditText cookie_text;
 
     private EditText server_address;
 
@@ -148,6 +149,7 @@ public class ScrollingActivity extends AppCompatActivity {
         wskey = findViewById(R.id.wskey);
         push_token = findViewById(R.id.pushplus_token);
         wechart_id = findViewById(R.id.wechart_id);
+        cookie_text = findViewById(R.id.cookie);
         server_address = findViewById(R.id.server_address);
         progressDialog = new ProgressDialog(this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -212,7 +214,11 @@ public class ScrollingActivity extends AppCompatActivity {
                 try {
                     String url = HOST_ADDRES + "/ping_server";
                     Log.i(TAG, "url: " + url);
-                    OkHttpClient client = new OkHttpClient();
+                    OkHttpClient client = new OkHttpClient.Builder()
+                            .connectTimeout(60, TimeUnit.SECONDS)
+                            .writeTimeout(60, TimeUnit.SECONDS)
+                            .readTimeout(30, TimeUnit.SECONDS)
+                            .build();
                     Request request = new Request.Builder().url(url).build();
                     okhttp3.Response response = client.newCall(request).execute();
                     Message message = handler.obtainMessage();
@@ -264,21 +270,30 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     private void post_ck_info() {
-        if ("".equals(wskey.getText().toString().trim())) {
+        if ("".equals(cookie_text.getText().toString().trim())) {
             Message message = handler.obtainMessage();
             message.what = INPUT_IS_INVALID;
-            message.obj = "wskey是空的";
+            message.obj = "cookie 是空的";
             handler.sendMessage(message);
             return;
         }
 
-        if ("".equals(pt_pin.getText().toString().trim())) {
+        if (!cookie_text.getText().toString().trim().contains("pt_key") &&  !cookie_text.getText().toString().trim().contains("wskey")) {
             Message message = handler.obtainMessage();
             message.what = INPUT_IS_INVALID;
-            message.obj = "pt_pin 是空的";
+            message.obj = "pt_key或者wskey 是空的";
             handler.sendMessage(message);
             return;
         }
+
+        if (!cookie_text.getText().toString().trim().contains("pin=") && !cookie_text.getText().toString().trim().contains("pt_pin=")) {
+            Message message = handler.obtainMessage();
+            message.what = INPUT_IS_INVALID;
+            message.obj = "pt_pin或者pin是空的";
+            handler.sendMessage(message);
+            return;
+        }
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -289,14 +304,9 @@ public class ScrollingActivity extends AppCompatActivity {
 
                     String url = HOST_ADDRES + "/ck";
                     OkHttpClient okHttpClient = new OkHttpClient();
-//                            connectTimeout(10, TimeUnit.SECONDS)
-//                            .readTimeout(5, TimeUnit.SECONDS)
-//                            .writeTimeout(5, TimeUnit.SECONDS)
-//                            .build();
                     JSONObject json = new JSONObject();
                     try {
-                        json.put("cookie", "pt_pin=" + pt_pin.getText().toString() + ";pt_key=" + pt_key.getText().toString() + ';');
-                        json.put("appkey", "pin="+pt_pin.getText().toString() + ";wskey=" + wskey.getText().toString() + ';');
+                        json.put("cookie", cookie_text.getText().toString().trim());
                         json.put("pushplus_token", push_token.getText().toString());
                         json.put("wechart", wechart_id.getText().toString());
                     } catch (JSONException e) {
