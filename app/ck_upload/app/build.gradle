@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        sign {
+            storeFile file('/home/arvin/arvin/test.jks')
+            storePassword '123456'
+            keyAlias '123456'
+            keyPassword '123456'
+        }
+    }
     compileSdk 31
 
     defaultConfig {
@@ -19,6 +27,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable false
         }
     }
     compileOptions {
