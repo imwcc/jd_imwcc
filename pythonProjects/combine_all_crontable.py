@@ -124,7 +124,10 @@ if __name__ == '__main__':
                             continue
                         comment = "# {}".format(comment)
                         temp_crontab_list.append(comment)
-                        crontab_item = "{} otask {}".format(schedule_cron, script_file_absolute_path)
+                        if script_file_name.endswith('.py'):
+                            crontab_item = "{} python3 {}".format(schedule_cron, script_file_absolute_path)
+                        else:
+                            crontab_item = "{} otask {}".format(schedule_cron, script_file_absolute_path)
                         temp_crontab_list.append(crontab_item)
                         result_crontab_list_file_name.append(script_file_name)
 
