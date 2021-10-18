@@ -11,6 +11,7 @@ import pushPlusNotify
 import traceback
 from concurrent.futures import ThreadPoolExecutor, wait, ALL_COMPLETED
 import json
+import argparse
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                     level=logging.DEBUG)
@@ -124,33 +125,32 @@ def get_pt_pin(ck: str):
     return ck.split('pt_pin=')[-1].replace(';', '').replace('"', '').replace('\'', '')
 
 
-def send_notify(user: UserInfo):
-    if DEBUG:
-        return False
-    if disable_user_notify:
-        logging.info("disable_user_notify")
-        return False
-    if user.get_pushplus_token() is None:
-        logging.warning("用户没有配置通知")
-        return 0
-    content = '''您的登录已经失效
-复制下面连接到浏览器扫码登录:
-'''
-    content += scan_login_url
-    pushPlusNotify.pushPlusNotify(user.get_pushplus_token(), content, title='登陆失效，请重新登陆')
+# def send_notify(user: UserInfo):
+#     if DEBUG:
+#         return False
+#     if disable_user_notify:
+#         logging.info("disable_user_notify")
+#         return False
+#     if user.get_pushplus_token() is None:
+#         logging.warning("用户没有配置通知")
+#         return 0
+#     content = '''您的登录已经失效
+# 复制下面连接到浏览器扫码登录:
+# '''
+#     content += scan_login_url
+#     pushPlusNotify.pushPlusNotify(user.get_pushplus_token(), content, title='登陆失效，请重新登陆')
 
 
 def send_notify(user: UserInfo, title='登陆失效，请重新登陆', content="您的登录已经失效\n复制下面连接到浏览器扫码登录:\n"):
     if DEBUG:
-        logging.info("debug return")
-        return False
+        logging.info("send_notify title: {}\nmessage:{}".format(title, content))
     if disable_user_notify:
         logging.info("disable_user_notify")
         return False
     if user.get_pushplus_token() is None:
         logging.warning("用户没有配置通知")
         return 0
-    content += scan_login_url
+    content += '\n' + scan_login_url
     pushPlusNotify.pushPlusNotify(user.get_pushplus_token(), content, title)
 
 
@@ -159,8 +159,8 @@ def is_need_skip(user: UserInfo):
 
 
 def send_admin_message(title: str, message: str):
-    if DEBUG:
-        logging.info("send_admin_message skip just for debug");
+    if disable_user_notify:
+        logging.info("send_admin_message skip just for disable_user_notify");
         logging.info("title: {}\nmessage:{}".format(title, message))
         return
     if admin_pushplus_token is None:
@@ -203,10 +203,31 @@ def format_qinglong_22_ck(ck: str):
 def main(args):
     global disable_user_notify
     global flask_server_yaml
-    is_update_ck = 'update_appkey' in (' '.join(args))
-    if 'debug' in (' '.join(args)):
-        logging.info("debug is enable")
+    global DEBUG
+    is_update_ck: bool = False
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--update_appkey", action="store_true",
+                        help="app_key to web cookie")
+    parser.add_argument("--debug", action="store_true",
+                        help="didn't send plush notify to user")
+
+    parser.add_argument("--send_admin_message",
+                        help="send admin message to all user, parameter is file or str")
+
+    parser.add_argument("-v", "--verbose", action="store_true",
+                        help="enable global debug swich")
+    args = parser.parse_args()
+
+    if args.update_appkey:
+        is_update_ck = True
+    if args.debug:
+        logging.info("disable_user_notify")
         disable_user_notify = True
+        DEBUG = True
+    if args.verbose:
+        logging.info("enable debug switch")
+        DEBUG = True
 
     gValid_user_acount_number = 0
     try:
@@ -224,6 +245,18 @@ def main(args):
                     logging.error("无效的用户: {}".format(user.get_user_dict()))
                     continue
                 user_info_l.append(user)
+
+        # 1.1 仅发送管理员消息
+        if args.send_admin_message:
+            logging.info("发送管理员消息")
+            send_message_content = str(args.send_admin_message)
+            if os.path.isfile(str(args.send_admin_message)):
+                with open(args.send_admin_message, 'r', encoding='utf-8') as f:
+                    send_message_content = f.read()
+            for user in user_info_l:
+                send_notify(user, "管理员消息", send_message_content)
+            logging.info("发送管理员消息发送结束")
+            exit(0)
 
         # 3. 更新CK or 添加新用户
         if os.path.isfile(qinglong_ck_file):
@@ -454,4 +487,4 @@ def main(args):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main(sys.argv)
