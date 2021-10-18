@@ -3,3 +3,4 @@
 pythonProjects/crontab.list
 pythonProjects/test
 */__pycache__
+pythonProjects/ck_manager/ck_out_of_login.yaml
