@@ -307,7 +307,7 @@ def main(args):
                         logging.info("flask server 更新CK: new:" + str(new_user.get_user_dict()))
                         user.update_ck_from_user(new_user)
                 if is_new_user_from_flask:
-                    logging.info("add new user from flask: " + new_user.get_user_dict())
+                    logging.info("add new user from flask: " + str(new_user.get_user_dict()))
                     user_info_l.append(new_user)
         else:
             logging.error("flask yaml 不存在")
