@@ -9,6 +9,13 @@ FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(os.path.dirname(FILE_DIR)))
 # sys.path.append("..")
 # from utils import sendNotify
+HOST_NAME = socket.gethostname()
+DEBUG = 'jd-arvin' not in HOST_NAME
+if DEBUG:
+    import utils_tool
+    import parse_yaml
+else:
+    from utils import parse_yaml, utils_tool
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                     level=logging.DEBUG)
@@ -56,15 +63,49 @@ for key in config[config_name]:
         logging.error("不支持的 key: " + key)
 
 logging.info("HOST_NAME script_name ROOT_DIR {} {} {}".format(HOST_NAME, script_name, ROOT_DIR))
-assert HOST_NAME is not None
-assert script_name is not None
-assert ROOT_DIR is not None
+# assert HOST_NAME is not None
+# assert script_name is not None
+# assert ROOT_DIR is not None
 
 new_scripts_dir = os.path.join(ROOT_DIR, script_name)
 logging.info(new_scripts_dir)
 
+if DEBUG:
+    new_scripts_dir = "/home/arvin/code/scripts"
+    script_name = "scripts"
+
+# 处理 gua_city.js
+def deal_gua_city(file_name_obsolute_path, fileName):
+    if not os.path.isfile(file_name_obsolute_path):
+        logging.error("file_name_obsolute_path {} is not a file".format(file_name_obsolute_path))
+        return
+    patch_file = os.path.join(FILE_DIR,'patch', '0001-diable-help.patch')
+    cmd = "cd {}; git apply {}".format(new_scripts_dir, patch_file)
+    logging.info("cmd " + cmd)
+    status = os.system(cmd) >> 8
+    logging.info("status " + str(status))
+    if status > 0:
+        logging.error("git apply patch failed: " + str(patch_file))
+    else:
+        logging.error("git apply patch success " + str(patch_file))
+
+def deal_signal_file(file_name_obsolute_path, fileName):
+    logging.info("deal_signal_file fileName" + str(fileName))
+    if file_name == 'gua_city.js':
+        deal_gua_city(file_name_obsolute_path, fileName)
+
 if __name__ == '__main__':
     scripts_list = []
+
+    for file_name in os.listdir(new_scripts_dir):
+        if '.js' not in file_name:
+            continue
+        if file_name in exclude_file_list:
+            logging.info("file {} 在排除列表中".format(file_name))
+            continue
+        file_name_obsolute_path: str = os.path.join(new_scripts_dir, file_name)
+
+        deal_signal_file(file_name_obsolute_path, file_name)
 
     for file_name in os.listdir(new_scripts_dir):
         if '.js' not in file_name:
@@ -91,6 +132,7 @@ if __name__ == '__main__':
             logging.info("run {}".format(cmd))
             os.system(cmd)
 
+        # 可能是依赖文件
         if not file_name.startswith('jd_'):
             logging.info('cp {} /jd/scripts'.format(file_name_obsolute_path))
             os.system('cp {} /jd/scripts'.format(file_name_obsolute_path))

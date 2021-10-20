@@ -1,0 +1,44 @@
+From d131c0a43c25a7b815d0ff95e5738762a2ea521f Mon Sep 17 00:00:00 2001
+From: Arvin <arvinxwang@gmail.com>
+Date: Wed, 20 Oct 2021 14:12:44 +0800
+Subject: [PATCH] diable help
+
+Signed-off-by: Arvin
+---
+ gua_city.js | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/gua_city.js b/gua_city.js
+index 6209b22..130e66b 100644
+--- a/gua_city.js
++++ b/gua_city.js
+@@ -79,7 +79,13 @@ $.shareCodesArr = [];
+       console.log(`\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
+       await getUA()
+       await shareCodesFormat()
+-      for (let i = 0; i < $.newShareCodes.length && true; ++i) {
++      let shareLength = $.newShareCodes.length;
++
++      if (shareLength > 5) {
++      	  console.log(`助力仅仅5个`)
++          shareLength = 5;
++      }
++      for (let i = 0; i < shareLength && true; ++i) {
+         console.log(`\n开始助力 【${$.newShareCodes[i]}】`)
+         let res = await getInfo($.newShareCodes[i])
+         if (res && res['data'] && res['data']['bizCode'] === 0) {
+@@ -346,9 +352,9 @@ function shareCodesFormat() {
+     if ($.shareCodesArr[$.index - 1]) {
+       $.newShareCodes = $.shareCodesArr[$.index - 1].split('@');
+     }
+-    if($.index == 1) $.newShareCodes = [...inviteCodes,...$.newShareCodes]
++// if() $.newShareCodes = [...inviteCodes,...$.newShareCodes]
+     try{
+-      const readShareCodeRes = await readShareCode();
++      const readShareCodeRes = null;
+       if (readShareCodeRes && readShareCodeRes.code === 200) {
+         $.newShareCodes = [...new Set([...$.newShareCodes, ...(readShareCodeRes.data || [])])];
+       }
+-- 
+2.25.1
+

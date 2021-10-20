@@ -3,9 +3,9 @@ import sys
 import os
 import socket
 import yaml
-HOST_NAME = socket.gethostname()
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(os.path.dirname(FILE_DIR)))
+HOST_NAME = socket.gethostname()
 DEBUG = 'jd-arvin' not in HOST_NAME
 if DEBUG:
     import utils_tool
