@@ -50,7 +50,7 @@ else:
 old_crontab_list_file = crontab_result_file
 
 if __name__ == '__main__':
-    old_crontab_list = []
+    old_crontab_list = []  # Save the existing crontab
     result_crontab_list = []
     current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
@@ -60,16 +60,29 @@ if __name__ == '__main__':
                 line = line.strip().replace('\n', '')
                 if line.strip() == '':
                     continue
+                # 忽略被注释的 crontab, 请保留注释
                 # elif line.startswith('#'):
                 #     continue
-                elif '.js' not in line and 'jtask' not in line:
-                    continue
-                if '.js' in line:
-                    for i in line.split():
-                        if '.js' in i:
-                            old_crontab_list.append(line.strip())
-                elif 'jtask' in line:
-                    old_crontab_list.append(line.split('jtask')[-1].strip() + '.js')
+
+                if '.js' in line and ('jtask' in line or 'otask' in line):
+                    for key in line.split(' '):
+                        key = key.strip().replace(' ', '')
+                        if key == '':
+                            continue
+                        if '.js' in key and '/' in key:
+                            old_crontab_list.append(key)
+                            if not os.path.isfile(key):
+                                logging.warning("js crontab 路径失效: " + str(key))
+
+                elif '.py' in line and 'python' in line:
+                    for key in line.split(' '):
+                        key = key.strip().replace(' ', '')
+                        if key == '':
+                            continue
+                        if '.py' in key and '/' in key:
+                            old_crontab_list.append(key)
+                            if not os.path.isfile(key):
+                                logging.warning("py crontab 路径失效: " + str(key))
 
     # 1, 统计own
     result_crontab_list = []
