@@ -98,7 +98,7 @@ if __name__ == '__main__':
         cmd3 = "cd {}; sed -i 's/$.ShInviteLists.push(...$.ShInviteList,/ \/\/$.ShInviteLists.push(...$.ShInviteList,/g' {}".format(
             new_scripts_dir, file_name)
 
-        remove_nick_name = "cd {};sed -i 's/$.nickName\ =\ data.data.userInfo.baseInfo.nickname/$.nickName=\"\"/g' {}".format(
+        remove_nick_name = "cd {};sed -i 's/].nickname/].arvin/g' {}".format(
             new_scripts_dir, file_name)
 
         cmds = [cmd1, cmd2, cmd3, remove_nick_name]
