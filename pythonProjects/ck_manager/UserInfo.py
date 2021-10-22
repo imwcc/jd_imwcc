@@ -67,6 +67,8 @@ class UserInfo:
 
         self.nick_name = kwargs.get('nick_name')
         self.pushplus_token = kwargs.get('pushplus_token')
+        if self.pushplus_token is not None:
+            self.pushplus_token = str(self.pushplus_token).strip().replace('\'', '').replace(' ', '')
         if kwargs.get('login_status') is None:
             self.login_status = LoginStatus.NEED_CHECK.value
         else:
