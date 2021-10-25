@@ -12,60 +12,43 @@ sys.path.append(os.path.join(os.path.dirname(FILE_DIR)))
 # sys.path.append("..")
 # from utils import sendNotify
 
+HOST_NAME = socket.gethostname()
+DEBUG = 'jd-arvin' not in HOST_NAME
+
+if DEBUG:
+    import utils_tool
+    import parse_yaml
+    from ConfigParse import ConfigParse
+else:
+    from utils import parse_yaml, utils_tool
+    from utils import ConfigParse
+
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                     level=logging.DEBUG)
 logging.info(FILE_DIR)
 
-HOST_NAME = socket.gethostname()
-DEBUG = 'jd-arvin' not in HOST_NAME
-
+# ===============不变 begin ===========================
 RESULT_FILE = os.path.join(FILE_DIR, 'task.yaml')
-
 config = configparser.ConfigParser()
 config.read(os.path.join(FILE_DIR, 'exclude.cfg'))
-
-exclude_file_list = []
-exclude_yaml_file_list = []
-white_files_list = [] #忽律警告信息用
-
-HOST_NAME = None
-script_name = None
-ROOT_DIR = None
-if not DEBUG:
-    config_name = 'CONFIG'
-else:
-    config_name = 'DEBUG_CONFIG'
-
-for key in config['EXCLUDE']:
-    if key == 'js_exclude_files':
-        for i in config.get('EXCLUDE', key).replace('\n', '').split(','):
-            exclude_file_list.append(str(i).strip())
-    elif key == 'yaml_exclude_files':
-        for i in config.get('EXCLUDE', key).replace('\n', '').split(','):
-            exclude_yaml_file_list.append(str(i).strip())
-    elif key == 'js_white_files':
-        for i in config.get('EXCLUDE', key).replace('\n', '').split(','):
-            white_files_list.append(str(i).strip())
-
-for key in config[config_name]:
-    if key == 'host_name':
-        HOST_NAME = config.get(config_name, key).replace('\n', '')
-    elif key == 'script_name':
-        script_name = config.get(config_name, key)
-    elif key == 'root_dir':
-        ROOT_DIR = config.get(config_name, key)
-    else:
-        logging.error("不支持的 key: " + key)
-
+config = ConfigParse(os.path.join(FILE_DIR, 'exclude.cfg'), DEBUG)
+exclude_file_list = config.get_exclude_js_exclude_files()
+exclude_yaml_file_list = config.get_exclude_yaml_exclude_files()
+ROOT_DIR = config.get_config_root_dir()
+new_scripts_dir = os.path.join(ROOT_DIR, config.get_config_script_name())
+script_name = config.get_config_script_name()
 logging.info("HOST_NAME script_name ROOT_DIR {} {} {}".format(HOST_NAME, script_name, ROOT_DIR))
 assert HOST_NAME is not None
 assert script_name is not None
 assert ROOT_DIR is not None
+assert os.path.isdir(new_scripts_dir)
+# ===============不变 END ===========================
 
-new_scripts_dir = os.path.join(ROOT_DIR, script_name)
+white_files_list = config.get_exclude_js_white_files()
+
 logging.info(new_scripts_dir)
-
 parse_task_file = os.path.join(new_scripts_dir, 'sync.sh')
+
 # ===================修改 end =================
 if not os.path.exists(new_scripts_dir):
     logging.error("找不到新脚本目录: {}".format(new_scripts_dir))

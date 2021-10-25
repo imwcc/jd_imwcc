@@ -11,8 +11,10 @@ DEBUG = 'jd-arvin' not in HOST_NAME
 if DEBUG:
     import utils_tool
     import parse_yaml
+    from ConfigParse import ConfigParse
 else:
     from utils import parse_yaml, utils_tool
+    from utils import ConfigParse
 import logging
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
@@ -20,47 +22,21 @@ logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(leve
 
 RESULT_FILE = os.path.join(FILE_DIR, 'task.yaml')
 
-exclude_file_list = []
-exclude_yaml_file_list = []
+config = ConfigParse(os.path.join(FILE_DIR, 'exclude.cfg'), DEBUG)
+exclude_file_list = config.get_exclude_js_exclude_files()
+exclude_yaml_file_list = config.get_exclude_yaml_exclude_files()
 
-config = configparser.ConfigParser()
-config.read(os.path.join(FILE_DIR, 'exclude.cfg'))
+ROOT_DIR = config.get_config_root_dir()
+new_scripts_dir = os.path.join(ROOT_DIR, config.get_config_script_name())
+script_name = config.get_config_script_name()
 
-for key in config['EXCLUDE']:
-    if key == 'js_exclude_files':
-        for i in config.get('EXCLUDE', key).replace('\n', '').split(','):
-            exclude_file_list.append(str(i).strip())
-    elif key == 'yaml_exclude_files':
-        for i in config.get('EXCLUDE', key).replace('\n', '').split(','):
-            exclude_yaml_file_list.append(str(i).strip())
-
-scripts_dir = None
-script_name = None
-ROOT_DIR = None
-if DEBUG:
-    config_key = "DEBUG_CONFIG"
-else:
-    config_key = "CONFIG"
-
-print(config[config_key])
-for key in config[config_key]:
-    if key == 'script_name':
-        scripts_dir = script_name = config.get(config_key, key).replace('\n', '')
-    elif key == 'root_dir':
-        ROOT_DIR = config.get(config_key, key).replace('\n', '')
-    else:
-        logging.info("不能识别的config key: " + key)
-
-# ========================== 不变
-assert scripts_dir is not None
 assert script_name is not None
 assert ROOT_DIR is not None
+assert new_scripts_dir is not None
 
-new_scripts_dir = os.path.join(ROOT_DIR, scripts_dir)
 logging.info("new_scripts_dir->" + new_scripts_dir)
-
 if not os.path.exists(new_scripts_dir):
-    logging.error("找不到配置文件")
+    logging.error("找不到配置文件: {}".format(new_scripts_dir))
     exit(-1)
 
 if __name__ == '__main__':
