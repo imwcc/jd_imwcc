@@ -14,7 +14,7 @@ if DEBUG:
     from ConfigParse import ConfigParse
 else:
     from utils import parse_yaml, utils_tool
-    from utils import ConfigParse
+    from utils.ConfigParse import ConfigParse
 import logging
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
