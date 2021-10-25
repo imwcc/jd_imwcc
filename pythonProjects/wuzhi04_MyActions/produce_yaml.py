@@ -6,14 +6,19 @@ import yaml
 
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(os.path.dirname(FILE_DIR)))
-from utils import parse_yaml, utils_tool
+HOST_NAME = socket.gethostname()
+DEBUG = 'jd-arvin' not in HOST_NAME
+if DEBUG:
+    import utils_tool
+    import parse_yaml
+else:
+    from utils import parse_yaml, utils_tool
 import logging
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                     level=logging.DEBUG)
 
-HOST_NAME = socket.gethostname()
-DEBUG = 'jd-arvin' not in HOST_NAME
+
 
 RESULT_FILE = os.path.join(FILE_DIR, 'task.yaml')
 
@@ -90,6 +95,23 @@ if __name__ == '__main__':
                     result_dic.get('tasks').append(temp_dic)
                 else:
                     logging.error("{} not found".format(script_file))
+
+    # 解析完 docker/crontab_list.sh, 继续解析文件,进行补充, 目前仅仅支持 js
+    for file_name in os.listdir(new_scripts_dir):
+        if file_name in exclude_file_list:
+            logging.info("file_name: {}在排除列表中".format(file_name))
+            continue
+        if '.js' in file_name:
+            crontab_dict = utils_tool.get_full_crontab_dic(os.path.join(new_scripts_dir, file_name))
+            if crontab_dict != utils_tool.UN_DEFINE:
+                local_not_find = True
+                for local_dic_crontab_config in result_dic.get('tasks'):
+                    if utils_tool.get_file_name_from_dict(crontab_dict) == utils_tool.get_file_name_from_dict(
+                            local_dic_crontab_config):
+                        local_not_find = False
+                        break
+                if local_not_find:
+                    result_dic.get('tasks').append(crontab_dict)
 
     with open(RESULT_FILE, 'w', encoding="utf-8") as f:
         yaml.dump(result_dic, f, encoding='utf-8', allow_unicode=True)

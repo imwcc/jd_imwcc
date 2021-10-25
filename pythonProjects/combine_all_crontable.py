@@ -87,7 +87,8 @@ if __name__ == '__main__':
     # 1, 统计own
     result_crontab_list = []
     result_crontab_list_file_name = []
-
+    result_crontab_list_env_name = []
+    
     # 执行diy change 文件:
     logging.info("执行diy change")
     for i in priority_order_list:
@@ -126,6 +127,10 @@ if __name__ == '__main__':
                         if script_file_name in result_crontab_list_file_name:
                             logging.info("{} Name: {} 已经存在于上次循环".format(str(i), script_file_name))
                             continue
+                        if comment in result_crontab_list_env_name:
+                            logging.warning("{} env name: {} 已经存在于上次循环".format(str(comment)))
+                            continue
+
                         is_in_old_crontab = False
                         # 判斷是否在 老旧的 crontabl list 配置中， 若是 退出
                         for jd_scripts_line_item in old_crontab_list:
@@ -143,6 +148,7 @@ if __name__ == '__main__':
                             crontab_item = "{} otask {}".format(schedule_cron, script_file_absolute_path)
                         temp_crontab_list.append(crontab_item)
                         result_crontab_list_file_name.append(script_file_name)
+                        result_crontab_list_env_name.append(comment)
 
             except Exception as e:
                 logging.error(e)
