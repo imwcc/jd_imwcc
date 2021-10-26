@@ -17,7 +17,6 @@ if DEBUG:
     import parse_yaml
 else:
     from utils import parse_yaml, utils_tool
-import utils_tool
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                     level=logging.DEBUG)
