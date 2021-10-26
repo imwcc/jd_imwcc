@@ -90,6 +90,9 @@ if __name__ == '__main__':
         utils_tool.replace_file_line(os.path.join(new_scripts_dir, file_name), "$.authorMyShareIds = ",
                                      "  $.authorMyShareIds=[];\n")
 
+        utils_tool.replace_file_str(os.path.join(new_scripts_dir, file_name), "await readShareCode()",
+                                     "false")
+
         cmd1 = "cd {}; sed -i 's/const ShHelpAuthorFlag = true/const ShHelpAuthorFlag = false/g' {}".format(
             new_scripts_dir, file_name)
         cmd2 = "cd {};sed -i 's/\$.innerShInviteLists = getRandomArrayElements/ \/\/$.innerShInviteLists = getRandomArrayElements/g' {}".format(

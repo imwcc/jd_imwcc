@@ -89,10 +89,21 @@ def deal_gua_city(file_name_obsolute_path, fileName):
     else:
         logging.error("git apply patch success " + str(patch_file))
 
+
+def deal_carnivalcity(file_name_obsolute_path, fileName):
+    if not os.path.isfile(file_name_obsolute_path):
+        logging.error("file_name_obsolute_path {} is not a file".format(file_name_obsolute_path))
+        return
+    utils_tool.replace_file_line(file_name_obsolute_path, "const readShareCodeRes = await readShareCode();", "    const readShareCodeRes = false;")
+
+
 def deal_signal_file(file_name_obsolute_path, fileName):
     logging.info("deal_signal_file fileName" + str(fileName))
     if file_name == 'gua_city.js':
         deal_gua_city(file_name_obsolute_path, fileName)
+    elif file_name == 'gua_carnivalcity.js':
+        # 京东手机狂欢城
+        deal_carnivalcity(file_name_obsolute_path, fileName)
 
 if __name__ == '__main__':
     scripts_list = []
