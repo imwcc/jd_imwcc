@@ -143,8 +143,7 @@ if __name__ == '__main__':
                                 break
                         if is_in_old_crontab:
                             continue
-                        comment = "# {}".format(comment)
-                        temp_crontab_list.append(comment)
+                        temp_crontab_list.append("# {}".format(comment))
                         if script_file_name.endswith('.py'):
                             crontab_item = "{} python3 {}".format(schedule_cron, script_file_absolute_path)
                         else:
