@@ -259,7 +259,10 @@ def replace_file_line(target_file, source: str, target: str):
         for line in f.readlines():
             old = line
             if source in line:
-                line = target
+                if '\n' not in target:
+                    line = target + '\n'
+                else:
+                    line = target + '\n'
             if line != old:
                 logging.info("replace: \"{}\" to \"{}\"".format(old, line).replace('\n', ''))
                 count += 1

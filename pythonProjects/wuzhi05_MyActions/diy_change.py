@@ -9,14 +9,17 @@ FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(os.path.dirname(FILE_DIR)))
 # sys.path.append("..")
 # from utils import sendNotify
-from utils import parse_yaml, utils_tool
+HOST_NAME = socket.gethostname()
+DEBUG = 'jd-arvin' not in HOST_NAME
+if DEBUG:
+    import utils_tool
+    import parse_yaml
+else:
+    from utils import parse_yaml, utils_tool
 
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                     level=logging.DEBUG)
 logging.info(FILE_DIR)
-
-HOST_NAME = socket.gethostname()
-DEBUG = 'jd-arvin' not in HOST_NAME
 
 RESULT_FILE = os.path.join(FILE_DIR, 'task.yaml')
 
@@ -86,6 +89,9 @@ if __name__ == '__main__':
 
         utils_tool.replace_file_str(os.path.join(new_scripts_dir, file_name), "await readShareCode()",
                                      "false")
+        if file_name == "jd_carnivalcity_help.js":
+            utils_tool.replace_file_line(os.path.join(new_scripts_dir, file_name), "$.updatePkActivityIdRes = await getAuthorShareCode",
+                                        "  $.updatePkActivityIdRes = []")
 
         cmd1 = "cd {}; sed -i 's/const ShHelpAuthorFlag = true/const ShHelpAuthorFlag = false/g' {}".format(
             new_scripts_dir, file_name)
