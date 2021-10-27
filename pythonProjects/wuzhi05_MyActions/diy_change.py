@@ -80,6 +80,7 @@ if __name__ == '__main__':
             logging.info("file {} 在排除列表中".format(file_name))
             continue
 
+        absolute_file_name = os.path.join(new_scripts_dir, file_name)
         utils_tool.replace_file_line(os.path.join(new_scripts_dir, file_name), "$.authorMyShareIds = ",
                                      "  $.authorMyShareIds=[];\n")
 
@@ -104,7 +105,7 @@ if __name__ == '__main__':
         for cmd in cmds:
             logging.info("run {}".format(cmd))
             os.system(cmd)
-        if os.path.isfile(file_name) and not file_name.startswith('jd'):
+        if os.path.isfile(absolute_file_name) and not file_name.startswith('jd'):
             cmd = 'cp -f {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
             logging.info("run {}".format(cmd))
             os.system(cmd)

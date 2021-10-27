@@ -107,7 +107,7 @@ if __name__ == '__main__':
         for cmd in cmds:
             logging.info("run {}".format(cmd))
             os.system(cmd)
-        if os.path.isfile(file_name) and not file_name.startswith('jd'):
+        if os.path.isfile(os.path.join(new_scripts_dir, file_name)) and not file_name.startswith('jd'):
             cmd = 'cp -f {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
             logging.info("run {}".format(cmd))
             os.system(cmd)
