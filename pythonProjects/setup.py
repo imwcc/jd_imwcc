@@ -5,10 +5,12 @@ import os
 import socket
 import logging
 import tempfile
+
 HOST_NAME = socket.gethostname()
 DEBUG = 'jd-arvin' not in HOST_NAME
 logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                     level=logging.DEBUG)
+
 
 def TIMEOUT_COMMAND(command, timeout=300):
     """call shell-command and either return its output or kill it
@@ -48,6 +50,9 @@ if __name__ == '__main__':
         container_id = line.split(' ')[0].strip()
         print(TIMEOUT_COMMAND(' docker container exec -it {} /jd/config/diy.sh 2>&1'.format(container_id), 15 * 60))
         print(TIMEOUT_COMMAND(' docker container exec -it {} /jd/jup.sh 2>&1'.format(container_id), 15 * 60))
+        print(TIMEOUT_COMMAND(
+            ' docker container exec -it {} python3 /jd/own/imwcc_jd_imwcc/pythonProjects/auto_install_requirements.py 2>&1'.format(
+                container_id), 30 * 60))
 
     flask_server_start_cmd = 'cd {};python3 flask_server.py'.format(flask_server_home)
     TIMEOUT_COMMAND('screen -dmS {}'.format(flask_server_name))
