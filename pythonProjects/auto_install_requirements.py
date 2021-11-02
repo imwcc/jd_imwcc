@@ -16,10 +16,13 @@ logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(leve
 
 crontab_file = '/jd/config/crontab.list'
 work_home = '/jd/scripts'
+cache_files = '/jd/auto_install_cache_file.sh'
 if DEBUG:
     crontab_file = '/home/arvin/work/jd_v4/config/crontab.list'
     work_home = '/home/arvin/work/jd_v4/scripts'
-
+    cache_files = '/home/arvin/auto_install_cache_file.sh'
+if not os.path.isfile(cache_files):
+    os.system('touch {}'.format(cache_files))
 assert os.path.isfile(crontab_file)
 assert os.path.isdir(work_home)
 
@@ -39,11 +42,18 @@ def TIMEOUT_COMMAND(command, timeout=300):
             result = process.communicate()[0].decode('utf-8')
             os.kill(process.pid, signal.SIGKILL)
             os.waitpid(-1, os.WNOHANG)
-            return result
-    return process.communicate()[0].decode('utf-8')
+            return result, process.returncode
+    return process.communicate()[0].decode('utf-8'), process.returncode
 
 
 installed_list = []
+cache_skip_files_list_list = []
+with open(cache_files, 'r') as f:
+    for key in f.read().split(';'):
+        key = key.strip().replace(' ', '').replace('\n','')
+        if key == '':
+            continue
+        cache_skip_files_list_list.append(key)
 with open(crontab_file, 'r') as f:
     for line in f.readlines():
         line = line.strip()
@@ -65,11 +75,18 @@ with open(crontab_file, 'r') as f:
         if not os.path.isfile(absolute_file):
             logging.error("js不存在: {}".format(absolute_file))
             continue
-        #     absolute_file = '/home/arvin/work/jd_v4/scripts/jd_beauty.js'
+        # absolute_file = '/home/arvin/work/jd_v4/scripts/jd_beauty.js'
         file_name = absolute_file.split('/')[-1]
+        if file_name in cache_skip_files_list_list:
+            logging.info("file_name {} 在忽律緩存中,忽律檢查".format(file_name))
+            continue
         run_scripts_cmd = 'cd {};cp {} {}; node {} 2>&1'.format(work_home, absolute_file, work_home, file_name)
         logging.info("run cmd: {}".format(run_scripts_cmd))
-        run_scripts_cmd_output = TIMEOUT_COMMAND(run_scripts_cmd, 600)
+        run_scripts_cmd_output, return_code = TIMEOUT_COMMAND(run_scripts_cmd, 600)
+        logging.info("执行返回状态码: {}".format(return_code))
+        if return_code == 0:
+            logging.info("执行成功，忽律检查依赖包")
+            continue
         logging.info(run_scripts_cmd_output)
         for run_cmd_result_line in run_scripts_cmd_output.split('\n'):
             run_cmd_result_line = str(run_cmd_result_line).strip().replace('\n', '')
@@ -80,6 +97,7 @@ with open(crontab_file, 'r') as f:
                 logging.info("需要安装: {}".format(requirement_module))
                 if '/' in requirement_module:
                     logging.info("依赖本地文件，skip")
+                    cache_skip_files_list_list.append(file_name)
                     break
                 installed_list.append(requirement_module)
                 install_cmd = 'cd {};npm install {} 2>&1'.format(work_home, requirement_module)
@@ -88,3 +106,5 @@ with open(crontab_file, 'r') as f:
                 logging.info(install_cmd_result)
 
 logging.info("共计安装{}个: {}".format(len(installed_list), ' '.join(installed_list)))
+with open(cache_files, 'w') as f:
+    f.write(';'.join(cache_skip_files_list_list))
