@@ -43,6 +43,7 @@ def TIMEOUT_COMMAND(command, timeout=300):
     return process.communicate()[0].decode('utf-8')
 
 
+installed_list = []
 with open(crontab_file, 'r') as f:
     for line in f.readlines():
         line = line.strip()
@@ -65,7 +66,8 @@ with open(crontab_file, 'r') as f:
             logging.error("js不存在: {}".format(absolute_file))
             continue
         #     absolute_file = '/home/arvin/work/jd_v4/scripts/jd_beauty.js'
-        run_scripts_cmd = 'cd {}; node {} 2>&1'.format(work_home, absolute_file)
+        file_name = absolute_file.split('/')[-1]
+        run_scripts_cmd = 'cd {};cp {} {}; node {} 2>&1'.format(work_home, absolute_file, work_home, file_name)
         logging.info("run cmd: {}".format(run_scripts_cmd))
         run_scripts_cmd_output = TIMEOUT_COMMAND(run_scripts_cmd, 600)
         logging.info(run_scripts_cmd_output)
@@ -79,7 +81,10 @@ with open(crontab_file, 'r') as f:
                 if '/' in requirement_module:
                     logging.info("依赖本地文件，skip")
                     break
+                installed_list.append(requirement_module)
                 install_cmd = 'cd {};npm install {} 2>&1'.format(work_home, requirement_module)
                 logging.info("run " + install_cmd)
                 install_cmd_result = TIMEOUT_COMMAND(install_cmd, 10*60)
                 logging.info(install_cmd_result)
+
+logging.info("共计安装{}个: {}".format(len(installed_list), ' '.join(installed_list)))
