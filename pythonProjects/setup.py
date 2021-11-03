@@ -76,7 +76,10 @@ if __name__ == '__main__':
         if line.startswith('	'):
             if flask_server_name in line:
                 logging.info("kill {}".format(line.strip()))
-                os.system('screen -XS {} quit'.format(line.strip().split(' ')[0]))
+                line = line.replace('\t', ' ')
+                kill_cmd = 'screen -XS {} quit'.format(line.strip().split(' ')[0])
+                logging.info("run " + kill_cmd)
+                os.system(kill_cmd)
 
     flask_server_start_cmd = 'cd {};python3 flask_server.py'.format(flask_server_home)
     run_system_cmd('screen -dmS {} sh'.format(flask_server_name))
