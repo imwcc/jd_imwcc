@@ -5,6 +5,7 @@ import os
 import socket
 import logging
 import tempfile
+import time
 
 HOST_NAME = socket.gethostname()
 DEBUG = 'jd-arvin' not in HOST_NAME
@@ -32,13 +33,19 @@ def TIMEOUT_COMMAND(command, timeout=300):
     return process.communicate()[0].decode('utf-8')
 
 
-if __name__ == '__main__':
-    start_docker = ['/home/arvin/work/jd_v4']
-    flask_server_home = '/home/arvin/work/jd_v4/own/imwcc_jd_imwcc/pythonProjects/ck_manager'
-    flask_server_name = 'flask_server'
+def run_system_cmd(command):
+    logging.info("run cmd: " + str(command))
+    os.system(command)
+    logging.info("run cmd done: " + str(command))
 
+
+start_docker = ['/home/arvin/work/jd_v4']
+flask_server_home = '/home/arvin/work/jd_v4/own/imwcc_jd_imwcc/pythonProjects/ck_manager'
+flask_server_name = 'flask_server'
+
+if __name__ == '__main__':
     for i in start_docker:
-        print(TIMEOUT_COMMAND('cd {}; docker-compose up -d'.format(i)))
+        logging.info(TIMEOUT_COMMAND('cd {}; docker-compose up -d'.format(i)))
 
     for line in TIMEOUT_COMMAND('docker container ls').split('\n'):
         if 'CONTAINER ID' in line:
@@ -48,12 +55,29 @@ if __name__ == '__main__':
         if 'jd-' in key:
             logging.info("找到容器: " + line)
         container_id = line.split(' ')[0].strip()
-        print(TIMEOUT_COMMAND(' docker container exec -it {} /jd/config/diy.sh 2>&1'.format(container_id), 15 * 60))
-        print(TIMEOUT_COMMAND(' docker container exec -it {} /jd/jup.sh 2>&1'.format(container_id), 15 * 60))
-        print(TIMEOUT_COMMAND(
-            ' docker container exec -it {} python3 /jd/own/imwcc_jd_imwcc/pythonProjects/auto_install_requirements.py 2>&1'.format(
-                container_id), 30 * 60))
+        logging.info("sleep 3s")
+        time.sleep(3)
+        run_system_cmd('docker container exec -it {}  chmod +x /jd/config/diy.sh 2>&1'.format(container_id))
+        run_system_cmd('docker container exec -it {} /jd/config/diy.sh 2>&1'.format(container_id))
+        run_system_cmd('docker container exec -it {} /jd/jup.sh 2>&1'.format(container_id))
+        run_system_cmd(
+            'docker container exec -it {} python3 /jd/own/imwcc_jd_imwcc/pythonProjects/auto_install_requirements.py '
+            '2>&1'.format(
+                container_id))
+        run_system_cmd(
+            'docker container exec -it {} python3 /jd/own/imwcc_jd_imwcc/pythonProjects/auto_install_requirements.py '
+            '2>&1'.format(
+                container_id))
+
+    for line in TIMEOUT_COMMAND('screen -ls').split('\n'):
+        if "No Sockets found in" in line:
+            logging.info("目前没有存在的screen session")
+            break
+        if line.startswith('	'):
+            if flask_server_name in line:
+                logging.info("kill {}".format(line.strip()))
+                os.system('screen -XS {} quit'.format(line.strip().split(' ')[0]))
 
     flask_server_start_cmd = 'cd {};python3 flask_server.py'.format(flask_server_home)
-    TIMEOUT_COMMAND('screen -dmS {}'.format(flask_server_name))
-    TIMEOUT_COMMAND('screen -x -S {} -X screen {}'.format(flask_server_name, flask_server_start_cmd))
+    run_system_cmd('screen -dmS {} sh'.format(flask_server_name))
+    run_system_cmd('screen  -S {}  -X stuff "{} \n"'.format(flask_server_name, flask_server_start_cmd))
