@@ -67,9 +67,46 @@ assert ROOT_DIR is not None
 new_scripts_dir = os.path.join(ROOT_DIR, script_name)
 logging.info(new_scripts_dir)
 
+# 处理 gua_city.js
+def deal_dreamFactory(file_name_obsolute_path, fileName):
+    if not os.path.isfile(file_name_obsolute_path):
+        logging.error("file_name_obsolute_path {} is not a file".format(file_name_obsolute_path))
+        return
+    patch_file = os.path.join(FILE_DIR,'patch', 'apply_help_zhaogong_half.patch')
+    cmd = "cd {}; git apply {}".format(new_scripts_dir, patch_file)
+    logging.info("cmd " + cmd)
+    status = os.system(cmd) >> 8
+    logging.info("status " + str(status))
+    if status > 0:
+        logging.error("git apply patch failed: " + str(patch_file))
+    else:
+        logging.error("git apply patch success " + str(patch_file))
+
+
 if __name__ == '__main__':
     scripts_list = []
 
+    # 针对单个文件
+    for file_name in os.listdir(new_scripts_dir):
+        if file_name == 'utils' and os.path.isdir(os.path.join(new_scripts_dir, file_name)):
+            cmd = 'cp -rf {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
+            logging.info("run {}".format(cmd))
+            os.system(cmd)
+            continue
+
+        if '.js' not in file_name:
+            continue
+        if file_name in exclude_file_list:
+            logging.info("file {} 在排除列表中".format(file_name))
+            continue
+        if file_name == "jd_carnivalcity_help.js":
+            utils_tool.replace_file_line(os.path.join(new_scripts_dir, file_name), "$.updatePkActivityIdRes = await getAuthorShareCode",
+                                        "  $.updatePkActivityIdRes = []")
+
+        if file_name == 'jd_dreamFactory.js':
+            deal_dreamFactory(os.path.join(new_scripts_dir, file_name), file_name)
+
+    # 主要针对全局修改
     for file_name in os.listdir(new_scripts_dir):
         if file_name == 'utils' and os.path.isdir(os.path.join(new_scripts_dir, file_name)):
             cmd = 'cp -rf {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
@@ -89,9 +126,6 @@ if __name__ == '__main__':
 
         utils_tool.replace_file_str(os.path.join(new_scripts_dir, file_name), "await readShareCode()",
                                      "false")
-        if file_name == "jd_carnivalcity_help.js":
-            utils_tool.replace_file_line(os.path.join(new_scripts_dir, file_name), "$.updatePkActivityIdRes = await getAuthorShareCode",
-                                        "  $.updatePkActivityIdRes = []")
 
         cmd1 = "cd {}; sed -i 's/const ShHelpAuthorFlag = true/const ShHelpAuthorFlag = false/g' {}".format(
             new_scripts_dir, file_name)

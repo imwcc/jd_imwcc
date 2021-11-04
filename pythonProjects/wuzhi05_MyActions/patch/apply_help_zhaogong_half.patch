@@ -1,0 +1,15 @@
+diff --git a/jd_dreamFactory.js b/jd_dreamFactory.js
+index 16e8740..10101b0 100644
+--- a/jd_dreamFactory.js
++++ b/jd_dreamFactory.js
+@@ -525,6 +525,10 @@ function QueryFriendList() {
+               if (assistListToday.length === assistNumMax) {
+                 $.canHelpFlag = false;
+               }
++              if (hireListToday.length >= hireNumMax/2) {
++                console.log(`imwcc【今日招工进度过半,忽略继续招工】${hireListToday.length}/${hireNumMax}`)
++                $.canHelpFlag = false;
++              }
+               $.log(`【今日招工进度】${hireListToday.length}/${hireNumMax}`);
+               message += `【招工进度】${hireListToday.length}/${hireNumMax}\n`;
+             } else {
