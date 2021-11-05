@@ -73,6 +73,25 @@ logging.info(new_scripts_dir)
 if __name__ == '__main__':
     scripts_list = []
 
+    # 针对单个文件
+    for file_name in os.listdir(new_scripts_dir):
+        if file_name == 'utils' and os.path.isdir(os.path.join(new_scripts_dir, file_name)):
+            cmd = 'cp -rf {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
+            logging.info("run {}".format(cmd))
+            os.system(cmd)
+            continue
+
+        if '.js' not in file_name:
+            continue
+        if file_name in exclude_file_list:
+            logging.info("file {} 在排除列表中".format(file_name))
+            continue
+        if file_name == 'jd_redPacket_help.js':
+            utils_tool.replace_file_str(os.path.join(new_scripts_dir, file_name), '''{"clientInfo":{},"followShop":0,"promUserState":""};''',
+                                         '''{"clientInfo":{},"followShop":0,"promUserState":"", "log":-1};''')
+            utils_tool.replace_file_str(os.path.join(new_scripts_dir, file_name), '''{"clientInfo":{},redPacketId,"followShop":0,"promUserState":""}''',
+                                         '''{"clientInfo":{},redPacketId,"followShop":0,"promUserState":"", "log":-1};''')
+
     for file_name in os.listdir(new_scripts_dir):
         if file_name == 'utils' and os.path.isdir(os.path.join(new_scripts_dir, file_name)):
             cmd = 'cp -rf {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
