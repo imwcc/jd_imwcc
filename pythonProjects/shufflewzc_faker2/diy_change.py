@@ -95,6 +95,16 @@ if __name__ == '__main__':
     for file_name in os.listdir(new_scripts_dir):
         if file_name == 'utils' and os.path.isdir(os.path.join(new_scripts_dir, file_name)):
             cmd = 'cp -rf {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
+            if os.path.isdir(os.path.join('/jd/scripts', file_name)):
+                cmd = 'cp -rf {}/* {}/{}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts', file_name)
+            logging.info("run {}".format(cmd))
+            os.system(cmd)
+            continue
+
+        if file_name == 'function' and os.path.isdir(os.path.join(new_scripts_dir, file_name)):
+            cmd = 'cp -rf {} {}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts')
+            if os.path.isdir(os.path.join('/jd/scripts', file_name)):
+                cmd = 'cp -rf {}/* {}/{}'.format(os.path.join(new_scripts_dir, file_name), '/jd/scripts', file_name)
             logging.info("run {}".format(cmd))
             os.system(cmd)
             continue
