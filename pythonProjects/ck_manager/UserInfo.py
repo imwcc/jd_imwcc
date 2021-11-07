@@ -293,12 +293,12 @@ class UserInfo:
             self.cookie = ck
         return self
 
-    def update_ck_from_user(self, new_user):
+    def update_ck_from_user(self, new_user, update_cookie=True):
         if new_user.get_appkey() != None and new_user.get_appkey() != '':
             self.set_appkey(new_user.get_appkey())
         if new_user.get_pushplus_token() != None and new_user.get_pushplus_token() != '':
             self.set_pushplus_token(new_user.get_pushplus_token())
-        if new_user.get_cookie() != None and new_user.get_cookie() != '':
+        if new_user.get_cookie() != None and new_user.get_cookie() != '' and update_cookie:
             self.set_cookie(new_user.get_cookie())
         if new_user.get_wechart() != None and new_user.get_wechart() != '':
             self.set_wechart(new_user.get_wechart())

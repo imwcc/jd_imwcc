@@ -305,7 +305,7 @@ def main(args):
                         is_new_user_from_flask = False
                         logging.info("flask server 更新CK: old:" + str(user.get_user_dict()))
                         logging.info("flask server 更新CK: new:" + str(new_user.get_user_dict()))
-                        user.update_ck_from_user(new_user)
+                        user.update_ck_from_user(new_user, update_cookie=(user.get_login_status() == LoginStatus.INVALID_LOGIN.value))
                 if is_new_user_from_flask:
                     logging.info("add new user from flask: " + str(new_user.get_user_dict()))
                     user_info_l.append(new_user)
