@@ -58,7 +58,7 @@ qinglong_ck_file = None
 admin_pushplus_token = None
 external_ck_file = None
 flask_server_yaml = None
-
+assistant_acount = None
 if not DEBUG:
     config_name = 'CONFIG'
 else:
@@ -100,7 +100,8 @@ for key in config[config_name]:
             thread_poll_size = 5
     elif key == 'flask_server_yaml':
         flask_server_yaml = config.get(config_name, key).replace('\n', '').replace(' ', '')
-
+    elif key == 'assistant_acount':
+        assistant_acount = config.get(config_name, key).replace('\n', '').replace(' ', '')
     else:
         logging.error("不支持的 key: " + key)
 
@@ -204,8 +205,8 @@ def main(args):
     global disable_user_notify
     global flask_server_yaml
     global DEBUG
+    global assistant_acount
     is_update_ck: bool = False
-
     parser = argparse.ArgumentParser()
     parser.add_argument("--update_appkey", action="store_true",
                         help="app_key to web cookie")
@@ -258,7 +259,7 @@ def main(args):
             logging.info("发送管理员消息发送结束")
             exit(0)
 
-        # 3. 更新CK or 添加新用户
+        # 3. 更新CK or 添加新用户 from qinglong
         if os.path.isfile(qinglong_ck_file):
             with open(qinglong_ck_file, 'r', encoding='utf-8') as f:
                 for new_ck in f.readlines():
@@ -417,17 +418,23 @@ def main(args):
 
         for out_v4_ck_file in out_put_ck_files:
             count = 0
+            assistant_users = []
             with open(out_v4_ck_file, 'w') as f:
                 for user_info in out_v4_user_list:
                     count += 1
                     gValid_user_acount_number += 1
                     f.writelines('Cookie{}="{}"\n'.format(count, user_info.get_cookie()))
+                    if user_info.get_pt_pin() == assistant_acount:
+                        logging.info("添加 assistant account: " + str(user_info.get_pt_pin()))
+                        assistant_users.append(user_info)
                     if count == max_support_user_single:
                         break
             logging.info("文件{} 写入{}个".format(out_v4_ck_file, count))
             # 上一轮输出写满的情况,保留前部3个用户到第二容器
             if count == max_support_user_single:
-                out_v4_user_list = out_v4_user_list[0:4] + out_v4_user_list[max_support_user_single:]
+                assistant_users.append(out_v4_user_list[0])
+                logging.info("高管: " + ' '.join(assistant_acount))
+                out_v4_user_list = assistant_users + out_v4_user_list[max_support_user_single:]
             else:
                 logging.info("写入 v4 完成")
                 break
