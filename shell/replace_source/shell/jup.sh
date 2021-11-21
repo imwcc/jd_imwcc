@@ -461,10 +461,11 @@ update_scripts () {
         echo -e "\n更新$dir_scripts成功...\n"
 
         ## npm install
-        [ ! -d $dir_scripts/node_modules ] && npm_install_1 $dir_scripts
-        [ -f $dir_scripts/package.json ] && scripts_depend_new=$(cat $dir_scripts/package.json)
-        [[ "$scripts_depend_old" != "$scripts_depend_new" ]] && npm_install_2 $dir_scripts
-        
+#        [ ! -d $dir_scripts/node_modules ] && npm_install_1 $dir_scripts
+#        [ -f $dir_scripts/package.json ] && scripts_depend_new=$(cat $dir_scripts/package.json)
+#        [[ "$scripts_depend_old" != "$scripts_depend_new" ]] && npm_install_2 $dir_scripts
+        echo "disable npm install, using my scripts"
+
         ## diff cron
         gen_list_task
         diff_cron $list_task_jd_scripts $list_task_user $list_task_add $list_task_drop
