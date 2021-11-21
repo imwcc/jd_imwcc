@@ -2,9 +2,9 @@
 local workdir='/jd/scripts'
 
 cd $workdir
-npm audit fix
-npm i png-js -S
-npm install crypto-js
-npm install png-js
-npm install dotenv
+npm audit fix --save --registry=https://registry.npm.taobao.org
+npm i png-js -S --save --registry=https://registry.npm.taobao.org
+npm install crypto-js --save --registry=https://registry.npm.taobao.org
+npm install png-js --save --registry=https://registry.npm.taobao.org
+npm install dotenv --save --registry=https://registry.npm.taobao.org
 
