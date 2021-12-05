@@ -100,7 +100,7 @@ with open(crontab_file, 'r') as f:
                     cache_skip_files_list_list.append(file_name)
                     break
                 installed_list.append(requirement_module)
-                install_cmd = 'cd {};npm install -g {} --registry=https://registry.npm.taobao.org 2>&1'.format(work_home, requirement_module)
+                install_cmd = 'cd {};npm install --save {} --registry=https://registry.npm.taobao.org 2>&1'.format(work_home, requirement_module)
                 logging.info("run " + install_cmd)
                 install_cmd_result = TIMEOUT_COMMAND(install_cmd, 10*60)
                 logging.info(install_cmd_result)

@@ -26,6 +26,6 @@ echo "python task begin"
 python3 $root_dir/pythonProjects/combine_all_crontable.py
 python3 $root_dir/pythonProjects/diy_change_global.py
 python3 $root_dir/pythonProjects/JD_tencent_scf_to_jd_scripts/switch_shop_id.py
-python3 /jd/own/imwcc_jd_imwcc/pythonProjects/auto_install_requirements.py 
+# python3 /jd/own/imwcc_jd_imwcc/pythonProjects/auto_install_requirements.py
 echo "python task end"
 
