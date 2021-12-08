@@ -25,7 +25,8 @@ if not os.path.isfile(cache_files):
     os.system('touch {}'.format(cache_files))
 assert os.path.isfile(crontab_file)
 assert os.path.isdir(work_home)
-
+force_dep_list = ["tough-cookie", "got"]
+npm_path = "/usr/bin/npm_my"
 
 def TIMEOUT_COMMAND(command, timeout=300):
     """call shell-command and either return its output or kill it
@@ -100,10 +101,19 @@ with open(crontab_file, 'r') as f:
                     cache_skip_files_list_list.append(file_name)
                     break
                 installed_list.append(requirement_module)
-                install_cmd = 'cd {};npm install --save {} --registry=https://registry.npm.taobao.org 2>&1'.format(work_home, requirement_module)
+                install_cmd = 'cd {}; {} install --save {} --registry=https://registry.npm.taobao.org 2>&1'.format(npm_path, work_home, requirement_module)
                 logging.info("run " + install_cmd)
                 install_cmd_result = TIMEOUT_COMMAND(install_cmd, 10*60)
                 logging.info(install_cmd_result)
+
+
+
+for i in force_dep_list:
+    install_cmd = 'cd {}; {} install --save {} --registry=https://registry.npm.taobao.org 2>&1'.format(npm_path,
+                                                                                                       work_home,
+                                                                                                      i)
+    logging.info("run " + install_cmd)
+    install_cmd_result = TIMEOUT_COMMAND(install_cmd, 10 * 60)
 
 logging.info("共计安装{}个: {}".format(len(installed_list), ' '.join(installed_list)))
 with open(cache_files, 'w') as f:
