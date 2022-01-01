@@ -202,20 +202,20 @@ class UserInfo:
         return setattr(self, attr, date.today())
 
     def is_login(self):
-        headers = {
-            'Accept': '*/*',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Accept-Language': 'zh-cn',
-            'Connection': 'keep-alive',
-            'Cookie': self.get_cookie(),
-            'Referer': "https://home.m.jd.com/myJd/newhome.action",
-            'User-Agent': "jdapp;iPhone;10.0.2;14.3;network/wifi;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
-            'Host': 'wq.jd.com',
-        }
-        response = requests.get(
-            'https://wq.jd.com/user_new/info/GetJDUserInfoUnion?orgFlag=JD_PinGou_New&callSource=mainorder',
-            headers=headers)
-        if response.status_code != 200:
+        # headers = {
+        #     'Accept': '*/*',
+        #     'Accept-Encoding': 'gzip, deflate, br',
+        #     'Accept-Language': 'zh-cn',
+        #     'Connection': 'keep-alive',
+        #     'Cookie': self.get_cookie(),
+        #     'Referer': "https://home.m.jd.com/myJd/newhome.action",
+        #     'User-Agent': "jdapp;iPhone;10.0.2;14.3;network/wifi;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
+        #     'Host': 'wq.jd.com',
+        # }
+        # response = requests.get(
+        #     'https://wq.jd.com/user_new/info/GetJDUserInfoUnion?orgFlag=JD_PinGou_New&callSource=mainorder',
+        #     headers=headers)
+        if True:
             logging.error("GetJDUserInfoUnion failed, switch to new API me-api.jd.com")
             headers = {
                 'Accept': '*/*',
