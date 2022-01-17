@@ -28,6 +28,21 @@ assert os.path.isfile(v4_ck_file)
 if not DEBUG:
     assert os.path.isfile(os.path.join(root_dir, 'jd_all_bean_change.js')), "jd_all_bean_change /jd/scripts' not seen"
 
+def replace_file_str(target_file, source: str, target: str):
+    assert os.path.isfile(target_file)
+    cache_file = []
+    count = 0
+    with open(target_file, mode='r', encoding='utf-8') as f:
+        for line in f.readlines():
+            old = line
+            line = line.replace(source, target)
+            if line != old:
+                logging.info("replace: \"{}\" to \"{}\"".format(old, line).replace('\n', ''))
+                count += 1
+            cache_file.append(line)
+    logging.info("replace count: {}".format(count))
+    with open(target_file, mode='w', encoding='utf-8') as f:
+        f.write(''.join(cache_file))
 
 def send_bean_notify(user: UserInfo):
     if DEBUG:
@@ -39,6 +54,8 @@ def send_bean_notify(user: UserInfo):
     if not os.path.exists(os.path.join(root_dir, bean_change_js_file)):
         logging.error("jd_bean_change_all 文件不存在")
         bean_change_js_file = 'jd_all_bean_change.js'
+
+    replace_file_str(os.path.join(root_dir, bean_change_js_file), "请重新登录获取cookie", "请重新登录获取cookie\n请联系微信号:imwcc_arvin获取\nalso call 助理微信号:A1756805570")
     logging.info("开始发送通知 to： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
     cmd = "cd {};export JD_COOKIE=\"{}\";export PUSH_PLUS_TOKEN={}; node {}". \
         format(root_dir, user.get_cookie(), user.get_pushplus_token(), bean_change_js_file)
