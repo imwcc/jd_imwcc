@@ -28,6 +28,7 @@ assert os.path.isfile(v4_ck_file)
 if not DEBUG:
     assert os.path.isfile(os.path.join(root_dir, 'jd_all_bean_change.js')), "jd_all_bean_change /jd/scripts' not seen"
 
+
 def replace_file_str(target_file, source: str, target: str):
     assert os.path.isfile(target_file)
     cache_file = []
@@ -44,18 +45,17 @@ def replace_file_str(target_file, source: str, target: str):
     with open(target_file, mode='w', encoding='utf-8') as f:
         f.write(''.join(cache_file))
 
-def send_bean_notify(user: UserInfo):
+
+def send_bean_notify(user: UserInfo, bean_change_js_file='jd_bean_change.js'):
     if DEBUG:
         user.to_string()
     if user.get_pushplus_token() is None:
         logging.error("用户没有配置push 通知 {} {}".format(user.get_nick_name(), user.get_pt_pin()))
         return -1
-    bean_change_js_file = 'jd_bean_change.js'
     if not os.path.exists(os.path.join(root_dir, bean_change_js_file)):
         logging.error("jd_bean_change_all 文件不存在")
         bean_change_js_file = 'jd_all_bean_change.js'
 
-    replace_file_str(os.path.join(root_dir, bean_change_js_file), "请重新登录获取cookie", "请重新登录获取cookie\n请联系微信号:imwcc_arvin获取\nalso call 助理微信号:A1756805570")
     logging.info("开始发送通知 to： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
     cmd = "cd {};export JD_COOKIE=\"{}\";export PUSH_PLUS_TOKEN={}; node {}". \
         format(root_dir, user.get_cookie(), user.get_pushplus_token(), bean_change_js_file)
@@ -93,6 +93,14 @@ def main():
         yaml_load_result = yaml.load(f.read(), Loader=yaml.FullLoader)
         for ck in yaml_load_result.get('cookies'):
             user_info_l.append(UserInfo(**ck))
+
+    bean_change_js_file = 'jd_bean_change.js'
+    if not os.path.exists(os.path.join(root_dir, bean_change_js_file)):
+        logging.error("jd_bean_change_all 文件不存在")
+        bean_change_js_file = 'jd_all_bean_change.js'
+    replace_file_str(os.path.join(root_dir, bean_change_js_file), "请重新登录获取cookie",
+                     "请重新登录获取cookie\n请联系微信号:imwcc_arvin获取\nalso call 助理微信号:A1756805570")
+    replace_file_str(os.path.join(root_dir, bean_change_js_file), "本通知 By ccwav Mod", "")
 
     if os.path.isfile(v4_ck_file):
         with open(v4_ck_file, 'r', encoding='utf-8') as f:
