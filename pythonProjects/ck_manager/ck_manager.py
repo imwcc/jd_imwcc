@@ -259,8 +259,8 @@ def main(args):
             logging.info("发送管理员消息发送结束")
             exit(0)
 
-        # 3. 更新CK or 添加新用户 from qinglong
-        if os.path.isfile(qinglong_ck_file):
+        # 3. 更新CK or 添加新用户 from qinglong 关闭
+        if os.path.isfile(qinglong_ck_file) and False:
             with open(qinglong_ck_file, 'r', encoding='utf-8') as f:
                 for new_ck in f.readlines():
                     new_ck = new_ck.replace(' ', '').replace('\n', '').strip()
@@ -306,7 +306,8 @@ def main(args):
                         is_new_user_from_flask = False
                         logging.info("flask server 更新CK: old:" + str(user.get_user_dict()))
                         logging.info("flask server 更新CK: new:" + str(new_user.get_user_dict()))
-                        user.update_ck_from_user(new_user, update_cookie=(user.get_login_status() == LoginStatus.INVALID_LOGIN.value))
+                        user.update_ck_from_user(new_user, update_cookie=(
+                                    user.get_login_status() == LoginStatus.INVALID_LOGIN.value))
                 if is_new_user_from_flask:
                     logging.info("add new user from flask: " + str(new_user.get_user_dict()))
                     user_info_l.append(new_user)
@@ -357,7 +358,10 @@ def main(args):
                     user.update_last_login_date()
                 elif user.get_appkey() is not None:
                     user.update_ws_key_to_pt_key()
-                    if not user.is_login():
+                    if user.is_login():
+                        user.set_login_status(LoginStatus.LAST_LOGINED.value)
+                        user.update_last_login_date()
+                    else:
                         logging.warning("更新wskey依然失效登陆失效： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
                         send_notify(user, content="更新wskey依然失效登陆失效.\n请联系管理员解决")
                         user.set_login_status(LoginStatus.INVALID_LOGIN.value)
