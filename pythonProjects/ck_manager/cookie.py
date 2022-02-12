@@ -15,11 +15,12 @@ import urllib3
 import time
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
+logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
+                    level=logging.DEBUG)
 delay_times = 3
 
 
-def ws_key_to_pt_key(pt_pin, ws_key, sign_server, uuid='', delay=True):
+def ws_key_to_pt_key(pt_pin, ws_key, sign_server, uuid='xxxxxxxxx-xxxxxxxxx', delay=True):
     """
     ws_key换pt_key
     :return:
@@ -42,11 +43,21 @@ def ws_key_to_pt_key(pt_pin, ws_key, sign_server, uuid='', delay=True):
     if response.status_code == 200:
         url = str(response.text).strip()
         logging.info("body = " + url)
-        response = requests.post(url, headers=headers, cookies=cookies, verify=False)
-        data = json.loads(response.text)
-        if data.get('code') != '0':
-            return None
-        token = data.get('tokenKey')
+        for i in range(15):
+            response = requests.post(url, headers=headers, cookies=cookies, verify=False)
+            data = json.loads(response.text)
+            logging.info("str data "+str(data))
+            if data.get('code') != '0':
+                return None
+            token = data.get('tokenKey')
+            logging.info("tokenkey: "+str(token))
+            if token == "xxx" or token == '' or len(token) < 8:
+                logging.error("token 错误")
+                time.sleep(1)
+                continue
+            else:
+                logging.info("token 获取成功")
+                break
         url = data.get('url')
         session = requests.session()
         params = {
