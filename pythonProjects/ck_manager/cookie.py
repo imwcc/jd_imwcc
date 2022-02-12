@@ -46,11 +46,11 @@ def ws_key_to_pt_key(pt_pin, ws_key, sign_server, uuid='xxxxxxxxx-xxxxxxxxx', de
         for i in range(15):
             response = requests.post(url, headers=headers, cookies=cookies, verify=False)
             data = json.loads(response.text)
-            logging.info("str data "+str(data))
+            logging.info("str data " + str(data))
             if data.get('code') != '0':
                 return None
             token = data.get('tokenKey')
-            logging.info("tokenkey: "+str(token))
+            logging.info("tokenkey: " + str(token))
             if token == "xxx" or token == '' or len(token) < 8:
                 logging.error("token 错误")
                 time.sleep(1)
@@ -104,7 +104,20 @@ def sync_check_cookie(cookies):
 
 
 if __name__ == '__main__':
-    pt_pin = os.getenv('pt_pin')
-    ws_key = os.getenv('wskey')
-    result = ws_key_to_pt_key(pt_pin, ws_key)
+    sign_server = os.getenv('server')
+    wskey_pin = os.getenv('wskey')
+    pt_pin = ''
+    ws_key = ''
+    for i in str(wskey_pin).split(';'):
+        i = i.strip().replace(' ', '')
+        if "pin=" in i:
+            pt_pin = i.split('pin=')[-1]
+        elif "wskey=" in i:
+            ws_key = i.split('wskey=')[-1]
+        else:
+            logging.error("无法识别: " + i)
+    logging.info("pt_pin={};wskey={}".format(pt_pin, ws_key))
+    assert pt_pin != ''
+    assert wskey_pin != ''
+    result = ws_key_to_pt_key(pt_pin, ws_key, sign_server)
     print(result)
