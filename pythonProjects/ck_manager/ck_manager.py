@@ -363,7 +363,7 @@ def main(args):
                         user.update_last_login_date()
                     else:
                         logging.warning("更新wskey依然失效登陆失效： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
-                        send_notify(user, content="更新wskey依然失效登陆失效.\n请联系管理员解决")
+                        send_notify(user, content="更新wskey依然失效登陆失效.\n请联系管理员解决(帮你登录的相关人员)")
                         user.set_login_status(LoginStatus.INVALID_LOGIN.value)
                 else:
                     logging.warning("用户登陆失效： {} {}".format(user.get_nick_name(), user.get_pt_pin()))
