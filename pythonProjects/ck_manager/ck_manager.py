@@ -357,8 +357,7 @@ def main(args):
                     user.set_login_status(LoginStatus.LAST_LOGINED.value)
                     user.update_last_login_date()
                 elif user.get_appkey() is not None:
-                    user.update_ws_key_to_pt_key()
-                    if user.is_login():
+                    if user.update_ws_key_to_pt_key() and user.is_login():
                         user.set_login_status(LoginStatus.LAST_LOGINED.value)
                         user.update_last_login_date()
                     else:
