@@ -44,7 +44,6 @@ if __name__ == '__main__':
     result_crontab_list = []
 
     crontab_list_file = os.path.join(new_scripts_dir, 'docker/crontab_list.sh')
-    assert os.path.isfile(crontab_list_file)
 
     yaml_parse = parse_yaml.parse_yaml()
     result_dic = {}
@@ -54,53 +53,56 @@ if __name__ == '__main__':
 
     logging.info("exclude js list {}".format(exclude_file_list))
     logging.info("exclude yaml list {}".format(exclude_yaml_file_list))
+    if os.path.isfile(crontab_list_file):
+        with open(crontab_list_file, 'r', encoding="utf-8") as f:
+            for line in f.readlines():
+                line = line.strip()
+                logging.info("line: " + line)
+                if line.startswith('#'):
+                    continue
+                is_find_schedule_cron = False
+                if '.js' in line and '*' in line:
+                    crontab_config = utils_tool.get_crontab_from_line(line)
+                    js_name = utils_tool.get_js_name(line)
+                    script_file = os.path.join(new_scripts_dir, js_name)
+                    env_name = utils_tool.get_env_name(script_file)
+                    if os.path.isfile(script_file):
+                        if js_name in exclude_file_list:
+                            logging.warning("skip, due to {} in exclude_file_list".format(js_name))
+                            continue
+                        temp_dic = {}
+                        temp_dic['name'] = env_name
+                        temp_dic['file_name'] = js_name
+                        temp_dic['script_dir'] = new_scripts_dir
+                        temp_dic['schedule_cron'] = crontab_config
+                        temp_dic['script_file'] = script_file
+                        logging.info(temp_dic)
+                        result_dic.get('tasks').append(temp_dic)
+                    else:
+                        logging.error("{} not found".format(script_file))
 
-    with open(crontab_list_file, 'r', encoding="utf-8") as f:
-        for line in f.readlines():
-            line = line.strip()
-            logging.info("line: " + line)
-            if line.startswith('#'):
-                continue
-            is_find_schedule_cron = False
-            if '.js' in line and '*' in line:
-                crontab_config = utils_tool.get_crontab_from_line(line)
-                js_name = utils_tool.get_js_name(line)
-                script_file = os.path.join(new_scripts_dir, js_name)
-                env_name = utils_tool.get_env_name(script_file)
-                if os.path.isfile(script_file):
-                    if js_name in exclude_file_list:
-                        logging.warning("skip, due to {} in exclude_file_list".format(js_name))
-                        continue
-                    temp_dic = {}
-                    temp_dic['name'] = env_name
-                    temp_dic['file_name'] = js_name
-                    temp_dic['script_dir'] = new_scripts_dir
-                    temp_dic['schedule_cron'] = crontab_config
-                    temp_dic['script_file'] = script_file
-                    logging.info(temp_dic)
-                    result_dic.get('tasks').append(temp_dic)
-                else:
-                    logging.error("{} not found".format(script_file))
+                elif '.py' in line and '*' in line:
+                    crontab_config = utils_tool.get_crontab_from_line(line)
+                    py_name = utils_tool.get_py_name(line)
+                    script_file = os.path.join(new_scripts_dir, py_name)
+                    env_name = utils_tool.get_env_name(script_file)
+                    if os.path.isfile(script_file):
+                        if js_name in exclude_file_list:
+                            logging.warning("skip, due to {} in exclude_file_list".format(js_name))
+                            continue
+                        temp_dic = {}
+                        temp_dic['name'] = env_name
+                        temp_dic['file_name'] = py_name
+                        temp_dic['script_dir'] = new_scripts_dir
+                        temp_dic['schedule_cron'] = crontab_config
+                        temp_dic['script_file'] = script_file
+                        logging.info(temp_dic)
+                        result_dic.get('tasks').append(temp_dic)
+                    else:
+                        logging.error("{} not found".format(script_file))
 
-            elif '.py' in line and '*' in line:
-                crontab_config = utils_tool.get_crontab_from_line(line)
-                py_name = utils_tool.get_py_name(line)
-                script_file = os.path.join(new_scripts_dir, py_name)
-                env_name = utils_tool.get_env_name(script_file)
-                if os.path.isfile(script_file):
-                    if js_name in exclude_file_list:
-                        logging.warning("skip, due to {} in exclude_file_list".format(js_name))
-                        continue
-                    temp_dic = {}
-                    temp_dic['name'] = env_name
-                    temp_dic['file_name'] = py_name
-                    temp_dic['script_dir'] = new_scripts_dir
-                    temp_dic['schedule_cron'] = crontab_config
-                    temp_dic['script_file'] = script_file
-                    logging.info(temp_dic)
-                    result_dic.get('tasks').append(temp_dic)
-                else:
-                    logging.error("{} not found".format(script_file))
+    else:
+        logging.error("file 不存在: " + str(crontab_list_file))
 
     # 解析完 docker/crontab_list.sh, 继续解析文件,进行补充, 目前仅仅支持 js
     for file_name in os.listdir(new_scripts_dir):
